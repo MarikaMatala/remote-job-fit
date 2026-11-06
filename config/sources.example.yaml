@@ -1,4 +1,7 @@
 # JOB SOURCE AND LOCATION FILTER SETTINGS
+# WORK IN PROGRESS: provider integrations and filter behavior may change.
+# The built-in public feeds currently do not require API keys. Do not add
+# private endpoints, access tokens, or API credentials to this public template.
 # Copy this file to config/sources.yaml to customize it locally.
 # config/sources.yaml is ignored by Git. Keep this public example generic.
 #
