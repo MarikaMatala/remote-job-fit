@@ -80,6 +80,34 @@ skills:
 - `level`: Your own level from 1 to 5. It is informational in the current MVP and does not change the score.
 - `keywords`: The important field for the current matching feature. Add alternative spellings, abbreviations, tools, frameworks, and related phrases that employers may use.
 
+**You are not limited to a predefined list of programming languages.** Add any language or technology you want to track, provided you can write its name as a text keyword. Examples include Python, JavaScript, TypeScript, Java, C, C++, C#, F#, Go, Rust, Ruby, PHP, Swift, Kotlin, Dart, Scala, R, MATLAB, Perl, Lua, Elixir, Erlang, Haskell, Clojure, Objective-C, SQL, PL/SQL, HTML, CSS, Bash, and PowerShell. You can also add languages or tools not listed here.
+
+For best results, create a separate skill entry for each language or a meaningful group. Include aliases and related ecosystem terms because job advertisements may use different names. For example:
+
+```yaml
+skills:
+  - name: "Rust"
+    level: 2
+    keywords:
+      - "rust"
+      - "rustlang"
+      - "cargo"
+  - name: "Kotlin"
+    level: 3
+    keywords:
+      - "kotlin"
+      - "android"
+      - "jetpack compose"
+  - name: "Your own language"
+    level: 1
+    keywords:
+      - "your-language-name"
+      - "common alias"
+      - "related framework"
+```
+
+Replace these examples with your own skills. The language name does not need to be added to the Python source code; profile keywords are read from your local YAML file.
+
 **Current behavior:** keywords are compared with the job title, description, tags, and category. A keyword match is not proof of experience or proficiency. Avoid adding very broad words that will match unrelated jobs.
 
 ### experience_keywords
