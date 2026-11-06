@@ -17,7 +17,8 @@ def test_skill_score_and_evidence():
         {"name": "Design", "keywords": ["figma"]},
     ]}
     result = score_job(profile, {"title": "Python Developer", "description": "Uses pytest"})
-    assert result["score"] == 5.0
+    # Two of the three configured keywords match: 2 / 3 * 10 = 6.7.
+    assert result["score"] == 6.7
     assert result["evidence_coverage_percent"] == 50
     assert result["matched_skills"][0]["skill"] == "Python"
 
