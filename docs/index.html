@@ -1,16 +1,127 @@
 <!doctype html>
-<html lang="fi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#111316"><meta name="description" content="Kokeile Remote Job Fit -sovelluksen selainpohjaista demoa."><title>Remote Job Fit — Demo</title><link rel="stylesheet" href="./demo.css"></head>
-<body><header><a class="brand" href="./">REMOTE <b>JOB FIT</b></a><nav><a href="https://github.com/MarikaMatala/remote-job-fit">GitHub ↗</a><a href="#about">Miten toimii?</a></nav></header>
-<main><section class="hero"><p class="eyebrow">INTERACTIVE PROJECT DEMO · EXPERIMENTAL</p><h1>Find work<br><em>that fits.</em></h1><p class="lead">Testaa työpaikkailmoituksen osaamis- ja kokemustietojen vertailua. Muokkaa osaamisprofiilia, kokeile esimerkkejä tai liitä oma ilmoitustekstisi.</p><div class="tags"><span>Skill matching</span><span>Experience signals</span><span>Evidence-based</span></div></section>
-<section class="grid"><aside class="panel"><p class="eyebrow">01 / YOUR PROFILE</p><h2>Osaamisprofiili</h2><label for="skills">Osaamiset (pilkuilla eroteltuna)</label><textarea id="skills" rows="5">Python, JavaScript, TypeScript, React, HTML, CSS, SQL, Git, Docker, UI/UX, communication</textarea><p class="hint">Muokkaa listaa omien testiesi mukaan. Älä syötä henkilötietoja tai arkaluonteisia tietoja.</p><hr><p class="eyebrow">TRY AN EXAMPLE</p><button data-sample="frontend">Frontend Developer ↗</button><button data-sample="python">Python Developer ↗</button><button data-sample="media">Digital Content Producer ↗</button></aside>
-<section class="panel"><p class="eyebrow">02 / JOB ADVERT</p><h2>Työpaikkailmoitus</h2><label for="job-title">Tehtävänimike</label><input id="job-title" value="Junior Frontend Developer" maxlength="120"><label for="job-ad">Ilmoituksen teksti</label><textarea id="job-ad" rows="13" maxlength="12000">We are looking for a Junior Frontend Developer to join our product team.
+<html lang="fi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#171512">
+  <meta name="description" content="Kokeile Remote Job Fit -sovelluksen selainpohjaista demoa. Vertaa osaamisprofiilia työpaikkailmoitukseen.">
+  <meta name="referrer" content="no-referrer">
+  <title>Remote Job Fit — Interactive Demo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;500;600;700;800;900&family=Lora:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./demo.css">
+  <script src="./demo.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main-content" data-fi="Siirry pääsisältöön" data-en="Skip to main content">Siirry pääsisältöön</a>
+  <div class="demo-status" role="status">
+    <strong data-fi="Interaktiivinen selain-demo · Kehitysvaiheessa" data-en="Interactive browser demo · Experimental">Interaktiivinen selain-demo · Kehitysvaiheessa</strong>
+    <span data-fi="Tämä esittelyversio toimii selaimessa ilman backendia." data-en="This preview runs in your browser without a backend.">Tämä esittelyversio toimii selaimessa ilman backendia.</span>
+  </div>
+
+  <main class="vault-shell" id="main-content">
+    <header class="vault-header">
+      <a class="vault-mark" href="#top" aria-label="Remote Job Fit home"><span aria-hidden="true">⌁</span></a>
+      <div class="brand-copy" id="top">
+        <p class="eyebrow">AN EXPERIMENT IN BETTER JOB MATCHING</p>
+        <h1>Remote Job <span>Fit</span></h1>
+        <p class="tagline" data-fi="Osaaminen näkyväksi. Seuraava askel selkeämmäksi." data-en="Make your skills visible. Find your next step.">Osaaminen näkyväksi. Seuraava askel selkeämmäksi.</p>
+      </div>
+      <button class="language-button" id="demo-language" type="button" aria-label="Vaihda kieltä">FIN / ENG</button>
+    </header>
+
+    <section class="intro-panel">
+      <p class="eyebrow" data-fi="KOKEILE OSAAMISEN VERTAILUA" data-en="EXPLORE SKILL MATCHING">KOKEILE OSAAMISEN VERTAILUA</p>
+      <h2><span data-fi="Löydä työ," data-en="Find work">Löydä työ,</span><br><em data-fi="joka sopii osaamiseesi." data-en="that fits your skills.">joka sopii osaamiseesi.</em></h2>
+      <p data-fi="Muokkaa osaamisprofiilia, kokeile valmiita esimerkkejä tai liitä työpaikkailmoitus. Demo nostaa esiin ilmoituksessa tunnistettuja osaamisia sekä kokemus- ja senioriteettivihjeitä." data-en="Edit a skills profile, try a sample role or paste a job advert. The demo highlights recognised skills as well as experience and seniority signals.">Muokkaa osaamisprofiilia, kokeile valmiita esimerkkejä tai liitä työpaikkailmoitus. Demo nostaa esiin ilmoituksessa tunnistettuja osaamisia sekä kokemus- ja senioriteettivihjeitä.</p>
+      <div class="vault-stats">
+        <div><strong>01</strong><span data-fi="Osaamisprofiili" data-en="Skills profile">Osaamisprofiili</span></div>
+        <div><strong>02</strong><span data-fi="Työpaikkailmoitus" data-en="Job advert">Työpaikkailmoitus</span></div>
+        <div><strong>03</strong><span data-fi="Vertailutulos" data-en="Matching results">Vertailutulos</span></div>
+      </div>
+    </section>
+
+    <section class="workspace" aria-label="Demo workspace">
+      <aside class="panel profile-panel">
+        <p class="eyebrow" data-fi="01 / OMA PROFIILI" data-en="01 / YOUR PROFILE">01 / OMA PROFIILI</p>
+        <h2 data-fi="Osaamisprofiili" data-en="Skills profile">Osaamisprofiili</h2>
+        <p class="panel-intro" data-fi="Listaa taidot, joita haluat verrata ilmoitukseen. Erota osaamiset pilkuilla tai riveillä." data-en="List the skills you want to compare with the advert. Separate skills with commas or new lines.">Listaa taidot, joita haluat verrata ilmoitukseen. Erota osaamiset pilkuilla tai riveillä.</p>
+        <label for="skills" data-fi="Osaamiset" data-en="Skills">Osaamiset</label>
+        <textarea id="skills" rows="7" spellcheck="false">Python, JavaScript, TypeScript, React, HTML, CSS, SQL, Git, Docker, UI/UX, communication</textarea>
+        <p class="hint" data-fi="Voit muokata listaa vapaasti. Älä lisää henkilötietoja tai luottamuksellisia tietoja." data-en="Edit the list freely. Do not enter personal or confidential information.">Voit muokata listaa vapaasti. Älä lisää henkilötietoja tai luottamuksellisia tietoja.</p>
+        <hr>
+        <p class="eyebrow" data-fi="KOKEILE ESIMERKKIÄ" data-en="TRY A SAMPLE PROFILE">KOKEILE ESIMERKKIÄ</p>
+        <div class="sample-list">
+          <button type="button" data-profile="frontend" data-fi="Frontend-kehittäjä" data-en="Frontend developer">Frontend-kehittäjä</button>
+          <button type="button" data-profile="python" data-fi="Python-kehittäjä" data-en="Python developer">Python-kehittäjä</button>
+          <button type="button" data-profile="media" data-fi="Digitaalinen sisällöntuottaja" data-en="Digital content producer">Digitaalinen sisällöntuottaja</button>
+          <button type="button" data-profile="design" data-fi="UI/UX-suunnittelija" data-en="UI/UX designer">UI/UX-suunnittelija</button>
+        </div>
+      </aside>
+
+      <section class="panel advert-panel">
+        <p class="eyebrow" data-fi="02 / TYÖPAIKKAILMOITUS" data-en="02 / JOB ADVERT">02 / TYÖPAIKKAILMOITUS</p>
+        <h2 data-fi="Mitä tehtävässä haetaan?" data-en="What does the role require?">Mitä tehtävässä haetaan?</h2>
+        <p class="panel-intro" data-fi="Liitä ilmoituksen teksti tai valitse esimerkki. Demo tunnistaa tekstistä osaamisia ja kokemukseen liittyviä ilmauksia." data-en="Paste a job advert or choose a sample. The demo looks for skills and experience-related wording.">Liitä ilmoituksen teksti tai valitse esimerkki. Demo tunnistaa tekstistä osaamisia ja kokemukseen liittyviä ilmauksia.</p>
+        <div class="sample-toolbar">
+          <span class="hint" data-fi="VALMIIT ILMOITUKSET" data-en="SAMPLE ADVERTS">VALMIIT ILMOITUKSET</span>
+          <div class="sample-chips">
+            <button type="button" data-sample="frontend">Frontend</button>
+            <button type="button" data-sample="python">Python</button>
+            <button type="button" data-sample="media">Media</button>
+          </div>
+        </div>
+        <label for="job-title" data-fi="Tehtävänimike" data-en="Job title">Tehtävänimike</label>
+        <input id="job-title" value="Junior Frontend Developer" maxlength="120">
+        <label for="job-ad" data-fi="Ilmoituksen teksti" data-en="Job description">Ilmoituksen teksti</label>
+        <textarea id="job-ad" rows="12" maxlength="12000">We are looking for a Junior Frontend Developer to join our product team.
 
 Required: Good knowledge of HTML, CSS and JavaScript. You will work with React and TypeScript to build accessible, responsive user interfaces.
 
 At least 1 year of relevant professional experience is preferred. Personal or university projects are also valued. Familiarity with Git is a plus.
 
-We welcome applicants who are eager to learn and collaborate.</textarea><div class="actions"><span id="count" class="hint">0 / 12 000</span><button id="analyze" class="primary">Analyze job fit →</button></div></section></section>
-<section id="results" class="panel results" aria-live="polite"><div class="placeholder"><p class="eyebrow">03 / ANALYSIS</p><h2>Tulokset näkyvät tässä</h2><p>Muokkaa profiilia ja ilmoitusta ja käynnistä analyysi.</p></div></section>
-<section id="about" class="info"><article><p class="eyebrow">01 — SKILLS</p><h3>Osaamisvertailu</h3><p>Demo tunnistaa profiilissa lueteltujen osaamisten esiintymistä ilmoitustekstissä ja arvioi osumien painotusta.</p></article><article><p class="eyebrow">02 — EXPERIENCE</p><h3>Kokemusvaatimukset</h3><p>Poimii vuosimääriä, junior/mid/senior-ilmauksia sekä kokemuksen tyyppejä.</p></article><article><p class="eyebrow">03 — LIMITATIONS</p><h3>Rajaukset</h3><p>Tämä selainpohjainen esikatselu ei suorita Python-backendiä eikä hae oikeita työpaikkoja. Se ei ole rekrytointipäätös.</p></article></section>
-<section class="notice"><strong>Tietosuoja ja tarkkuus</strong><p>Analyysi tehdään selaimessa eikä lomakkeen sisältöä lähetetä palvelimelle. Älä silti liitä luottamuksellisia tietoja. Julkisen demon tulos on suuntaa antava eikä vastaa kaikilta osin Python-moottorin tulosta. Tarkka moottori ja työpaikkalähteiden haku toimivat paikallisesti asennettavassa sovelluksessa.</p><a href="https://github.com/MarikaMatala/remote-job-fit#installation">Asenna koko sovellus paikallisesti ↗</a></section></main>
-<footer><span>REMOTE JOB FIT · OPEN-SOURCE EXPERIMENT</span><span>© 2026 Marika Matalamäki</span></footer><script src="./demo.js" defer></script></body></html>
+We welcome applicants who are eager to learn and collaborate.</textarea>
+        <div class="actions">
+          <span id="count" class="hint" aria-live="polite">0 / 12 000</span>
+          <div class="action-buttons">
+            <button type="button" id="reset-demo" class="secondary-button" data-fi="Palauta esimerkki" data-en="Reset example">Palauta esimerkki</button>
+            <button type="button" id="analyze" class="primary"><span data-fi="Analysoi sopivuus" data-en="Analyse job fit">Analysoi sopivuus</span> <span aria-hidden="true">→</span></button>
+          </div>
+        </div>
+      </section>
+    </section>
+
+    <section id="results" class="panel results" aria-live="polite">
+      <div class="placeholder">
+        <p class="eyebrow" data-fi="03 / ANALYYSI" data-en="03 / ANALYSIS">03 / ANALYYSI</p>
+        <h2 data-fi="Tulokset näkyvät tässä" data-en="Your results will appear here">Tulokset näkyvät tässä</h2>
+        <p data-fi="Muokkaa osaamisprofiilia ja työpaikkailmoitusta. Käynnistä sitten vertailu." data-en="Edit the skills profile and job advert, then run the comparison.">Muokkaa osaamisprofiilia ja työpaikkailmoitusta. Käynnistä sitten vertailu.</p>
+      </div>
+    </section>
+
+    <section id="about" class="info-section">
+      <div class="section-heading">
+        <div><p class="eyebrow" data-fi="MITÄ DEMO TARKASTELEE" data-en="WHAT THE DEMO LOOKS AT">MITÄ DEMO TARKASTELEE</p><h2 data-fi="Kolme näkökulmaa<br>yhteen vertailuun." data-en="Three perspectives<br>in one comparison.">Kolme näkökulmaa<br>yhteen vertailuun.</h2></div>
+        <p data-fi="Tavoitteena on tehdä ilmoituksen vaatimuksista helpommin hahmotettavia ja auttaa tunnistamaan sekä vahvuuksia että mahdollisia oppimistavoitteita." data-en="The aim is to make job requirements easier to understand and help identify both strengths and potential learning goals.">Tavoitteena on tehdä ilmoituksen vaatimuksista helpommin hahmotettavia ja auttaa tunnistamaan sekä vahvuuksia että mahdollisia oppimistavoitteita.</p>
+      </div>
+      <div class="info">
+        <article><p class="eyebrow">01 — SKILLS</p><h3 data-fi="Osaamisvertailu" data-en="Skill matching">Osaamisvertailu</h3><p data-fi="Vertaa profiilissa lueteltuja taitoja ilmoitustekstistä tunnistettuihin osaamisiin. Vaatimusten painotus huomioidaan tulkinnan tukena." data-en="Compares the skills in your profile with skills recognised in the advert. Requirement wording is used to weight the comparison.">Vertaa profiilissa lueteltuja taitoja ilmoitustekstistä tunnistettuihin osaamisiin. Vaatimusten painotus huomioidaan tulkinnan tukena.</p></article>
+        <article><p class="eyebrow">02 — EXPERIENCE</p><h3 data-fi="Kokemusvaatimukset" data-en="Experience signals">Kokemusvaatimukset</h3><p data-fi="Poimii tekstistä kokemuksen vuosimääriä, junior-, mid- ja senior-tason ilmauksia sekä kokemuksen tyyppiä kuvaavia vihjeitä." data-en="Extracts years of experience, junior, mid and senior wording, and clues about the type of experience requested.">Poimii tekstistä kokemuksen vuosimääriä, junior-, mid- ja senior-tason ilmauksia sekä kokemuksen tyyppiä kuvaavia vihjeitä.</p></article>
+        <article><p class="eyebrow">03 — TRANSPARENCY</p><h3 data-fi="Tulkinta ja rajaukset" data-en="Interpretation and limits">Tulkinta ja rajaukset</h3><p data-fi="Tulokset perustuvat avainsanoihin ja tekstivihjeisiin. Demo ei ymmärrä ilmoitusta täydellisesti eikä arvioi todellista soveltuvuutta." data-en="Results rely on keywords and text cues. The demo does not fully understand an advert or assess real-world suitability.">Tulokset perustuvat avainsanoihin ja tekstivihjeisiin. Demo ei ymmärrä ilmoitusta täydellisesti eikä arvioi todellista soveltuvuutta.</p></article>
+      </div>
+    </section>
+
+    <aside class="demo-notice" role="note">
+      <strong data-fi="Tietosuoja ja demon rajaukset" data-en="Privacy and demo limitations">Tietosuoja ja demon rajaukset</strong>
+      <p data-fi="Analyysi tehdään selaimessa eikä lomakkeen sisältöä lähetetä palvelimelle. Älä silti liitä luottamuksellisia tai arkaluonteisia tietoja. Tämä selainversio on kevyt JavaScript-esikatselu: se ei hae oikeita työpaikkailmoituksia eikä suorita projektin varsinaista Python-taustajärjestelmää. Pisteytys on suuntaa antava eikä vastaa rekrytointiarviota." data-en="Analysis runs in your browser and form content is not sent to a server. Still, do not paste confidential or sensitive information. This browser version is a lightweight JavaScript preview: it does not fetch live job listings or run the project's full Python backend. Its score is indicative and is not a recruitment assessment.">Analyysi tehdään selaimessa eikä lomakkeen sisältöä lähetetä palvelimelle. Älä silti liitä luottamuksellisia tai arkaluonteisia tietoja. Tämä selainversio on kevyt JavaScript-esikatselu: se ei hae oikeita työpaikkailmoituksia eikä suorita projektin varsinaista Python-taustajärjestelmää. Pisteytys on suuntaa antava eikä vastaa rekrytointiarviota.</p>
+      <a href="https://github.com/MarikaMatala/remote-job-fit#installation" data-fi="Tutustu koko sovelluksen asennusohjeisiin ↗" data-en="Read the full application installation guide ↗">Tutustu koko sovelluksen asennusohjeisiin ↗</a>
+    </aside>
+
+    <footer class="demo-footer">
+      <p>REMOTE JOB FIT · OPEN-SOURCE EXPERIMENT</p>
+      <div><a href="https://github.com/MarikaMatala/remote-job-fit" data-fi="GitHub-repositorio ↗" data-en="GitHub repository ↗">GitHub-repositorio ↗</a><span>© 2026 Marika Matalamäki</span></div>
+    </footer>
+  </main>
+</body>
+</html>
