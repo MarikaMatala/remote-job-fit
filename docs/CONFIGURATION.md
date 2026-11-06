@@ -82,7 +82,7 @@ skills:
 
 - `name`: A short label displayed in match results.
 - `level`: Your own level from 1 to 5. It is informational in the current MVP and does not change the score.
-- `keywords`: The important field for the current matching feature. Add alternative spellings, abbreviations, tools, frameworks, and related phrases that employers may use.
+- `keywords`: The important field for the current matching feature. Add alternative spellings, abbreviations, tools, frameworks, Finnish and English terms, and common inflected forms that employers may use. Matching is case-insensitive and Unicode-normalized, but it does not perform automatic Finnish stemming. For example, add `react`, `reactin`, and `reactia` separately if you want all three forms to match.
 
 **You are not limited to a predefined list of programming languages.** Add any language or technology you want to track, provided you can write its name as a text keyword. Examples include Python, JavaScript, TypeScript, Java, C, C++, C#, F#, Go, Rust, Ruby, PHP, Swift, Kotlin, Dart, Scala, R, MATLAB, Perl, Lua, Elixir, Erlang, Haskell, Clojure, Objective-C, SQL, PL/SQL, HTML, CSS, Bash, and PowerShell. You can also add languages or tools not listed here.
 
