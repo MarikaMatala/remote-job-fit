@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#17191d" />
+    <meta name="description" content="A local dashboard for worldwide-remote job discovery and skill matching." />
+    <title>Remote Job Fit</title>
+  </head>
+  <body>
+    <div id="app">
+      <header class="topbar">
+        <a class="brand" href="/">Remote Job Fit</a>
+        <span class="local-label">LOCAL DASHBOARD</span>
+      </header>
+      <main>
+        <section class="intro">
+          <div>
+            <p class="eyebrow">JOB DISCOVERY WORKSPACE</p>
+            <h1>Find work that fits.</h1>
+            <p class="lede">Review worldwide-remote listings and compare their requirements with your private skills profile.</p>
+          </div>
+          <button id="scan-button" class="primary-button" type="button">Scan job sources</button>
+        </section>
+        <section class="status-row" aria-live="polite">
+          <span id="api-status" class="status-pill">Checking local API…</span>
+          <span id="scan-status"></span>
+        </section>
+        <section class="panel">
+          <div class="panel-heading">
+            <div>
+              <p class="eyebrow">YOUR RESULTS</p>
+              <h2>Saved job listings</h2>
+            </div>
+            <span id="job-count" class="count">0 jobs</span>
+          </div>
+          <div id="job-list" class="job-list">
+            <p class="empty-state">Loading saved listings…</p>
+          </div>
+        </section>
+        <p class="footnote">The dashboard connects only to the local API. Your profile and email credentials are not displayed or sent to the browser.</p>
+      </main>
+    </div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
