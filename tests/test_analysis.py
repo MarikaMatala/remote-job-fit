@@ -1,4 +1,4 @@
-from remotefit.analysis import applicant_baseline, is_worldwide_remote, score_job
+from remotefit.analysis import analyze_experience_requirements, applicant_baseline, is_worldwide_remote, score_job
 
 
 def test_worldwide_requires_explicit_signal():
@@ -92,3 +92,58 @@ def test_unmatched_keywords_remain_in_denominator():
 def test_applicant_baseline_is_not_probability():
     assert applicant_baseline(100, 1) == 1.0
     assert applicant_baseline(None) is None
+
+
+
+def test_extracts_required_years_and_seniority():
+    result = analyze_experience_requirements({
+        "title": "Senior Python Developer",
+        "description": "Required: 3+ years of professional experience with Python."
+    })
+    item = result["items"][0]
+    assert item["years_min"] == 3
+    assert item["years_max"] is None
+    assert item["seniority"] == "senior"
+    assert item["scope"] == "professional"
+    assert item["requirement"] == "required"
+
+
+def test_extracts_years_range_and_preferred_project_experience():
+    result = analyze_experience_requirements({
+        "description": "2–4 years of project experience would be an advantage."
+    })
+    item = result["items"][0]
+    assert item["years_min"] == 2
+    assert item["years_max"] == 4
+    assert item["scope"] == "project"
+    assert item["requirement"] == "preferred"
+
+
+def test_extracts_finnish_experience_and_junior_signals():
+    result = analyze_experience_requirements({
+        "title": "Junior-ohjelmistokehittäjä",
+        "description": "Vähintään 2 vuotta työkokemusta katsotaan eduksi."
+    })
+    item = result["items"][0]
+    assert item["years_min"] == 2
+    assert item["seniority"] == "entry"
+    assert item["scope"] == "professional"
+    assert item["requirement"] == "preferred"
+
+
+def test_experience_parser_does_not_invent_requirements():
+    result = analyze_experience_requirements({
+        "title": "Software Developer",
+        "description": "We value curiosity, collaboration and learning."
+    })
+    assert result["items"] == []
+    assert result["has_explicit_requirements"] is False
+
+
+def test_score_includes_experience_evidence_without_changing_skill_score():
+    profile = {"skills": [{"name": "Python", "keywords": ["python"], "level": 3}]}
+    result = score_job(profile, {
+        "description": "Python developer. 5 years of industry experience required."
+    })
+    assert result["score"] == 10.0
+    assert result["experience_requirements"]["items"][0]["years_min"] == 5
