@@ -1,4 +1,9 @@
-"""Command-line interface."""
+"""Command-line interface.
+
+WORK IN PROGRESS: configure personal job-search data in the ignored local
+config/profile.yaml file. Configure SMTP credentials only in the ignored local
+.env file. Never hard-code personal details, API keys, or passwords here.
+"""
 
 import argparse
 import csv
