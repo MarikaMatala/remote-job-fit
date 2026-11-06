@@ -1,4 +1,9 @@
-"""Optional SMTP email digest delivery."""
+"""Optional SMTP email digest delivery.
+
+WORK IN PROGRESS: configure your own SMTP host, username, app password,
+sender, and recipient in the ignored local .env file. Never hard-code them
+here or commit them. Do not use this module to send credentials in email.
+"""
 
 import smtplib
 from email.message import EmailMessage
