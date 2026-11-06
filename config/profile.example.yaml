@@ -1,5 +1,30 @@
-# Copy this file to profile.yaml and edit it locally.
-# profile.yaml is excluded from Git. Use fictional examples only in public commits.
+# PRIVATE PROFILE TEMPLATE
+# 1. Copy this file to config/profile.yaml.
+# 2. Edit config/profile.yaml with a text editor.
+# 3. Never commit config/profile.yaml or put real personal data in this example.
+#
+# profile.target_titles:
+#   Add job titles you want to search for. These are saved for future filtering
+#   features; the current MVP does not yet use them to filter job listings.
+#
+# profile.skills:
+#   Add one item per skill or skill group.
+#   - name: A readable label shown in match results.
+#   - level: Your own rating from 1 (basic) to 5 (advanced). Informational only
+#     in this MVP; the current score does not weight skills by this number.
+#   - keywords: Words/phrases that may appear in job descriptions. The current
+#     matching algorithm checks these keywords against title, description,
+#     tags, and category. Add common synonyms and technology names.
+#
+# profile.experience_keywords:
+#   Add terms describing experience you may want to use in later analysis.
+#   Stored for now; not currently included in the match score.
+#
+# profile.excluded_keywords:
+#   Add terms you may eventually want to exclude (for example, "unpaid").
+#   Stored for now; not currently applied by the current MVP filter.
+#
+# Keep values as YAML lists. Use quotes around phrases containing punctuation.
 
 profile:
   target_titles:
