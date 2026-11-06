@@ -26,7 +26,7 @@ def test_skill_score_and_evidence():
 def test_score_matches_explicit_finnish_inflections_and_compounds():
     profile = {"skills": [
         {"name": "React", "keywords": ["react", "reactin"]},
-        {"name": "Accessibility", "keywords": ["accessibility", "saavutettavuusosaaminen"]},
+        {"name": "Accessibility", "keywords": ["accessibility", "saavutettavuusosaaminen", "saavutettavuusosaamisen"]},
         {"name": "HTML", "keywords": ["html", "html5"]},
     ]}
     result = score_job(
