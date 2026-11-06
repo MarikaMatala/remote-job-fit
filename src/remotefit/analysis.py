@@ -44,7 +44,7 @@ def _keyword_pattern(keyword):
         return None
     # Python's Unicode-aware \w includes Finnish letters (ä, ö, å), unlike
     # the former [a-z0-9] boundary which could match inside accented words.
-    return r"(?<!\\w)" + re.escape(normalized) + r"(?!\\w)"
+    return r"(?<!\w)" + re.escape(normalized) + r"(?!\w)"
 
 
 def score_job(profile, job):
