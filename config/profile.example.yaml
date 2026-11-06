@@ -104,40 +104,37 @@ profile:
       keywords:
         - "frontend"
         - "front-end"
-        - "frontend-kehitys"
-        - "käyttöliittymäkehitys"
         - "web development"
-        - "web-kehitys"
-        - "verkkokehitys"
         - "html"
-        - "html5"
         - "css"
-        - "css3"
         - "javascript"
         - "typescript"
         - "responsive design"
-        - "responsiivinen suunnittelu"
         - "bootstrap"
+      aliases:
+        "frontend": ["frontend-kehitys", "käyttöliittymäkehitys"]
+        "web development": ["web-kehitys", "verkkokehitys"]
+        "html": ["html5"]
+        "css": ["css3"]
+        "responsive design": ["responsiivinen suunnittelu"]
 
     - name: "Frontend Frameworks and Libraries"
       level: 3
       keywords:
         - "react"
-        - "reactin"
-        - "reactia"
         - "react.js"
         - "next.js"
         - "vue"
         - "angular"
         - "svelte"
         - "tailwind css"
+      aliases:
+        "react": ["reactin", "reactia"]
 
     - name: "Backend Development"
       level: 2
       keywords:
         - "backend"
-        - "backend-kehitys"
-        - "taustajärjestelmäkehitys"
         - "back-end"
         - "server-side"
         - "backend development"
@@ -148,6 +145,8 @@ profile:
         - "java"
         - "c#"
         - ".net"
+      aliases:
+        "backend": ["backend-kehitys", "taustajärjestelmäkehitys"]
 
     - name: "Full-Stack Development"
       level: 2
@@ -163,10 +162,6 @@ profile:
       keywords:
         - "api"
         - "apis"
-        - "rajapinta"
-        - "rajapinnat"
-        - "rest-rajapinta"
-        - "rajapintakehitys"
         - "rest api"
         - "restful"
         - "api integration"
@@ -175,6 +170,9 @@ profile:
         - "postman"
       # This group contains technology keywords only. Do not add API keys,
       # bearer tokens, private endpoints, or real service credentials here.
+      aliases:
+        "api": ["rajapinta", "rajapinnat"]
+        "rest api": ["rest-rajapinta", "rajapintakehitys"]
 
     - name: "SQL and Relational Databases"
       level: 2
@@ -184,11 +182,11 @@ profile:
         - "sqlite"
         - "postgresql"
         - "relational database"
-        - "relaatiotietokanta"
-        - "relaatiotietokannat"
-        - "tietokantojen suunnittelu"
         - "database design"
         - "database queries"
+      aliases:
+        "relational database": ["relaatiotietokanta", "relaatiotietokannat"]
+        "database design": ["tietokantojen suunnittelu"]
 
     - name: "NoSQL Databases"
       level: 2
@@ -227,35 +225,33 @@ profile:
         - "ux"
         - "ui/ux"
         - "user interface"
-        - "käyttöliittymä"
-        - "käyttöliittymäsuunnittelu"
         - "user experience"
-        - "käyttäjäkokemus"
-        - "käyttäjäkokemuksen suunnittelu"
         - "figma"
         - "wireframing"
         - "prototyping"
         - "usability"
-        - "käytettävyys"
         - "accessibility"
-        - "saavutettavuus"
-        - "saavutettavuusosaaminen"
-        - "saavutettavuusosaamisen"
         - "wcag"
+      aliases:
+        "user interface": ["käyttöliittymä", "käyttöliittymäsuunnittelu"]
+        "user experience": ["käyttäjäkokemus", "käyttäjäkokemuksen suunnittelu"]
+        "usability": ["käytettävyys"]
+        "accessibility": ["saavutettavuus", "saavutettavuusosaaminen", "saavutettavuusosaamisen"]
 
     - name: "Testing and Quality"
       level: 2
       keywords:
         - "software testing"
-        - "ohjelmistotestaus"
         - "unit testing"
-        - "yksikkötestaus"
         - "integration testing"
-        - "integraatiotestaus"
         - "pytest"
         - "jest"
         - "postman"
         - "quality assurance"
+      aliases:
+        "software testing": ["ohjelmistotestaus"]
+        "unit testing": ["yksikkötestaus"]
+        "integration testing": ["integraatiotestaus"]
 
     - name: "Version Control and Collaboration"
       level: 3
@@ -264,11 +260,12 @@ profile:
         - "github"
         - "gitlab"
         - "version control"
-        - "versionhallinta"
         - "code review"
-        - "koodikatselmointi"
         - "agile"
         - "scrum"
+      aliases:
+        "version control": ["versionhallinta"]
+        "code review": ["koodikatselmointi"]
 
     - name: "DevOps and Development Tools"
       level: 2
@@ -286,17 +283,15 @@ profile:
         - "wordpress"
         - "elementor"
         - "content management system"
-        - "sisällönhallintajärjestelmä"
-        - "sisällönhallinta"
         - "cms"
+      aliases:
+        "content management system": ["sisällönhallintajärjestelmä", "sisällönhallinta"]
 
     - name: "IT Support and Systems"
       level: 2
       keywords:
         - "it support"
         - "technical support"
-        - "tekninen tuki"
-        - "käyttäjätuki"
         - "service desk"
         - "help desk"
         - "troubleshooting"
@@ -307,6 +302,8 @@ profile:
         - "active directory"
         - "microsoft 365"
         - "hardware support"
+      aliases:
+        "technical support": ["tekninen tuki", "käyttäjätuki"]
 
     - name: "Cloud and Infrastructure"
       level: 2
