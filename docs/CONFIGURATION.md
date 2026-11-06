@@ -332,3 +332,10 @@ Adding a new source requires a code change, not just a YAML entry:
 6. Add tests using fictional sample responses. Never commit real user profiles, credentials, or private job-search records.
 
 Do not scrape login-protected pages, bypass access controls, or violate a job board's terms.
+
+
+## CV and LinkedIn data in the portfolio browser demo
+
+The portfolio browser demo can extract a limited set of known skill keywords from pasted CV or LinkedIn profile text, or from a local `.txt` or `.md` file. PDF and Word documents are not parsed directly by this lightweight demo; copy their text into the field instead. Extracted terms are added to the skills field for review and editing. This is keyword extraction, not a complete CV parser: it does not reliably interpret dates, employment history, education levels, seniority, or context.
+
+A LinkedIn profile URL can be entered as a reference, but the demo does not fetch or scrape profile content. LinkedIn access is restricted and a public browser-only page cannot assume authenticated API access. To use LinkedIn information, copy the relevant profile sections yourself and paste the text. No CV text or file is transmitted or persisted by the demo.
