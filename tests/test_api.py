@@ -5,7 +5,7 @@ from remotefit.api import app
 
 def test_health_endpoint():
     client = TestClient(app)
-    response = client.get("/api/health")
+    response = client.get("/api/health", headers={"Host": "127.0.0.1"})
     assert response.status_code == 200
     assert response.json() == {
         "status": "ok",
@@ -18,7 +18,7 @@ def test_scan_rejects_untrusted_browser_origin():
     client = TestClient(app)
     response = client.post(
         "/api/scan",
-        headers={"Origin": "https://untrusted.example"},
+        headers={"Origin": "https://untrusted.example", "Host": "127.0.0.1"},
     )
     assert response.status_code == 403
     assert response.json()["detail"] == "Origin is not allowed."
