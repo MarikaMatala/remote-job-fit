@@ -182,7 +182,6 @@ def score_job(profile, job):
                 None,
             )
             if not match:
-                group_possible += 1.0
                 continue
 
             matched_variant, occurrence = match
