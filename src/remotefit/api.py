@@ -36,7 +36,7 @@ app.add_middleware(
 async def restrict_host_header(request: Request, call_next):
     """Reduce DNS-rebinding risk by accepting only local development hosts."""
     host = (request.url.hostname or "").lower()
-    if host not in {"127.0.0.1", "localhost", "testserver"}:
+    if host not in {"127.0.0.1", "localhost"}:
         return JSONResponse(
             status_code=400,
             content={"detail": "This API is for local development only."},
