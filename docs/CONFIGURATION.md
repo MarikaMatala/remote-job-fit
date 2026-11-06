@@ -282,7 +282,7 @@ npm run dev
 
 Use the local URL printed by Vite. To verify that the frontend compiles, run `npm run build` inside `web/`.
 
-The API exposes only a health endpoint, saved job listings, and a scan action. It does not provide endpoints for reading the private profile or SMTP credentials. Keep the API bound to localhost for personal use. The local API is experimental and is not designed for public internet deployment.
+The API exposes only a health endpoint, saved job listings, and a scan action. It does not provide endpoints for reading the private profile or SMTP credentials. It rejects non-local Host headers and untrusted browser Origin headers for scan requests. Keep the API bound to localhost for personal use. The local API is experimental and is not designed for public internet deployment; it has no user authentication.
 
 ## 9. Verify that private files are ignored
 
