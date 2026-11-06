@@ -135,7 +135,7 @@ Open `.env` in a text editor and enter your own SMTP server settings. Leave emai
 | `config/sources.example.yaml` | Generic source defaults and example filter phrases | Public template; do not add personal data |
 | `.env.example` | Empty setting names and safe defaults | Public template; never put real credentials here |
 
-The example profile is deliberately broad so you can make the project your own. You do not need to keep every suggested role or skill. For a field-by-field guide and safe customization steps, read **[Configuration Guide](docs/CONFIGURATION.md)**.
+The example profile is deliberately broad so you can make the project your own. You do not need to keep every suggested role or skill. For a field-by-field guide and safe customization steps, read **[Configuration Guide](docs/CONFIGURATION.md)**. The example job families and skills are informed by public job adverts and market listings reviewed in November 2026; see **[Role and Skill Research](docs/ROLE-RESEARCH.md)** for the dated source list, examples and limitations.
 
 ## Usage
 
