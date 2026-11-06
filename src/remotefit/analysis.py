@@ -108,7 +108,7 @@ def _find_keyword(text, keyword):
 
 def _local_context(text, start, end):
     """Keep requirement cues within the sentence containing the skill mention."""
-    boundaries = ".!?;\\n"
+    boundaries = ".!?;" + chr(10)
     left = max((text.rfind(mark, 0, start) for mark in boundaries), default=-1) + 1
     right_candidates = [text.find(mark, end) for mark in boundaries]
     right_candidates = [position for position in right_candidates if position >= 0]
