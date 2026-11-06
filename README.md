@@ -16,6 +16,20 @@ The project is designed for anyone. It contains no personal profile, personal co
 - Supports CSV export for further analysis.
 - Includes an optional TypeScript dashboard (Vite) backed by a local Python FastAPI service.
 
+## Technology stack
+
+| Language / technology | Responsibility |
+| --- | --- |
+| Python | Job-source adapters, filtering, skill matching, database access, command-line interface, and HTTP API |
+| TypeScript | Browser dashboard behavior and API communication |
+| HTML | Dashboard document structure |
+| CSS | Responsive dashboard layout and visual styling |
+| SQL | SQLite schema and data queries |
+| JSON | API request/response data and serialized analysis |
+| YAML | Local profile and job-source configuration |
+
+These are integrated parts of one application. The TypeScript dashboard calls the Python API; it does not duplicate the job-matching engine.
+
 ## Important limitations
 
 - A skill-match score is an estimate based on text matching. It is **not** a hiring probability, an assessment of personal worth, or a guarantee of eligibility.
