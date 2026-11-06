@@ -9,6 +9,7 @@ import json
 
 from fastapi import FastAPI, HTTPException, Query, Request
 from fastapi.middleware.cors import CORSMiddleware
+from starlette.responses import JSONResponse
 
 from .analysis import is_worldwide_remote, score_job
 from .config import load_settings
@@ -29,6 +30,18 @@ app.add_middleware(
     allow_methods=["GET", "POST"],
     allow_headers=["Content-Type"],
 )
+
+
+@app.middleware("http")
+async def restrict_host_header(request: Request, call_next):
+    """Reduce DNS-rebinding risk by accepting only local development hosts."""
+    host = (request.url.hostname or "").lower()
+    if host not in {"127.0.0.1", "localhost", "testserver"}:
+        return JSONResponse(
+            status_code=400,
+            content={"detail": "This API is for local development only."},
+        )
+    return await call_next(request)
 
 
 @app.get("/api/health")
