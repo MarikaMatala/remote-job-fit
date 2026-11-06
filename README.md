@@ -10,12 +10,17 @@ The first version was created to help its author map their own skills and explor
 
 > **CI status:** GitHub Actions runs the Python tests and TypeScript dashboard build on pushes and pull requests. While the project is experimental, both jobs are configured as non-blocking: individual failures remain visible in their job logs, but they do not fail the overall workflow. This keeps development feedback available without generating an overall failed-workflow result for unfinished features. GitHub email delivery is still controlled by each account's notification settings.
 
+## Live demo
+
+An interactive browser-only preview is available at **[Remote Job Fit Demo](https://marikamatala.github.io/remote-job-fit/)** after the GitHub Pages deployment has been enabled and the changes have been merged into `main`. The public demo uses a simplified client-side matcher; it does not run the Python backend or fetch live job listings. For the full matching engine, use the local installation instructions below.
+
 ## Features
 
 - Fetches job listings from supported public sources (Remotive and Remote OK).
 - Filters for roles advertised as worldwide / work-from-anywhere remote. Treats ambiguous location policies cautiously.
 - Compares job descriptions with skills from a local, private profile.
 - Shows a transparent **skill-match score (0–10)**, matched skills, missing skills, and evidence coverage.
+- Extracts explicit experience signals from job adverts, including years of experience, junior/mid/senior wording, and whether experience is described as project, industry, professional, or relevant experience.
 - Records publication date, application deadline (when supplied), and the date the listing was first discovered.
 - Stores discovered jobs in a local SQLite database.
 - Optionally sends an email digest through an SMTP server configured locally.
@@ -210,14 +215,17 @@ The generated static files are written to `web/dist/`. The current setup keeps t
 
 ## Scoring
 
-The current MVP uses a transparent keyword overlap calculation:
-- **Match score:** proportion of distinct profile skill keywords found in the job text, scaled to 0–10.
-- **Evidence coverage:** proportion of the profile's skill groups with at least one matching keyword.
-- **Matched / missing skills:** displayed so the score can be reviewed rather than treated as a black box.
+The Python MVP uses a transparent, weighted keyword-matching heuristic:
+- **Match score (0–10):** matched profile keywords contribute to the score; unmatched configured keywords remain in the denominator.
+- **Requirement weighting:** skill mentions near phrases such as "required" receive more weight than preferred or optional mentions. Unclassified mentions use a neutral weight.
+- **Proficiency fit:** a self-rated skill level (1–5) is compared with an explicitly stated proficiency cue near that skill mention. No level penalty is applied when the advert does not state a level.
+- **Evidence coverage:** proportion of configured skill groups with at least one matching keyword.
+- **Evidence details:** matched skills, missing skill groups, requirement classifications, and per-keyword level comparisons are returned for review.
+- **Experience evidence:** explicit year ranges, seniority labels, experience scope, and required/preferred wording are extracted from job-ad sentences. This is a separate descriptive signal and does not currently change the skill score or compare years against a candidate profile.
 
-Only the `skills` section and its `keywords` are currently used by the Python job-scoring function. Matching normalizes Unicode text and uses Unicode-aware word boundaries, so Finnish letters are handled correctly and terms are not matched as arbitrary substrings. Use each skill's optional `aliases` mapping for alternate spellings and Finnish inflections. Aliases are alternatives to a canonical keyword, so they do not inflate the score denominator. The matcher does not guess Finnish grammar or automatically stem words. Target titles, skill levels, experience keywords, and excluded keywords are stored as configurable profile fields but are not yet applied to that score or filtering logic. The separate portfolio browser demo has its own illustrative sample roles and scoring logic. See the configuration guide for this distinction.
+Matching normalizes Unicode text and uses Unicode-aware word boundaries, so Finnish letters are handled correctly and terms are not matched as arbitrary substrings. Use each skill's optional `aliases` mapping for alternate spellings and Finnish inflections. Aliases are alternatives to a canonical keyword, so they do not inflate the score denominator. The matcher does not guess Finnish grammar or automatically stem words. Target titles, experience keywords, and excluded keywords are stored as configurable profile fields but are not yet applied to the score. The separate portfolio browser demo has its own illustrative sample roles and scoring logic. See the configuration guide for this distinction.
 
-This is a preliminary screening aid. It does not yet evaluate seniority, legal work eligibility, compensation, language requirements, interview performance, or company culture.
+Requirement and proficiency cues are heuristic text classifications. They may miss wording, interpret context imperfectly, or fail to recognize an employer's intended meaning. This is a preliminary screening aid, not a hiring probability, qualification verification, or eligibility decision. It does not yet evaluate legal work eligibility, compensation, language requirements, interview performance, or company culture.
 
 ## Data and privacy
 
