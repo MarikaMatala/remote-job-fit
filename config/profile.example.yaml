@@ -1,0 +1,21 @@
+# Copy this file to profile.yaml and edit it locally.
+# profile.yaml is excluded from Git. Use fictional examples only in public commits.
+
+profile:
+  target_titles:
+    - "Example Software Developer"
+    - "Example Data Analyst"
+  skills:
+    - name: "Python"
+      level: 3
+      keywords: ["python", "pytest", "fastapi"]
+    - name: "Web Development"
+      level: 3
+      keywords: ["html", "css", "javascript", "typescript", "react"]
+    - name: "Communication"
+      level: 2
+      keywords: ["communication", "documentation", "collaboration"]
+  experience_keywords:
+    - "project work"
+    - "teamwork"
+  excluded_keywords: []
