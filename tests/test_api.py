@@ -11,3 +11,14 @@ def test_health_endpoint():
         "status": "ok",
         "service": "remote-job-fit",
     }
+
+
+def test_scan_rejects_untrusted_browser_origin():
+    # The request must be rejected before loading settings or contacting feeds.
+    client = TestClient(app)
+    response = client.post(
+        "/api/scan",
+        headers={"Origin": "https://untrusted.example"},
+    )
+    assert response.status_code == 403
+    assert response.json()["detail"] == "Origin is not allowed."
