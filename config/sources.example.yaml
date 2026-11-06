@@ -1,0 +1,24 @@
+# Public sources enabled in this MVP.
+# Review each provider's terms, API documentation, and rate limits before use.
+
+sources:
+  remotive:
+    enabled: true
+    url: "https://remotive.com/api/remote-jobs"
+  remoteok:
+    enabled: true
+    url: "https://remoteok.com/api"
+
+filters:
+  worldwide_only: true
+  # Listings with explicit country or regional restrictions should be excluded.
+  reject_restrictions:
+    - "us only"
+    - "usa only"
+    - "united states only"
+    - "uk only"
+    - "canada only"
+    - "europe only"
+    - "must be based in"
+    - "must reside in"
+    - "authorized to work in"
