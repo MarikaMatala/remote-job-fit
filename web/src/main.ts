@@ -23,9 +23,23 @@ const jobList = document.querySelector<HTMLDivElement>("#job-list")!;
 const jobCount = document.querySelector<HTMLSpanElement>("#job-count")!;
 
 function escapeHtml(value: unknown): string {
-  return String(value ?? "").replace(/[&<>"']/g, (character) => ({
-    "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
-  })[character] ?? character);
+  const entities: Record<string, string> = {
+    "&": "&amp;",
+    "<": "&lt;",
+    ">": "&gt;",
+    '"': "&quot;",
+    "'": "&#39;"
+  };
+  return String(value ?? "").replace(/[&<>"']/g, (character) => entities[character] ?? character);
+}
+
+function safeExternalUrl(value: unknown): string {
+  try {
+    const parsed = new URL(String(value ?? ""));
+    return parsed.protocol === "https:" || parsed.protocol === "http:" ? parsed.href : "#";
+  } catch {
+    return "#";
+  }
 }
 
 function renderJobs(jobs: Job[]): void {
@@ -49,7 +63,7 @@ function renderJobs(jobs: Job[]): void {
           <p class="company">${escapeHtml(job.company || "Company not listed")}</p>
           <p class="location">${escapeHtml(job.location || "Location not specified")}</p>
           <p class="matched">${matched ? `Matched skills: ${matched}` : "No matching skills recorded"}</p>
-          <a href="${escapeHtml(job.url)}" target="_blank" rel="noopener noreferrer">View original listing ↗</a>
+          <a href="${escapeHtml(safeExternalUrl(job.url))}" target="_blank" rel="noopener noreferrer">View original listing ↗</a>
         </div>
       </article>`;
   }).join("");
