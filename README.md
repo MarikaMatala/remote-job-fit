@@ -46,7 +46,7 @@ Windows PowerShell:
 
 ```powershell
 py -3.11 -m venv .venv
-.venv\Scripts\Activate.ps1
+.venv\\Scripts\\Activate.ps1
 ```
 
 macOS / Linux:
@@ -65,41 +65,58 @@ pip install -e ".[dev]"
 
 ### 4. Create your private profile
 
-Copy the example file:
-
 Windows PowerShell:
+
 ```powershell
 Copy-Item config/profile.example.yaml config/profile.yaml
 ```
 
 macOS / Linux:
+
 ```bash
 cp config/profile.example.yaml config/profile.yaml
 ```
 
-Edit `config/profile.yaml` on your own device. Add only the information you want the local tool to use, such as skills, target job titles, experience keywords, and excluded keywords.
+Open `config/profile.yaml` in a text editor. Replace the example values with your own skills and keywords. The private file is excluded from Git.
 
-**Do not commit your private profile.** The file is ignored by Git.
+### 5. Configure job sources (optional)
 
-### 5. Configure sources
-
-Copy the source example if you want to customize source settings:
+If you want to change source settings, copy the example:
 
 ```bash
 cp config/sources.example.yaml config/sources.yaml
 ```
 
-The built-in public sources are configured in the example. The local `config/sources.yaml` file is ignored by Git.
+Edit `config/sources.yaml` locally. You can enable or disable supported sources and change the restriction phrases used by the filter. The local file is ignored by Git.
 
-### 6. Optional email configuration
+### 6. Configure email (optional)
 
-Copy `.env.example` to `.env` and fill in your own SMTP settings:
+Copy `.env.example` to `.env`:
 
+Windows PowerShell:
+```powershell
+Copy-Item .env.example .env
+```
+
+macOS / Linux:
 ```bash
 cp .env.example .env
 ```
 
-Never commit `.env`. Use an app-specific password or provider-approved authentication method where applicable. Do not place credentials in YAML files, source code, command-line arguments, or commits.
+Open `.env` in a text editor and enter your own SMTP server settings. Leave email settings blank if you do not want email digests. Never commit `.env` or share its contents.
+
+## What can I customize?
+
+| File | What to change | Where the information belongs |
+| --- | --- | --- |
+| `config/profile.yaml` | Target job titles, skill names, skill levels, skill keywords, experience keywords, excluded keywords | Your own private local profile |
+| `config/sources.yaml` | Enable/disable supported job sources, source endpoint URLs, phrases that indicate geographic restrictions | Your own local source settings |
+| `.env` | SMTP host, port, username, password, sender, recipient, TLS option, database path | Local environment settings; never commit |
+| `config/profile.example.yaml` | Generic example structure only | Public template; use fictional data only |
+| `config/sources.example.yaml` | Generic source defaults and example filter phrases | Public template; do not add personal data |
+| `.env.example` | Empty setting names and safe defaults | Public template; never put real credentials here |
+
+For a field-by-field guide, examples, and safe customization steps, read **[Configuration Guide](docs/CONFIGURATION.md)**.
 
 ## Usage
 
@@ -115,10 +132,10 @@ List saved jobs:
 remotefit list
 ```
 
-Show jobs as CSV:
+Export saved jobs to CSV:
 
 ```bash
-remotefit export --output jobs.csv
+remotefit export --output exports/jobs.csv
 ```
 
 Send an email digest (requires local SMTP settings):
@@ -133,35 +150,14 @@ Run tests:
 pytest
 ```
 
-## Private configuration
-
-The example profile uses fictional placeholders. Replace them locally:
-
-```yaml
-profile:
-  target_titles:
-    - "Example Developer"
-  skills:
-    - name: "Python"
-      level: 3
-      keywords: ["python", "pytest"]
-    - name: "Accessibility"
-      level: 2
-      keywords: ["accessibility", "wcag", "a11y"]
-  experience_keywords:
-    - "teamwork"
-  excluded_keywords:
-    - "on-site only"
-```
-
-Skill levels are user-defined from 1 to 5. They are used for context only; the matching algorithm does not claim to validate proficiency.
-
 ## Scoring
 
 The current MVP uses a transparent keyword overlap calculation:
 - **Match score:** proportion of distinct profile skill keywords found in the job text, scaled to 0–10.
 - **Evidence coverage:** proportion of the profile's skill groups with at least one matching keyword.
 - **Matched / missing skills:** displayed so the score can be reviewed rather than treated as a black box.
+
+Only the `skills` section and its `keywords` are currently used by the scoring function. Target titles, skill levels, experience keywords, and excluded keywords are stored as configurable profile fields but are not yet applied to the score or filtering logic. See the configuration guide for this distinction.
 
 This is a preliminary screening aid. It does not yet evaluate seniority, legal work eligibility, compensation, language requirements, interview performance, or company culture.
 
