@@ -1,8 +1,8 @@
 # Remote Job Fit
 
-An open-source, configurable application for discovering worldwide-remote jobs, comparing job requirements with a private skills profile, tracking application deadlines, and optionally sending email digests. It includes a Python command-line tool and a TypeScript browser dashboard.
+An open-source, configurable experiment for exploring job discovery and comparing job requirements with a private skills profile. It is being developed as a practical way to map skills, identify possible career directions, and learn how a job-matching tool could work. It includes a Python command-line tool, a TypeScript browser dashboard, and an editable example profile.
 
-The project is designed for anyone. It contains no personal profile, personal contact details, passwords, API keys, access tokens, or email credentials. The GitHub repository address identifies the public project location; it is not an application login credential.
+The first version was created to help its author map their own skills and explore suitable job titles across IT, ICT, software development, digital media, design, and communications. The public project has since been made generic so anyone can adapt it to their own background, interests, experience, and career goals. The example role titles and skill groups are starting points only—not a CV, a list of required skills, or verified qualifications. Keep your personal profile in the private local configuration file. The public repository contains no personal profile, contact details, passwords, API keys, access tokens, or email credentials.
 
 > **Project status: WORK IN PROGRESS — EXPERIMENTAL.** This is an unfinished learning and development experiment. Features, configuration formats, and interfaces may change. Some planned functionality is not implemented yet. Do not use it as a production recruitment, security, or eligibility decision system.
 
@@ -17,7 +17,7 @@ The project is designed for anyone. It contains no personal profile, personal co
 - Optionally sends an email digest through an SMTP server configured locally.
 - Supports CSV export for further analysis.
 - Includes an optional TypeScript dashboard (Vite) backed by a local Python FastAPI service.
-- Includes editable example skill groups for frontend, backend, full-stack, REST APIs, SQL/MySQL, NoSQL/MongoDB, programming languages, mobile, UI/UX, testing, and development tools.
+- Includes editable role-title examples and skill groups spanning software development, web and mobile development, IT support, infrastructure, cloud, cybersecurity, data, UI/UX, graphic design, media production, digital marketing, communications, testing, and project coordination.
 
 ## Technology stack
 
@@ -96,7 +96,7 @@ macOS / Linux:
 cp config/profile.example.yaml config/profile.yaml
 ```
 
-Open `config/profile.yaml` in a text editor. Replace the example values with your own skills and keywords. The private file is excluded from Git.
+Open `config/profile.yaml` in a text editor. Replace the example job titles, skill groups, levels, and keywords with your own. Remove anything that does not fit you and add your own roles, tools, technologies, and media or communications skills. The private file is excluded from Git.
 
 ### 5. Configure job sources (optional)
 
@@ -135,7 +135,7 @@ Open `.env` in a text editor and enter your own SMTP server settings. Leave emai
 | `config/sources.example.yaml` | Generic source defaults and example filter phrases | Public template; do not add personal data |
 | `.env.example` | Empty setting names and safe defaults | Public template; never put real credentials here |
 
-For a field-by-field guide, examples, and safe customization steps, read **[Configuration Guide](docs/CONFIGURATION.md)**.
+The example profile is deliberately broad so you can make the project your own. You do not need to keep every suggested role or skill. For a field-by-field guide and safe customization steps, read **[Configuration Guide](docs/CONFIGURATION.md)**.
 
 ## Usage
 
@@ -211,7 +211,7 @@ The current MVP uses a transparent keyword overlap calculation:
 - **Evidence coverage:** proportion of the profile's skill groups with at least one matching keyword.
 - **Matched / missing skills:** displayed so the score can be reviewed rather than treated as a black box.
 
-Only the `skills` section and its `keywords` are currently used by the scoring function. Target titles, skill levels, experience keywords, and excluded keywords are stored as configurable profile fields but are not yet applied to the score or filtering logic. See the configuration guide for this distinction.
+Only the `skills` section and its `keywords` are currently used by the Python job-scoring function. Target titles, skill levels, experience keywords, and excluded keywords are stored as configurable profile fields but are not yet applied to that score or filtering logic. The separate portfolio browser demo has its own illustrative sample roles and scoring logic. See the configuration guide for this distinction.
 
 This is a preliminary screening aid. It does not yet evaluate seniority, legal work eligibility, compensation, language requirements, interview performance, or company culture.
 
@@ -234,7 +234,7 @@ Never commit personal data, passwords, access tokens, API keys, private email ad
 
 ## Project status
 
-This is an unfinished work-in-progress experiment and early MVP, not a completed product. The first version focuses on public-source discovery, worldwide-remote filtering, private profile matching, local tracking, and optional email digests. The browser dashboard and local API are also experimental and have not been security-audited for public deployment. Applicant-count extraction, deadline parsing across varied formats, richer company research, and additional source adapters are future improvements.
+This is an unfinished work-in-progress experiment and early MVP, not a completed product. It began as a personal skills-mapping and career-exploration exercise; the public example configuration is now intentionally generic and can be reshaped for different IT, ICT, media, design, and communications paths. The first version focuses on public-source discovery, worldwide-remote filtering, private profile matching, local tracking, and optional email digests. The browser dashboard and local API are also experimental and have not been security-audited for public deployment. Applicant-count extraction, deadline parsing across varied formats, richer company research, and additional source adapters are future improvements.
 
 ## Contributing
 
