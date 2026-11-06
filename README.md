@@ -1,5 +1,7 @@
 # Remote Job Fit
 
+<!-- Last reviewed: 2026-11-06 20:27 (Europe/Helsinki). -->
+
 An open-source, configurable experiment for exploring job discovery and comparing job requirements with a private skills profile. It is being developed as a practical way to map skills, identify possible career directions, and learn how a job-matching tool could work. It includes a Python command-line tool, a TypeScript browser dashboard, and an editable example profile.
 
 The first version was created to help its author map their own skills and explore suitable job titles across IT, ICT, software development, digital media, design, and communications. The public project has since been made generic so anyone can adapt it to their own background, interests, experience, and career goals. The example role titles and skill groups are starting points only—not a CV, a list of required skills, or verified qualifications. Keep your personal profile in the private local configuration file. The public repository contains no personal profile, contact details, passwords, API keys, access tokens, or email credentials.
