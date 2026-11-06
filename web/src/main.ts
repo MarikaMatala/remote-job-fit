@@ -1,3 +1,8 @@
+// WORK IN PROGRESS: this browser dashboard is experimental.
+// Do not add personal profile data, API keys, access tokens, SMTP credentials,
+// private API endpoints, or account details to frontend files. Browser code is
+// delivered to users and must be treated as public. Keep secrets in the Python
+// backend environment and expose only the minimum data required by the UI.
 import "./style.css";
 
 type Job = {
