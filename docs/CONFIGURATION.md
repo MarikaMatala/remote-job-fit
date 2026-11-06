@@ -235,7 +235,41 @@ To send a digest, configure the SMTP variables in `.env` first:
 remotefit digest
 ```
 
-## 8. Verify that private files are ignored
+## 8. Optional browser dashboard (Python + TypeScript)
+
+The project can be used from the command line or through the browser dashboard.
+
+- Python provides the local FastAPI service and continues to run job discovery, matching, and database operations.
+- TypeScript provides the dashboard interface in `web/src/`.
+- HTML defines the page structure in `web/index.html`.
+- CSS controls responsive layout and styling in `web/src/style.css`.
+- Vite runs the frontend development server and proxies `/api` requests to the local Python API.
+- SQLite remains the local database.
+
+Install the frontend dependencies from the `web/` directory:
+
+```bash
+npm install
+```
+
+Run the API from the repository root:
+
+```bash
+uvicorn remotefit.api:app --host 127.0.0.1 --port 8000
+```
+
+In a second terminal, run the dashboard:
+
+```bash
+cd web
+npm run dev
+```
+
+Use the local URL printed by Vite. To verify that the frontend compiles, run `npm run build` inside `web/`.
+
+The API exposes only a health endpoint, saved job listings, and a scan action. It does not provide endpoints for reading the private profile or SMTP credentials. Keep the API bound to localhost for personal use.
+
+## 9. Verify that private files are ignored
 
 Run from the repository root:
 
@@ -251,7 +285,7 @@ git status --short
 
 Do not force-add private files with `git add -f`. If you accidentally commit a secret, removing it in a later commit is not enough: revoke or rotate the exposed credential immediately and follow GitHub's guidance for removing sensitive data from repository history.
 
-## 9. What is configurable now, and what is planned?
+## 10. What is configurable now, and what is planned?
 
 | Setting / feature | Current status |
 | --- | --- |
@@ -268,7 +302,7 @@ Do not force-add private files with `git add -f`. If you accidentally commit a s
 | Applicant counts and hiring probabilities | Not currently collected or predicted |
 | Company hiring history and company-fit score | Not currently implemented |
 
-## 10. Adding a new job source (developer task)
+## 11. Adding a new job source (developer task)
 
 Adding a new source requires a code change, not just a YAML entry:
 
