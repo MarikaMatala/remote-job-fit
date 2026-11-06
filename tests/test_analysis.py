@@ -23,6 +23,41 @@ def test_skill_score_and_evidence():
     assert result["matched_skills"][0]["skill"] == "Python"
 
 
+def test_score_matches_explicit_finnish_inflections_and_compounds():
+    profile = {"skills": [
+        {"name": "React", "keywords": ["react", "reactin"]},
+        {"name": "Accessibility", "keywords": ["accessibility", "saavutettavuusosaaminen"]},
+        {"name": "HTML", "keywords": ["html", "html5"]},
+    ]}
+    result = score_job(
+        profile,
+        {"title": "Frontend-kehittäjä", "description": "Reactin ja saavutettavuusosaamisen lisäksi HTML5."},
+    )
+    matches = {item["skill"]: item["keywords"] for item in result["matched_skills"]}
+    assert matches["React"] == ["reactin"]
+    assert matches["Accessibility"] == ["saavutettavuusosaaminen"]
+    assert matches["HTML"] == ["html5"]
+
+
+def test_keyword_boundaries_are_unicode_aware():
+    profile = {"skills": [
+        {"name": "Java", "keywords": ["java"]},
+        {"name": "Cafe", "keywords": ["cafe"]},
+    ]}
+    result = score_job(
+        profile,
+        {"title": "JavaScript Developer", "description": "A café interface"},
+    )
+    assert result["matched_skills"] == []
+    assert result["missing_skills"] == ["Java", "Cafe"]
+
+
+def test_keyword_matching_normalizes_unicode_compatibility_forms():
+    profile = {"skills": [{"name": "JavaScript", "keywords": ["javascript"]}]}
+    result = score_job(profile, {"description": "ＪａｖａＳｃｒｉｐｔ"})
+    assert result["matched_skills"][0]["keywords"] == ["javascript"]
+
+
 def test_applicant_baseline_is_not_probability():
     assert applicant_baseline(100, 1) == 1.0
     assert applicant_baseline(None) is None
