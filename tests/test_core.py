@@ -1,8 +1,5 @@
-from pathlib import Path
-
 import httpx
 import pytest
-import yaml
 
 from remotefit import config, sources
 from remotefit.db import connect, list_jobs, save_jobs
