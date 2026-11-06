@@ -17,10 +17,12 @@
 #
 # To customize:
 # - name: label displayed in match results.
-# - level: optional self-rating from 1 (basic) to 5 (advanced); informational only.
+# - level: self-rating from 1 (basic) to 5 (advanced); used when an advert
+#   explicitly states a nearby proficiency requirement.
 # - keywords: terms searched in job title, description, tags, and category.
-# Add/remove groups and keywords to reflect your own experience.
-# The current score uses keywords only; it does not use level or target_titles.
+# - aliases: alternative spellings and inflections; they do not add extra points.
+# Requirement language (required/preferred/optional) is inferred from nearby
+# advert text. Keep levels honest and edit keywords to reflect real experience.
 
 profile:
   # Generic role ideas across IT, ICT, software, media, design, and communications.
