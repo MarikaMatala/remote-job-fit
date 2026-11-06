@@ -106,6 +106,16 @@ def _find_keyword(text, keyword):
     return re.search(pattern, text) if pattern else None
 
 
+def _local_context(text, start, end):
+    """Keep requirement cues within the sentence containing the skill mention."""
+    boundaries = ".!?;\\n"
+    left = max((text.rfind(mark, 0, start) for mark in boundaries), default=-1) + 1
+    right_candidates = [text.find(mark, end) for mark in boundaries]
+    right_candidates = [position for position in right_candidates if position >= 0]
+    right = min(right_candidates) if right_candidates else len(text)
+    return text[left:right]
+
+
 def score_job(profile, job):
     """Return a 0–10 weighted skill-match score and auditable evidence.
 
@@ -176,7 +186,7 @@ def score_job(profile, job):
                 continue
 
             matched_variant, occurrence = match
-            context = text[max(0, occurrence.start() - 100):min(len(text), occurrence.end() + 100)]
+            context = _local_context(text, occurrence.start(), occurrence.end())
             requirement = _requirement_type(context)
             required_level = _required_level(context)
             requirement_weight = REQUIREMENT_WEIGHTS[requirement]
