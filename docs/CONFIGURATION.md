@@ -2,6 +2,8 @@
 
 This guide explains which files you can edit, what each setting means, and where private information belongs.
 
+> **Project status: WORK IN PROGRESS — EXPERIMENTAL.** This project is still being built and tested. Some profile fields and planned features are not yet active. Do not treat it as production-ready.
+
 ## 1. Configuration file map
 
 | File | Purpose | Should it be committed? |
@@ -108,6 +110,19 @@ skills:
 
 Replace these examples with your own skills. The language name does not need to be added to the Python source code; profile keywords are read from your local YAML file.
 
+The public example profile includes editable groups for common study and project areas:
+
+- Frontend: HTML, CSS, JavaScript, TypeScript, React, Next.js, responsive design.
+- Backend: Python, PHP, Java, C#, Node.js, server-side development.
+- Full-stack: combined frontend and backend application development.
+- APIs: REST, HTTP, JSON, API integration, and Postman.
+- Databases: SQL, MySQL, SQLite, PostgreSQL, MongoDB, and database design.
+- Other areas: Kotlin and Android, React Native, UI/UX, Figma, testing, Git, Docker, Kubernetes, and WordPress.
+
+These are generic example keywords, not a claim that every contributor knows every technology. Edit the private `config/profile.yaml` copy to match your own experience. Add any other language or tool as a keyword; no code change is required for ordinary keyword matching.
+
+**API privacy:** add API technologies (such as REST or JSON) as skill keywords if relevant. Never add API keys, bearer tokens, passwords, private endpoint URLs, or real account details to this YAML file. The current public job feeds do not require API keys. If a future integration needs credentials, keep them in a local environment variable and access them only from the Python backend—not from browser code.
+
 **Current behavior:** keywords are compared with the job title, description, tags, and category. A keyword match is not proof of experience or proficiency. Avoid adding very broad words that will match unrelated jobs.
 
 ### experience_keywords
@@ -205,7 +220,7 @@ SMTP_USE_TLS=true
 | `SMTP_USE_TLS` | `true` to use STARTTLS, as expected for the common port 587 setup |
 | `DATABASE_PATH` | Optional local path for the SQLite database |
 
-Use your provider's official SMTP documentation to find the correct server and port. Some providers require an app password or OAuth-based setup and may not allow ordinary account-password SMTP login. Never put real values in `.env.example`, YAML examples, Python source files, issues, or pull requests.
+Use your provider's official SMTP documentation to find the correct server and port. Some providers require an app password or OAuth-based setup and may not allow ordinary account-password SMTP login. Never put real values in `.env.example`, YAML examples, Python source files, TypeScript/HTML/CSS files, issues, or pull requests. Do not expose API keys or private API URLs in frontend code; browser-delivered code is public to its users.
 
 ## 6. Database and CSV export
 
@@ -267,7 +282,7 @@ npm run dev
 
 Use the local URL printed by Vite. To verify that the frontend compiles, run `npm run build` inside `web/`.
 
-The API exposes only a health endpoint, saved job listings, and a scan action. It does not provide endpoints for reading the private profile or SMTP credentials. Keep the API bound to localhost for personal use.
+The API exposes only a health endpoint, saved job listings, and a scan action. It does not provide endpoints for reading the private profile or SMTP credentials. Keep the API bound to localhost for personal use. The local API is experimental and is not designed for public internet deployment.
 
 ## 9. Verify that private files are ignored
 
