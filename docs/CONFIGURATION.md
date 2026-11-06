@@ -1,6 +1,6 @@
 # Configuration Guide
 
-This guide explains which files you can edit, what each setting means, and where private information belongs. Remote Job Fit began as a personal skills-mapping and career-exploration experiment. Its public examples now cover a broad range of IT, ICT, software, media, design, and communications roles so that other people can adapt the project to their own goals.
+This guide explains which files you can edit, what each setting means, and where private information belongs. Remote Job Fit began as a personal skills-mapping and career-exploration experiment. Its public examples now cover a broad range of IT, ICT, software, media, design, and communications roles so that other people can adapt the project to their own goals. The examples were expanded using public job adverts and Finnish market listings reviewed in November 2026. See [Role and Skill Research](ROLE-RESEARCH.md) for the dated sources and notes about education, experience and portfolio requirements.
 
 > **Project status: WORK IN PROGRESS — EXPERIMENTAL.** This project is still being built and tested. Some profile fields and planned features are not yet active. Do not treat it as production-ready.
 
