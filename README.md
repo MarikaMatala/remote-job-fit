@@ -6,6 +6,8 @@ The first version was created to help its author map their own skills and explor
 
 > **Project status: WORK IN PROGRESS — EXPERIMENTAL.** This is an unfinished learning and development experiment. Features, configuration formats, and interfaces may change. Some planned functionality is not implemented yet. Do not use it as a production recruitment, security, or eligibility decision system.
 
+> **Current development status (November 2026):** This project is still under active development and is being tested by its author. Some GitHub Actions test jobs may currently fail because the project, test suite, and the author's local profile/configuration are not fully set up yet. These notifications are development/CI feedback—not evidence that the demo is ready for use or that a real job match has failed. The public portfolio demo is only an illustrative prototype: some buttons and workflows are not connected or implemented yet. Its purpose is to show the intended direction and how a future version could work. Features, configuration, and instructions may change as testing continues.
+
 ## Features
 
 - Fetches job listings from supported public sources (Remotive and Remote OK).
@@ -235,6 +237,14 @@ Never commit personal data, passwords, access tokens, API keys, private email ad
 ## Project status
 
 This is an unfinished work-in-progress experiment and early MVP, not a completed product. It began as a personal skills-mapping and career-exploration exercise; the public example configuration is now intentionally generic and can be reshaped for different IT, ICT, media, design, and communications paths. The first version focuses on public-source discovery, worldwide-remote filtering, private profile matching, local tracking, and optional email digests. The browser dashboard and local API are also experimental and have not been security-audited for public deployment. Applicant-count extraction, deadline parsing across varied formats, richer company research, and additional source adapters are future improvements.
+
+## Development and test status
+
+The project is being built and tested incrementally. The author is currently running tests while parts of the personal development setup, profile configuration, and implementation are still incomplete. As a result, some GitHub Actions jobs may report **“Some jobs were not successful”** or a failed status. A failed CI job is a signal that a check needs investigation; it should not be interpreted as a result from the job-fit scoring demo. Do not assume the cause of a failure without checking the individual workflow log.
+
+The embedded demo on the portfolio website is a visual and interactive concept example, not a finished application. Some buttons, controls, and workflows are placeholders or may not yet work. It illustrates the planned user flow and the type of result the application is intended to provide. The demo does not yet represent the complete Python application or its live job-source functionality.
+
+The project is being modified and updated during this testing phase. Please expect incomplete features, changing configuration, and occasional test failures. The repository is shared as a work in progress, not as a stable release or production-ready service.
 
 ## Contributing
 
