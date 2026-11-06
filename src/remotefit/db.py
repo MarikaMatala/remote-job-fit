@@ -1,4 +1,9 @@
-"""SQLite persistence for locally discovered job listings."""
+"""SQLite persistence for locally discovered job listings.
+
+WORK IN PROGRESS: the database is local application data, not a public example.
+Its path is configured through the local DATABASE_PATH environment variable.
+Do not commit database files or insert passwords, API keys, or account secrets.
+"""
 
 from pathlib import Path
 import json
