@@ -22,14 +22,44 @@
 # The current score uses keywords only; it does not use level or target_titles.
 
 profile:
+  # Generic role ideas across IT, ICT, software, media, design, and communications.
+  # Keep only the roles that interest you; add your own titles freely.
   target_titles:
-    - "Example Frontend Developer"
-    - "Example Backend Developer"
-    - "Example Full-Stack Developer"
-    - "Example Junior Software Developer"
-    - "Example Web Developer"
-    - "Example API Developer"
-    - "Example Database Developer"
+    - "Junior Frontend Developer"
+    - "Junior Backend Developer"
+    - "Junior Full-Stack Developer"
+    - "Software Developer"
+    - "Web Developer"
+    - "Application Developer"
+    - "Mobile App Developer"
+    - "QA Tester"
+    - "Software Tester"
+    - "IT Support Specialist"
+    - "Service Desk Analyst"
+    - "ICT Specialist"
+    - "Systems Administrator"
+    - "Cloud Support Associate"
+    - "Junior Data Analyst"
+    - "Data Technician"
+    - "Cybersecurity Analyst"
+    - "Technical Writer"
+    - "UI Designer"
+    - "UX Designer"
+    - "UI/UX Designer"
+    - "Web Designer"
+    - "Graphic Designer"
+    - "Digital Content Producer"
+    - "Content Creator"
+    - "Digital Marketing Specialist"
+    - "Social Media Specialist"
+    - "Communications Assistant"
+    - "Communications Specialist"
+    - "Multimedia Producer"
+    - "Video Editor"
+    - "Photographer"
+    - "Media Production Assistant"
+    - "Digital Project Coordinator"
+    - "IT Project Coordinator"
 
   skills:
     - name: "Frontend Development"
@@ -189,6 +219,132 @@ profile:
         - "elementor"
         - "content management system"
         - "cms"
+
+    - name: "IT Support and Systems"
+      level: 2
+      keywords:
+        - "it support"
+        - "technical support"
+        - "service desk"
+        - "help desk"
+        - "troubleshooting"
+        - "windows"
+        - "linux"
+        - "system administration"
+        - "networking"
+        - "active directory"
+        - "microsoft 365"
+        - "hardware support"
+
+    - name: "Cloud and Infrastructure"
+      level: 2
+      keywords:
+        - "cloud computing"
+        - "azure"
+        - "aws"
+        - "cloud services"
+        - "virtual machines"
+        - "infrastructure"
+        - "docker"
+        - "kubernetes"
+        - "ci/cd"
+
+    - name: "Cybersecurity and Privacy"
+      level: 2
+      keywords:
+        - "cybersecurity"
+        - "information security"
+        - "application security"
+        - "web security"
+        - "vulnerability assessment"
+        - "owasp"
+        - "data protection"
+        - "privacy"
+        - "security testing"
+
+    - name: "Data and Analytics"
+      level: 2
+      keywords:
+        - "data analysis"
+        - "data analytics"
+        - "data visualization"
+        - "excel"
+        - "power bi"
+        - "reporting"
+        - "data cleaning"
+        - "statistics"
+        - "sql queries"
+
+    - name: "Graphic and Visual Design"
+      level: 2
+      keywords:
+        - "graphic design"
+        - "visual design"
+        - "adobe photoshop"
+        - "photoshop"
+        - "adobe illustrator"
+        - "illustrator"
+        - "indesign"
+        - "canva"
+        - "typography"
+        - "branding"
+        - "visual identity"
+
+    - name: "Media Production and Editing"
+      level: 2
+      keywords:
+        - "media production"
+        - "video production"
+        - "video editing"
+        - "adobe premiere pro"
+        - "premiere pro"
+        - "photography"
+        - "photo editing"
+        - "audio editing"
+        - "podcast"
+        - "motion graphics"
+        - "multimedia"
+
+    - name: "Digital Marketing and Social Media"
+      level: 2
+      keywords:
+        - "digital marketing"
+        - "content marketing"
+        - "social media"
+        - "social media management"
+        - "seo"
+        - "web analytics"
+        - "campaign management"
+        - "newsletter"
+        - "copywriting"
+
+    - name: "Communications and Content"
+      level: 2
+      keywords:
+        - "communications"
+        - "digital communications"
+        - "internal communications"
+        - "external communications"
+        - "journalism"
+        - "technical writing"
+        - "copywriting"
+        - "editing"
+        - "proofreading"
+        - "content creation"
+        - "storytelling"
+
+    - name: "Project Work and Collaboration"
+      level: 2
+      keywords:
+        - "project coordination"
+        - "project management"
+        - "stakeholder communication"
+        - "documentation"
+        - "agile"
+        - "scrum"
+        - "team collaboration"
+        - "cross-functional teams"
+
 
   # These fields are saved for future features and are not currently used
   # by the job scoring/filtering implementation.
