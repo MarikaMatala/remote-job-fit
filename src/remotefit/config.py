@@ -6,7 +6,10 @@ User-editable values belong in:
 - .env: SMTP credentials and the local database path.
 
 The example templates are committed; the personal files above are ignored by Git.
-Do not add personal defaults or credentials to this module.
+WORK IN PROGRESS: this configuration flow may change during development.
+Add your own profile details only to config/profile.yaml, source overrides only
+to config/sources.yaml, and SMTP secrets only to the local .env file. Never
+hard-code API keys, passwords, tokens, email addresses, or personal data here.
 """
 
 from pathlib import Path
@@ -21,8 +24,9 @@ SOURCES_PATH = ROOT / "config" / "sources.yaml"
 
 
 def load_settings():
-    # Load secrets from the local .env file. Environment variables can also
-    # be supplied by the operating system or deployment environment.
+    # Add your own SMTP values to the ignored local .env file, or supply them
+    # through your operating system environment. Never put real credentials
+    # in this Python module, committed YAML examples, or browser-side code.
     load_dotenv(ROOT / ".env")
     if not PROFILE_PATH.exists():
         raise FileNotFoundError(
