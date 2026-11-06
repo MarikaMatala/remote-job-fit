@@ -2,7 +2,9 @@
 
 An open-source, configurable application for discovering worldwide-remote jobs, comparing job requirements with a private skills profile, tracking application deadlines, and optionally sending email digests. It includes a Python command-line tool and a TypeScript browser dashboard.
 
-The project is designed for anyone. It contains no personal profile, personal contact details, account names, passwords, API keys, or email credentials.
+The project is designed for anyone. It contains no personal profile, personal contact details, passwords, API keys, access tokens, or email credentials. The GitHub repository address identifies the public project location; it is not an application login credential.
+
+> **Project status: WORK IN PROGRESS — EXPERIMENTAL.** This is an unfinished learning and development experiment. Features, configuration formats, and interfaces may change. Some planned functionality is not implemented yet. Do not use it as a production recruitment, security, or eligibility decision system.
 
 ## Features
 
@@ -15,6 +17,7 @@ The project is designed for anyone. It contains no personal profile, personal co
 - Optionally sends an email digest through an SMTP server configured locally.
 - Supports CSV export for further analysis.
 - Includes an optional TypeScript dashboard (Vite) backed by a local Python FastAPI service.
+- Includes editable example skill groups for frontend, backend, full-stack, REST APIs, SQL/MySQL, NoSQL/MongoDB, programming languages, mobile, UI/UX, testing, and development tools.
 
 ## Technology stack
 
@@ -227,11 +230,11 @@ git status --short
 git check-ignore config/profile.yaml .env data/jobs.sqlite3
 ```
 
-Never commit personal data, passwords, access tokens, API keys, private email addresses, or database files.
+Never commit personal data, passwords, access tokens, API keys, private email addresses, private API URLs, or database files. The current public job-source adapters do not require API keys. Do not add secrets to frontend files or public examples.
 
 ## Project status
 
-This is an early MVP. The first version focuses on public-source discovery, worldwide-remote filtering, private profile matching, local tracking, and optional email digests. Applicant-count extraction, deadline parsing across varied formats, richer company research, and additional source adapters are future improvements.
+This is an unfinished work-in-progress experiment and early MVP, not a completed product. The first version focuses on public-source discovery, worldwide-remote filtering, private profile matching, local tracking, and optional email digests. The browser dashboard and local API are also experimental and have not been security-audited for public deployment. Applicant-count extraction, deadline parsing across varied formats, richer company research, and additional source adapters are future improvements.
 
 ## Contributing
 
