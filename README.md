@@ -243,3 +243,8 @@ Issues and pull requests are welcome. Keep examples fictional and generic. Never
 ## License
 
 MIT. See [LICENSE](LICENSE).
+
+
+### CV and LinkedIn input in the browser demo
+
+The browser demo can extract known skill keywords from pasted CV/LinkedIn profile text or a local .txt/.md file. PDF and Word CV text can be copied into the local text field. A LinkedIn URL is accepted only as a reference: the demo does not scrape or automatically fetch LinkedIn profile data. Extracted skills are added to the editable skills field for review. CV text is processed locally in the browser tab and is not uploaded or stored.
