@@ -16,6 +16,7 @@ The first version was created to help its author map their own skills and explor
 - Filters for roles advertised as worldwide / work-from-anywhere remote. Treats ambiguous location policies cautiously.
 - Compares job descriptions with skills from a local, private profile.
 - Shows a transparent **skill-match score (0–10)**, matched skills, missing skills, and evidence coverage.
+- Extracts explicit experience signals from job adverts, including years of experience, junior/mid/senior wording, and whether experience is described as project, industry, professional, or relevant experience.
 - Records publication date, application deadline (when supplied), and the date the listing was first discovered.
 - Stores discovered jobs in a local SQLite database.
 - Optionally sends an email digest through an SMTP server configured locally.
@@ -216,6 +217,7 @@ The Python MVP uses a transparent, weighted keyword-matching heuristic:
 - **Proficiency fit:** a self-rated skill level (1–5) is compared with an explicitly stated proficiency cue near that skill mention. No level penalty is applied when the advert does not state a level.
 - **Evidence coverage:** proportion of configured skill groups with at least one matching keyword.
 - **Evidence details:** matched skills, missing skill groups, requirement classifications, and per-keyword level comparisons are returned for review.
+- **Experience evidence:** explicit year ranges, seniority labels, experience scope, and required/preferred wording are extracted from job-ad sentences. This is a separate descriptive signal and does not currently change the skill score or compare years against a candidate profile.
 
 Matching normalizes Unicode text and uses Unicode-aware word boundaries, so Finnish letters are handled correctly and terms are not matched as arbitrary substrings. Use each skill's optional `aliases` mapping for alternate spellings and Finnish inflections. Aliases are alternatives to a canonical keyword, so they do not inflate the score denominator. The matcher does not guess Finnish grammar or automatically stem words. Target titles, experience keywords, and excluded keywords are stored as configurable profile fields but are not yet applied to the score. The separate portfolio browser demo has its own illustrative sample roles and scoring logic. See the configuration guide for this distinction.
 
