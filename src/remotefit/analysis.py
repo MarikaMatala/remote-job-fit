@@ -23,12 +23,12 @@ REQUIREMENT_WEIGHTS = {
 
 _REQUIRED_RE = re.compile(
     r"\b(?:must[- ]have|required|requirements?|essential|mandatory|"
-    r"need to|you will need|we require|strong knowledge of|proficient in)\b",
+    r"need to|you will need|we require|strong knowledge of|proficient in|vaaditaan|edellytetään|pakollinen|vähintään)\b",
     re.IGNORECASE,
 )
 _PREFERRED_RE = re.compile(
     r"\b(?:preferred|preferably|nice to have|good to have|"
-    r"a plus|would be an advantage|bonus|desirable)\b",
+    r"a plus|would be an advantage|bonus|desirable|eduksi|katsotaan eduksi|toivottavaa)\b",
     re.IGNORECASE,
 )
 _OPTIONAL_RE = re.compile(
@@ -133,7 +133,7 @@ _SENIORITY_PATTERNS = {
 _EXPERIENCE_SCOPE_PATTERNS = {
     "project": re.compile(r"\b(?:project|projects|project-based|portfolio)\b|\bprojekti(?:työ|kokemus|ssa|sta)?\b", re.IGNORECASE),
     "industry": re.compile(r"\b(?:industry|sector|domain|commercial) experience\b|\b(?:toimiala|alakohtainen)kokemus\b", re.IGNORECASE),
-    "professional": re.compile(r"\b(?:professional|employment|work) experience\b|\b(?:työ|ammatillinen)kokemus\b", re.IGNORECASE),
+    "professional": re.compile(r"\b(?:professional|employment|work) experience\b|\btyökokem\w*|\bammatillinen kokemus\b", re.IGNORECASE),
     "relevant": re.compile(r"\b(?:relevant|related|similar) experience\b|\b(?:tehtävään soveltuva|vastaava) kokemus\b", re.IGNORECASE),
 }
 
