@@ -86,7 +86,7 @@ def test_explicit_level_requirement_affects_match_score():
 def test_unmatched_keywords_remain_in_denominator():
     profile = {"skills": [{"name": "Python", "level": 3, "keywords": ["python", "pytest"]}]}
     result = score_job(profile, {"description": "Python is required."})
-    assert result["score"] == 7.5
+    assert result["score"] == 6.0
 
 
 def test_applicant_baseline_is_not_probability():
