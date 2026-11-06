@@ -22,3 +22,13 @@ def test_scan_rejects_untrusted_browser_origin():
     )
     assert response.status_code == 403
     assert response.json()["detail"] == "Origin is not allowed."
+
+
+def test_api_rejects_non_local_host_header():
+    client = TestClient(app)
+    response = client.get(
+        "/api/health",
+        headers={"Host": "attacker.example"},
+    )
+    assert response.status_code == 400
+    assert response.json()["detail"] == "This API is for local development only."
