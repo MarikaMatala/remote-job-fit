@@ -1,0 +1,37 @@
+# Local configuration and secrets
+.env
+.env.*
+!.env.example
+config/profile.yaml
+config/sources.yaml
+config/local.yaml
+*.secret
+*.key
+*.pem
+
+# Local data and exports
+data/
+exports/
+*.sqlite
+*.sqlite3
+*.db
+*.csv
+*.xlsx
+
+# Python
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+*.egg-info/
+dist/
+build/
+
+# Editors and operating systems
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
