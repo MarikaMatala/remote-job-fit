@@ -1,6 +1,6 @@
 # Configuration Guide
 
-This guide explains which files you can edit, what each setting means, and where private information belongs.
+This guide explains which files you can edit, what each setting means, and where private information belongs. Remote Job Fit began as a personal skills-mapping and career-exploration experiment. Its public examples now cover a broad range of IT, ICT, software, media, design, and communications roles so that other people can adapt the project to their own goals.
 
 > **Project status: WORK IN PROGRESS — EXPERIMENTAL.** This project is still being built and tested. Some profile fields and planned features are not yet active. Do not treat it as production-ready.
 
@@ -45,16 +45,18 @@ This file describes the skills and job-search terms you want the tool to use. Do
 
 ### target_titles
 
-A list of job titles you are interested in.
+A list of job titles you want to explore. The public example file includes ideas from several fields, for example:
 
-```yaml
-target_titles:
-  - "Frontend Developer"
-  - "Junior Software Engineer"
-  - "Technical Writer"
-```
+- Software and web: Frontend Developer, Backend Developer, Full-Stack Developer, Web Developer, Application Developer, Mobile App Developer.
+- IT and ICT: IT Support Specialist, Service Desk Analyst, ICT Specialist, Systems Administrator, Cloud Support Associate.
+- Quality, data, and security: QA Tester, Software Tester, Data Analyst, Cybersecurity Analyst.
+- Design and media: UI/UX Designer, Web Designer, Graphic Designer, Multimedia Producer, Video Editor, Photographer.
+- Marketing and communications: Digital Marketing Specialist, Social Media Specialist, Content Creator, Communications Specialist, Technical Writer.
+- Project work: Digital Project Coordinator, IT Project Coordinator.
 
-**Current behavior:** saved in the profile, but not yet used to filter the current job results. It is intended for a future title-matching feature.
+These are suggestions, not a fixed catalogue. Remove titles that do not interest you, rename them, or add local-language and industry-specific titles that appear in job advertisements.
+
+**Current behavior:** saved in the profile, but not yet used to filter the Python job results. It is intended for a future title-matching feature. The separate browser demo uses its own sample-role list; editing `target_titles` does not change that demo's sample cards.
 
 ### skills
 
@@ -108,18 +110,19 @@ skills:
       - "related framework"
 ```
 
-Replace these examples with your own skills. The language name does not need to be added to the Python source code; profile keywords are read from your local YAML file.
+Replace these examples with your own skills. You can also customize the project beyond software roles—for example, add media production, graphic design, communications, marketing, IT support, data, or project-coordination skills. The language or skill name does not need to be added to the Python source code; profile keywords are read from your local YAML file.
 
-The public example profile includes editable groups for common study and project areas:
+The public example profile includes editable groups across several areas:
 
-- Frontend: HTML, CSS, JavaScript, TypeScript, React, Next.js, responsive design.
-- Backend: Python, PHP, Java, C#, Node.js, server-side development.
-- Full-stack: combined frontend and backend application development.
-- APIs: REST, HTTP, JSON, API integration, and Postman.
-- Databases: SQL, MySQL, SQLite, PostgreSQL, MongoDB, and database design.
-- Other areas: Kotlin and Android, React Native, UI/UX, Figma, testing, Git, Docker, Kubernetes, and WordPress.
+- Software development: frontend, backend, full-stack, web, mobile, programming languages, APIs, testing, and version control.
+- IT and ICT: technical support, service desk, operating systems, networking, systems administration, cloud, and infrastructure.
+- Security and data: cybersecurity, application and web security, privacy, SQL/NoSQL databases, data analysis, and reporting.
+- Design: UI/UX, prototyping, graphic design, visual identity, typography, and accessibility.
+- Media: photography, video and audio production, editing, motion graphics, and multimedia.
+- Digital marketing and communications: SEO, social media, content marketing, journalism, technical writing, copywriting, and digital communications.
+- Project work: coordination, documentation, collaboration, Agile, and Scrum.
 
-These are generic example keywords, not a claim that every contributor knows every technology. Edit the private `config/profile.yaml` copy to match your own experience. Add any other language or tool as a keyword; no code change is required for ordinary keyword matching.
+These are generic starting points, not a claim that every contributor knows every technology or a recommendation to select every skill. Use the level field as your own estimate, and remove or edit the examples to reflect your actual experience. Add any other language, tool, role, or skill as a keyword; no code change is required for ordinary keyword matching.
 
 **API privacy:** add API technologies (such as REST or JSON) as skill keywords if relevant. Never add API keys, bearer tokens, passwords, private endpoint URLs, or real account details to this YAML file. The current public job feeds do not require API keys. If a future integration needs credentials, keep them in a local environment variable and access them only from the Python backend—not from browser code.
 
