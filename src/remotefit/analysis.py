@@ -160,7 +160,7 @@ def analyze_experience_requirements(job):
             years_max = int(range_match.group("maximum"))
         elif single_match:
             years_min = int(single_match.group("minimum"))
-            years_max = None if single_match.group("plus") else years_min
+            years_max = None
 
         seniority = next(
             (level for level, pattern in _SENIORITY_PATTERNS.items() if pattern.search(sentence)),
