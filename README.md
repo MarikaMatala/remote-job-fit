@@ -10,6 +10,10 @@ The first version was created to help its author map their own skills and explor
 
 > **CI status:** GitHub Actions runs the Python tests and TypeScript dashboard build on pushes and pull requests. While the project is experimental, both jobs are configured as non-blocking: individual failures remain visible in their job logs, but they do not fail the overall workflow. This keeps development feedback available without generating an overall failed-workflow result for unfinished features. GitHub email delivery is still controlled by each account's notification settings.
 
+## Live demo
+
+An interactive browser-only preview is available at **[Remote Job Fit Demo](https://marikamatala.github.io/remote-job-fit/)** after the GitHub Pages deployment has been enabled and the changes have been merged into `main`. The public demo uses a simplified client-side matcher; it does not run the Python backend or fetch live job listings. For the full matching engine, use the local installation instructions below.
+
 ## Features
 
 - Fetches job listings from supported public sources (Remotive and Remote OK).
