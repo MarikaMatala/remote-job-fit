@@ -116,6 +116,83 @@ def _local_context(text, start, end):
     return text[left:right]
 
 
+
+_EXPERIENCE_RANGE_RE = re.compile(
+    r"(?P<minimum>\d+)\s*(?:-|–|to)\s*(?P<maximum>\d+)\s*(?:years?|yrs?|vuotta|vuoden)",
+    re.IGNORECASE,
+)
+_EXPERIENCE_SINGLE_RE = re.compile(
+    r"(?P<minimum>\d+)\s*(?P<plus>\+)?\s*(?:years?|yrs?|vuotta|vuoden)",
+    re.IGNORECASE,
+)
+_SENIORITY_PATTERNS = {
+    "entry": re.compile(r"\b(?:intern|internship|graduate|entry[- ]level|junior|trainee)\b|\bharjoittelija\b", re.IGNORECASE),
+    "mid": re.compile(r"\b(?:mid[- ]level|intermediate|regular)\b|\bkeskitaso\b", re.IGNORECASE),
+    "senior": re.compile(r"\b(?:senior|lead|principal|staff engineer|head of)\b|\bseniori?\b|\bjohtava\b", re.IGNORECASE),
+}
+_EXPERIENCE_SCOPE_PATTERNS = {
+    "project": re.compile(r"\b(?:project|projects|project-based|portfolio)\b|\bprojekti(?:työ|kokemus|ssa|sta)?\b", re.IGNORECASE),
+    "industry": re.compile(r"\b(?:industry|sector|domain|commercial) experience\b|\b(?:toimiala|alakohtainen)kokemus\b", re.IGNORECASE),
+    "professional": re.compile(r"\b(?:professional|employment|work) experience\b|\b(?:työ|ammatillinen)kokemus\b", re.IGNORECASE),
+    "relevant": re.compile(r"\b(?:relevant|related|similar) experience\b|\b(?:tehtävään soveltuva|vastaava) kokemus\b", re.IGNORECASE),
+}
+
+
+def analyze_experience_requirements(job):
+    """Extract explicit experience and seniority signals without guessing eligibility."""
+    description = " ".join(str(job.get(key, "")) for key in (
+        "title", "description", "requirements", "qualifications"
+    ))
+    sentences = [
+        part.strip()
+        for part in re.split(r"(?<=[.!?;])\s+|[\r\n]+", description)
+        if part.strip()
+    ]
+    results = []
+    seen = set()
+
+    for sentence in sentences:
+        range_match = _EXPERIENCE_RANGE_RE.search(sentence)
+        single_match = _EXPERIENCE_SINGLE_RE.search(sentence)
+        years_min = years_max = None
+        if range_match:
+            years_min = int(range_match.group("minimum"))
+            years_max = int(range_match.group("maximum"))
+        elif single_match:
+            years_min = int(single_match.group("minimum"))
+            years_max = None if single_match.group("plus") else years_min
+
+        seniority = next(
+            (level for level, pattern in _SENIORITY_PATTERNS.items() if pattern.search(sentence)),
+            None,
+        )
+        if years_min is None and seniority is None:
+            continue
+
+        scope = next(
+            (name for name, pattern in _EXPERIENCE_SCOPE_PATTERNS.items() if pattern.search(sentence)),
+            "general",
+        )
+        item = {
+            "years_min": years_min,
+            "years_max": years_max,
+            "seniority": seniority,
+            "scope": scope,
+            "requirement": _requirement_type(sentence),
+            "evidence": sentence[:300],
+        }
+        key = (years_min, years_max, seniority, scope, item["requirement"], item["evidence"].casefold())
+        if key not in seen:
+            results.append(item)
+            seen.add(key)
+
+    return {
+        "items": results,
+        "has_explicit_requirements": bool(results),
+        "scoring_note": "Experience is extracted as evidence only; it does not affect the skill-match score or determine eligibility.",
+    }
+
+
 def score_job(profile, job):
     """Return a 0–10 weighted skill-match score and auditable evidence.
 
@@ -236,6 +313,7 @@ def score_job(profile, job):
         "missing_skills": missing,
         "requirement_summary": requirement_summary,
         "score_type": "weighted_keyword_match_not_hiring_probability",
+        "experience_requirements": analyze_experience_requirements(job),
         "scoring_notes": [
             "Required, preferred and optional wording is inferred from nearby advert text.",
             "Skill level is penalized only when an explicit proficiency cue is found nearby.",
