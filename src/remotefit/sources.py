@@ -1,4 +1,9 @@
-"""Adapters for public job listing endpoints."""
+"""Adapters for public job listing endpoints.
+
+WORK IN PROGRESS: only public, documented feeds are configured by default.
+If you experiment with another provider, keep credentials in local environment
+variables and pass them server-side. Never hard-code API keys or private URLs.
+"""
 
 from datetime import datetime, timezone
 import httpx
@@ -71,5 +76,7 @@ def fetch_all(source_config):
         try:
             collected.extend(adapter(settings["url"]))
         except (httpx.HTTPError, ValueError, KeyError) as exc:
-            errors.append(f"{name}: {type(exc).__name__}: {exc}")
+            # Do not include exception text: a custom URL may contain a
+            # query-string token, which must never appear in logs or API output.
+            errors.append(f"{name}: {type(exc).__name__}")
     return collected, errors
