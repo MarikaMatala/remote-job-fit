@@ -25,18 +25,21 @@ def test_skill_score_and_evidence():
 
 def test_score_matches_explicit_finnish_inflections_and_compounds():
     profile = {"skills": [
-        {"name": "React", "keywords": ["react", "reactin"]},
-        {"name": "Accessibility", "keywords": ["accessibility", "saavutettavuusosaaminen", "saavutettavuusosaamisen"]},
-        {"name": "HTML", "keywords": ["html", "html5"]},
+        {"name": "React", "keywords": ["react"], "aliases": {"react": ["reactin", "reactia"]}},
+        {"name": "Accessibility", "keywords": ["accessibility"], "aliases": {"accessibility": ["saavutettavuusosaaminen", "saavutettavuusosaamisen"]}},
+        {"name": "HTML", "keywords": ["html"], "aliases": {"html": ["html5"]}},
     ]}
     result = score_job(
         profile,
         {"title": "Frontend-kehittäjä", "description": "Reactin ja saavutettavuusosaamisen lisäksi HTML5."},
     )
-    matches = {item["skill"]: item["keywords"] for item in result["matched_skills"]}
-    assert matches["React"] == ["reactin"]
-    assert matches["Accessibility"] == ["saavutettavuusosaamisen"]
-    assert matches["HTML"] == ["html5"]
+    matches = {item["skill"]: item for item in result["matched_skills"]}
+    assert matches["React"]["keywords"] == ["react"]
+    assert matches["React"]["matched_aliases"] == {"react": "reactin"}
+    assert matches["Accessibility"]["matched_aliases"] == {"accessibility": "saavutettavuusosaamisen"}
+    assert matches["HTML"]["matched_aliases"] == {"html": "html5"}
+    # Aliases are alternatives, not extra score items.
+    assert result["score"] == 10.0
 
 
 def test_keyword_boundaries_are_unicode_aware():
