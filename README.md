@@ -1,6 +1,6 @@
 # Remote Job Fit
 
-An open-source, configurable tool for discovering worldwide-remote jobs, comparing job requirements with a private skills profile, tracking application deadlines, and optionally sending email digests.
+An open-source, configurable application for discovering worldwide-remote jobs, comparing job requirements with a private skills profile, tracking application deadlines, and optionally sending email digests. It includes a Python command-line tool and a TypeScript browser dashboard.
 
 The project is designed for anyone. It contains no personal profile, personal contact details, account names, passwords, API keys, or email credentials.
 
@@ -14,6 +14,7 @@ The project is designed for anyone. It contains no personal profile, personal co
 - Stores discovered jobs in a local SQLite database.
 - Optionally sends an email digest through an SMTP server configured locally.
 - Supports CSV export for further analysis.
+- Includes an optional TypeScript dashboard (Vite) backed by a local Python FastAPI service.
 
 ## Important limitations
 
@@ -28,6 +29,7 @@ The project is designed for anyone. It contains no personal profile, personal co
 ## Requirements
 
 - Python 3.11 or newer
+- Node.js 22 or newer and npm (only if you want to use the browser dashboard)
 - Internet access for public job-source requests
 - Optional: an SMTP account if email digests are required
 
@@ -149,6 +151,41 @@ Run tests:
 ```bash
 pytest
 ```
+
+## Browser dashboard (Python + TypeScript)
+
+The repository includes a small browser dashboard. Python continues to handle job-source requests, filtering, scoring, and SQLite storage. TypeScript handles the browser interface. The dashboard communicates with the local FastAPI service over HTTP; it does not contain profile data or SMTP credentials.
+
+Install the Python project and create your private profile using the steps above. Then install the dashboard dependencies:
+
+```bash
+cd web
+npm install
+```
+
+Start the Python API from the repository root in one terminal:
+
+```bash
+uvicorn remotefit.api:app --host 127.0.0.1 --port 8000
+```
+
+Start the TypeScript development server in a second terminal:
+
+```bash
+cd web
+npm run dev
+```
+
+Open the local address printed by Vite (normally `http://127.0.0.1:5173`). The dashboard can display saved listings and trigger a scan of the configured public sources.
+
+To create a production frontend build:
+
+```bash
+cd web
+npm run build
+```
+
+The generated static files are written to `web/dist/`. The current setup keeps the dashboard and API as separate local processes; it does not publish either service to the internet. Keep the API bound to `127.0.0.1` unless you have deliberately configured authentication and network security for another deployment.
 
 ## Scoring
 
