@@ -72,6 +72,9 @@ skills:
       - "typescript"
       - "react"
       - "css"
+    aliases:
+      "react": ["reactin", "reactia"]
+      "javascript": ["javascriptin", "javascriptillä"]
   - name: "Testing"
     level: 2
     keywords:
@@ -82,7 +85,8 @@ skills:
 
 - `name`: A short label displayed in match results.
 - `level`: Your own level from 1 to 5. It is informational in the current MVP and does not change the score.
-- `keywords`: The important field for the current matching feature. Add alternative spellings, abbreviations, tools, frameworks, and related phrases that employers may use.
+- `keywords`: Canonical terms used in the current matching feature.
+- `aliases`: Optional mapping from a canonical keyword to alternative spellings, Finnish inflections, abbreviations or equivalent terms. Aliases are treated as alternatives to the canonical keyword, not as additional score items. Matching is case-insensitive and Unicode-normalized, but it does not perform automatic Finnish stemming.
 
 **You are not limited to a predefined list of programming languages.** Add any language or technology you want to track, provided you can write its name as a text keyword. Examples include Python, JavaScript, TypeScript, Java, C, C++, C#, F#, Go, Rust, Ruby, PHP, Swift, Kotlin, Dart, Scala, R, MATLAB, Perl, Lua, Elixir, Erlang, Haskell, Clojure, Objective-C, SQL, PL/SQL, HTML, CSS, Bash, and PowerShell. You can also add languages or tools not listed here.
 

@@ -213,7 +213,7 @@ The current MVP uses a transparent keyword overlap calculation:
 - **Evidence coverage:** proportion of the profile's skill groups with at least one matching keyword.
 - **Matched / missing skills:** displayed so the score can be reviewed rather than treated as a black box.
 
-Only the `skills` section and its `keywords` are currently used by the Python job-scoring function. Target titles, skill levels, experience keywords, and excluded keywords are stored as configurable profile fields but are not yet applied to that score or filtering logic. The separate portfolio browser demo has its own illustrative sample roles and scoring logic. See the configuration guide for this distinction.
+Only the `skills` section and its `keywords` are currently used by the Python job-scoring function. Matching normalizes Unicode text and uses Unicode-aware word boundaries, so Finnish letters are handled correctly and terms are not matched as arbitrary substrings. Use each skill's optional `aliases` mapping for alternate spellings and Finnish inflections. Aliases are alternatives to a canonical keyword, so they do not inflate the score denominator. The matcher does not guess Finnish grammar or automatically stem words. Target titles, skill levels, experience keywords, and excluded keywords are stored as configurable profile fields but are not yet applied to that score or filtering logic. The separate portfolio browser demo has its own illustrative sample roles and scoring logic. See the configuration guide for this distinction.
 
 This is a preliminary screening aid. It does not yet evaluate seniority, legal work eligibility, compensation, language requirements, interview performance, or company culture.
 

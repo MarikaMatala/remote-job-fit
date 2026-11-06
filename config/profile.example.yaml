@@ -110,8 +110,13 @@ profile:
         - "javascript"
         - "typescript"
         - "responsive design"
-        - "accessibility"
         - "bootstrap"
+      aliases:
+        "frontend": ["frontend-kehitys", "käyttöliittymäkehitys"]
+        "web development": ["web-kehitys", "verkkokehitys"]
+        "html": ["html5"]
+        "css": ["css3"]
+        "responsive design": ["responsiivinen suunnittelu"]
 
     - name: "Frontend Frameworks and Libraries"
       level: 3
@@ -123,6 +128,8 @@ profile:
         - "angular"
         - "svelte"
         - "tailwind css"
+      aliases:
+        "react": ["reactin", "reactia"]
 
     - name: "Backend Development"
       level: 2
@@ -138,6 +145,8 @@ profile:
         - "java"
         - "c#"
         - ".net"
+      aliases:
+        "backend": ["backend-kehitys", "taustajärjestelmäkehitys"]
 
     - name: "Full-Stack Development"
       level: 2
@@ -161,6 +170,9 @@ profile:
         - "postman"
       # This group contains technology keywords only. Do not add API keys,
       # bearer tokens, private endpoints, or real service credentials here.
+      aliases:
+        "api": ["rajapinta", "rajapinnat"]
+        "rest api": ["rest-rajapinta", "rajapintakehitys"]
 
     - name: "SQL and Relational Databases"
       level: 2
@@ -172,6 +184,9 @@ profile:
         - "relational database"
         - "database design"
         - "database queries"
+      aliases:
+        "relational database": ["relaatiotietokanta", "relaatiotietokannat"]
+        "database design": ["tietokantojen suunnittelu"]
 
     - name: "NoSQL Databases"
       level: 2
@@ -216,6 +231,12 @@ profile:
         - "prototyping"
         - "usability"
         - "accessibility"
+        - "wcag"
+      aliases:
+        "user interface": ["käyttöliittymä", "käyttöliittymäsuunnittelu"]
+        "user experience": ["käyttäjäkokemus", "käyttäjäkokemuksen suunnittelu"]
+        "usability": ["käytettävyys"]
+        "accessibility": ["saavutettavuus", "saavutettavuusosaaminen", "saavutettavuusosaamisen"]
 
     - name: "Testing and Quality"
       level: 2
@@ -227,6 +248,10 @@ profile:
         - "jest"
         - "postman"
         - "quality assurance"
+      aliases:
+        "software testing": ["ohjelmistotestaus"]
+        "unit testing": ["yksikkötestaus"]
+        "integration testing": ["integraatiotestaus"]
 
     - name: "Version Control and Collaboration"
       level: 3
@@ -238,6 +263,9 @@ profile:
         - "code review"
         - "agile"
         - "scrum"
+      aliases:
+        "version control": ["versionhallinta"]
+        "code review": ["koodikatselmointi"]
 
     - name: "DevOps and Development Tools"
       level: 2
@@ -256,6 +284,8 @@ profile:
         - "elementor"
         - "content management system"
         - "cms"
+      aliases:
+        "content management system": ["sisällönhallintajärjestelmä", "sisällönhallinta"]
 
     - name: "IT Support and Systems"
       level: 2
@@ -272,6 +302,8 @@ profile:
         - "active directory"
         - "microsoft 365"
         - "hardware support"
+      aliases:
+        "technical support": ["tekninen tuki", "käyttäjätuki"]
 
     - name: "Cloud and Infrastructure"
       level: 2
