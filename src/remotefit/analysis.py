@@ -1,7 +1,16 @@
-"""Transparent, heuristic job filtering and profile matching."""
+"""Transparent, heuristic job filtering and profile matching.
+
+To customize profile matching, edit the keywords under profile.skills in
+config/profile.yaml. This module intentionally contains no personal profile
+defaults. Skill levels and several other profile fields are not used by the
+current MVP scoring calculation.
+"""
 
 import re
 
+# A listing must contain at least one of these phrases to pass the current
+# worldwide-remote check. Add or adjust generic phrases here only when the
+# intended meaning is clear; user-specific preferences belong in local YAML.
 WORLDWIDE_MARKERS = (
     "work from anywhere", "anywhere in the world", "worldwide",
     "global remote", "globally remote", "any location", "open to any location",
@@ -23,7 +32,12 @@ def is_worldwide_remote(job, reject_restrictions=None):
 
 
 def score_job(profile, job):
-    """Return a 0-10 keyword match score and its supporting evidence."""
+    """Return a 0-10 keyword match score and its supporting evidence.
+
+    The current implementation compares only profile.skills[].keywords
+    (or the skill name when no keywords are provided) with the job text.
+    It does not infer a hiring probability or validate a skill level.
+    """
     text = " ".join(str(job.get(key, "")) for key in (
         "title", "description", "tags", "category"
     )).lower()
