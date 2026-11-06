@@ -17,7 +17,6 @@ def test_skill_score_and_evidence():
         {"name": "Design", "keywords": ["figma"]},
     ]}
     result = score_job(profile, {"title": "Python Developer", "description": "Uses pytest"})
-    # Two of the three configured keywords match: 2 / 3 * 10 = 6.7.
     assert result["score"] == 6.7
     assert result["evidence_coverage_percent"] == 50
     assert result["matched_skills"][0]["skill"] == "Python"
@@ -38,7 +37,6 @@ def test_score_matches_explicit_finnish_inflections_and_compounds():
     assert matches["React"]["matched_aliases"] == {"react": "reactin"}
     assert matches["Accessibility"]["matched_aliases"] == {"accessibility": "saavutettavuusosaamisen"}
     assert matches["HTML"]["matched_aliases"] == {"html": "html5"}
-    # Aliases are alternatives, not extra score items.
     assert result["score"] == 10.0
 
 
@@ -59,6 +57,36 @@ def test_keyword_matching_normalizes_unicode_compatibility_forms():
     profile = {"skills": [{"name": "JavaScript", "keywords": ["javascript"]}]}
     result = score_job(profile, {"description": "ＪａｖａＳｃｒｉｐｔ"})
     assert result["matched_skills"][0]["keywords"] == ["javascript"]
+
+
+def test_required_skill_has_more_weight_than_preferred_skill():
+    profile = {"skills": [
+        {"name": "Python", "level": 3, "keywords": ["python"]},
+        {"name": "Docker", "level": 3, "keywords": ["docker"]},
+    ]}
+    result = score_job(profile, {
+        "description": "Python is required. Docker is nice to have."
+    })
+    assert result["score"] == 10.0
+    assert result["requirement_summary"]["required"] == ["Python"]
+    assert result["requirement_summary"]["preferred"] == ["Docker"]
+
+
+def test_explicit_level_requirement_affects_match_score():
+    profile = {"skills": [{"name": "Python", "level": 2, "keywords": ["python"]}]}
+    low_level = score_job(profile, {"description": "Basic knowledge of Python required."})
+    advanced_level = score_job(profile, {"description": "Expert Python experience required."})
+    assert low_level["score"] == 10.0
+    assert advanced_level["score"] < low_level["score"]
+    detail = advanced_level["matched_skills"][0]["details"][0]
+    assert detail["advertised_level"] == 4
+    assert detail["level_fit"] == 0.5
+
+
+def test_unmatched_keywords_remain_in_denominator():
+    profile = {"skills": [{"name": "Python", "level": 3, "keywords": ["python", "pytest"]}]}
+    result = score_job(profile, {"description": "Python is required."})
+    assert result["score"] == 7.5
 
 
 def test_applicant_baseline_is_not_probability():
