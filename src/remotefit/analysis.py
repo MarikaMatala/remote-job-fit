@@ -76,15 +76,44 @@ def score_job(profile, job):
         keywords = list(dict.fromkeys(word for word in keywords if word))
         if not keywords:
             continue
+        raw_aliases = skill.get("aliases", {})
+        alias_map = {}
+        if isinstance(raw_aliases, dict):
+            for canonical, variants in raw_aliases.items():
+                canonical = _normalise_match_text(canonical).strip()
+                if isinstance(variants, str):
+                    variants = [variants]
+                if canonical in keywords and isinstance(variants, list):
+                    alias_map[canonical] = list(dict.fromkeys(
+                        _normalise_match_text(variant).strip()
+                        for variant in variants
+                        if str(variant).strip()
+                    ))
+
         total_keywords += len(keywords)
-        found = [
-            word for word in keywords
-            if (pattern := _keyword_pattern(word)) and re.search(pattern, text)
-        ]
+        found = []
+        matched_aliases = {}
+        for word in keywords:
+            variants = [word] + alias_map.get(word, [])
+            matched_variant = next(
+                (
+                    variant for variant in variants
+                    if (pattern := _keyword_pattern(variant)) and re.search(pattern, text)
+                ),
+                None,
+            )
+            if matched_variant:
+                found.append(word)
+                if matched_variant != word:
+                    matched_aliases[word] = matched_variant
         matched_keywords += len(found)
         if found:
             matched_groups += 1
-            matched.append({"skill": skill.get("name", "Unnamed skill"), "keywords": found})
+            matched.append({
+                "skill": skill.get("name", "Unnamed skill"),
+                "keywords": found,
+                "matched_aliases": matched_aliases,
+            })
         else:
             missing.append(skill.get("name", "Unnamed skill"))
 
