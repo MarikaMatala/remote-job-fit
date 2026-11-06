@@ -1,4 +1,13 @@
-"""Load local configuration without exposing private values."""
+"""Load local settings.
+
+User-editable values belong in:
+- config/profile.yaml: private job titles and skill keywords.
+- config/sources.yaml: local source toggles and restriction phrases.
+- .env: SMTP credentials and the local database path.
+
+The example templates are committed; the personal files above are ignored by Git.
+Do not add personal defaults or credentials to this module.
+"""
 
 from pathlib import Path
 import os
@@ -12,6 +21,8 @@ SOURCES_PATH = ROOT / "config" / "sources.yaml"
 
 
 def load_settings():
+    # Load secrets from the local .env file. Environment variables can also
+    # be supplied by the operating system or deployment environment.
     load_dotenv(ROOT / ".env")
     if not PROFILE_PATH.exists():
         raise FileNotFoundError(
