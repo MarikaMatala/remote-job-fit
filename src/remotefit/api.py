@@ -1,11 +1,13 @@
 """Local HTTP API for the optional TypeScript dashboard.
 
-The API binds to localhost by default when started with the documented command.
-It exposes job listings and a scan action; it never exposes profile or SMTP settings.
+WORK IN PROGRESS: this API is experimental and intended for localhost only.
+Keep profile details, SMTP credentials, API keys, and private endpoints out of
+this source file. Add personal settings only to ignored local config/.env files.
+The API never returns profile or SMTP settings to the browser.
 """
 import json
 
-from fastapi import FastAPI, HTTPException, Query
+from fastapi import FastAPI, HTTPException, Query, Request
 from fastapi.middleware.cors import CORSMiddleware
 
 from .analysis import is_worldwide_remote, score_job
@@ -59,8 +61,14 @@ def get_jobs(limit: int = Query(default=100, ge=1, le=1000)):
 
 
 @app.post("/api/scan")
-def scan_jobs():
+def scan_jobs(request: Request):
     """Fetch supported public sources, filter and score listings, then save them."""
+    # Block cross-origin browser sites from triggering a local scan (CSRF-style
+    # request). Requests without an Origin header remain available to local tools.
+    origin = request.headers.get("origin")
+    allowed_origins = {"http://127.0.0.1:5173", "http://localhost:5173"}
+    if origin and origin not in allowed_origins:
+        raise HTTPException(status_code=403, detail="Origin is not allowed.")
     try:
         settings = load_settings()
         jobs, errors = fetch_all(settings["sources"])
