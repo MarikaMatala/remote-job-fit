@@ -30,6 +30,10 @@ __pycache__/
 dist/
 build/
 
+# JavaScript / TypeScript dashboard
+web/node_modules/
+web/dist/
+
 # Editors and operating systems
 .vscode/
 .idea/
