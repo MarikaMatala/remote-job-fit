@@ -1,70 +1,200 @@
-# PRIVATE PROFILE TEMPLATE
-# 1. Copy this file to config/profile.yaml.
-# 2. Edit config/profile.yaml with a text editor.
-# 3. Never commit config/profile.yaml or put real personal data in this example.
+# GENERIC PROFILE TEMPLATE — NOT A REAL PERSON'S PROFILE
+# Copy this file to config/profile.yaml and edit the copy on your own computer.
+# config/profile.yaml is ignored by Git. Never commit it.
 #
-# You can add ANY programming language, markup language, query language,
-# scripting language, framework, library, tool, or technology as a skill.
-# There is no fixed language allowlist. The examples below are only examples:
-# remove the ones you do not use and add your own.
+# IMPORTANT PRIVACY RULES:
+# - Add skills and job-search preferences here, not passwords or account details.
+# - Never put API keys, access tokens, private API URLs, or credentials in this file.
+# - This project currently uses public job-listing endpoints that do not need API keys.
+# - If a future integration needs a secret, load it from a local .env variable on
+#   the Python backend. Never place secrets in TypeScript, HTML, CSS, or browser code.
 #
-# profile.target_titles:
-#   Add job titles you want to search for. These are saved for future filtering
-#   features; the current MVP does not yet use them to filter job listings.
+# The example skill groups below cover common study/project areas:
+# frontend, backend, full-stack, REST APIs, SQL/MySQL, NoSQL/MongoDB,
+# programming languages, mobile development, UI/UX, testing, and DevOps.
+# They are editable examples, not verified qualifications or a personal CV.
 #
-# profile.skills:
-#   Add one item per language, technology, or skill group.
-#   - name: A readable label shown in match results.
-#   - level: Your own rating from 1 (basic) to 5 (advanced). Informational only
-#     in this MVP; the current score does not weight skills by this number.
-#   - keywords: Words/phrases that may appear in job descriptions. The current
-#     matching algorithm checks these keywords against title, description,
-#     tags, and category. Add language names, common spellings, abbreviations,
-#     versions, frameworks, and related tools where relevant.
-#
-# Examples of languages and technologies you may add:
-#   Python, JavaScript, TypeScript, Java, C, C++, C#, F#, Visual Basic,
-#   Go, Rust, Ruby, PHP, Swift, Kotlin, Dart, Scala, R, MATLAB, Perl,
-#   Lua, Elixir, Erlang, Haskell, Clojure, Objective-C, SQL, PL/SQL,
-#   HTML, CSS, Bash, PowerShell, and many others.
-#
-# profile.experience_keywords:
-#   Add terms describing experience you may want to use in later analysis.
-#   Stored for now; not currently included in the match score.
-#
-# profile.excluded_keywords:
-#   Add terms you may eventually want to exclude (for example, "unpaid").
-#   Stored for now; not currently applied by the current MVP filter.
-#
-# Keep values as YAML lists. Use quotes around phrases containing punctuation.
+# To customize:
+# - name: label displayed in match results.
+# - level: optional self-rating from 1 (basic) to 5 (advanced); informational only.
+# - keywords: terms searched in job title, description, tags, and category.
+# Add/remove groups and keywords to reflect your own experience.
+# The current score uses keywords only; it does not use level or target_titles.
 
 profile:
   target_titles:
-    - "Example Software Developer"
-    - "Example Data Analyst"
+    - "Example Frontend Developer"
+    - "Example Backend Developer"
+    - "Example Full-Stack Developer"
+    - "Example Junior Software Developer"
+    - "Example Web Developer"
+    - "Example API Developer"
+    - "Example Database Developer"
+
   skills:
-    - name: "Python"
+    - name: "Frontend Development"
       level: 3
-      keywords: ["python", "py", "pytest", "fastapi"]
-    - name: "JavaScript and TypeScript"
+      keywords:
+        - "frontend"
+        - "front-end"
+        - "web development"
+        - "html"
+        - "css"
+        - "javascript"
+        - "typescript"
+        - "responsive design"
+        - "accessibility"
+        - "bootstrap"
+
+    - name: "Frontend Frameworks and Libraries"
       level: 3
-      keywords: ["javascript", "js", "typescript", "ts", "node.js", "nodejs"]
-    - name: "Java"
+      keywords:
+        - "react"
+        - "react.js"
+        - "next.js"
+        - "vue"
+        - "angular"
+        - "svelte"
+        - "tailwind css"
+
+    - name: "Backend Development"
       level: 2
-      keywords: ["java", "spring", "spring boot"]
-    - name: "C# and .NET"
+      keywords:
+        - "backend"
+        - "back-end"
+        - "server-side"
+        - "backend development"
+        - "node.js"
+        - "express"
+        - "python"
+        - "php"
+        - "java"
+        - "c#"
+        - ".net"
+
+    - name: "Full-Stack Development"
       level: 2
-      keywords: ["c#", "c sharp", ".net", "dotnet", "asp.net"]
-    - name: "Web technologies"
+      keywords:
+        - "full-stack"
+        - "full stack"
+        - "fullstack"
+        - "frontend and backend"
+        - "web application development"
+
+    - name: "REST APIs and Integrations"
+      level: 2
+      keywords:
+        - "api"
+        - "apis"
+        - "rest api"
+        - "restful"
+        - "api integration"
+        - "http"
+        - "json"
+        - "postman"
+      # This group contains technology keywords only. Do not add API keys,
+      # bearer tokens, private endpoints, or real service credentials here.
+
+    - name: "SQL and Relational Databases"
+      level: 2
+      keywords:
+        - "sql"
+        - "mysql"
+        - "sqlite"
+        - "postgresql"
+        - "relational database"
+        - "database design"
+        - "database queries"
+
+    - name: "NoSQL Databases"
+      level: 2
+      keywords:
+        - "nosql"
+        - "mongodb"
+        - "document database"
+
+    - name: "Programming Languages"
       level: 3
-      keywords: ["html", "css", "react", "vue", "angular", "svelte"]
-    - name: "SQL"
+      keywords:
+        - "python"
+        - "javascript"
+        - "typescript"
+        - "java"
+        - "kotlin"
+        - "php"
+        - "c#"
+        - "c sharp"
+        - "object-oriented programming"
+        - "oop"
+
+    - name: "Mobile and Android Development"
       level: 2
-      keywords: ["sql", "mysql", "postgresql", "sqlite"]
-    - name: "Communication"
+      keywords:
+        - "android development"
+        - "android studio"
+        - "kotlin"
+        - "react native"
+        - "mobile development"
+
+    - name: "UI/UX and Prototyping"
+      level: 3
+      keywords:
+        - "ui"
+        - "ux"
+        - "ui/ux"
+        - "user interface"
+        - "user experience"
+        - "figma"
+        - "wireframing"
+        - "prototyping"
+        - "usability"
+        - "accessibility"
+
+    - name: "Testing and Quality"
       level: 2
-      keywords: ["communication", "documentation", "collaboration"]
+      keywords:
+        - "software testing"
+        - "unit testing"
+        - "integration testing"
+        - "pytest"
+        - "jest"
+        - "postman"
+        - "quality assurance"
+
+    - name: "Version Control and Collaboration"
+      level: 3
+      keywords:
+        - "git"
+        - "github"
+        - "gitlab"
+        - "version control"
+        - "code review"
+        - "agile"
+        - "scrum"
+
+    - name: "DevOps and Development Tools"
+      level: 2
+      keywords:
+        - "docker"
+        - "kubernetes"
+        - "ci/cd"
+        - "devops"
+        - "visual studio code"
+        - "vs code"
+
+    - name: "Content Management and Web Publishing"
+      level: 2
+      keywords:
+        - "wordpress"
+        - "elementor"
+        - "content management system"
+        - "cms"
+
+  # These fields are saved for future features and are not currently used
+  # by the job scoring/filtering implementation.
   experience_keywords:
+    - "team project"
     - "project work"
-    - "teamwork"
+    - "collaboration"
+
   excluded_keywords: []
