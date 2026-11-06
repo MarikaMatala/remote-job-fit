@@ -1,5 +1,23 @@
-# Public sources enabled in this MVP.
-# Review each provider's terms, API documentation, and rate limits before use.
+# JOB SOURCE AND LOCATION FILTER SETTINGS
+# Copy this file to config/sources.yaml to customize it locally.
+# config/sources.yaml is ignored by Git. Keep this public example generic.
+#
+# sources.<source_name>.enabled:
+#   true  = request listings from this source.
+#   false = skip this source.
+#
+# sources.<source_name>.url:
+#   API endpoint used by the matching adapter in src/remotefit/sources.py.
+#   Only change this if the provider documents a compatible endpoint. Changing
+#   the URL does not add support for a new provider; a new adapter is required.
+#
+# filters.reject_restrictions:
+#   Add lower-case or upper-case phrases that indicate a location restriction.
+#   A listing containing one of these phrases is rejected by the current filter.
+#   This is a simple text check, not a complete legal/work-eligibility parser.
+#
+# Note: filters.worldwide_only is descriptive in this MVP; the current code
+# always requires an explicit worldwide marker in the listing text.
 
 sources:
   remotive:
@@ -11,7 +29,6 @@ sources:
 
 filters:
   worldwide_only: true
-  # Listings with explicit country or regional restrictions should be excluded.
   reject_restrictions:
     - "us only"
     - "usa only"
