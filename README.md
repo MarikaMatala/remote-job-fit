@@ -6,7 +6,7 @@ The first version was created to help its author map their own skills and explor
 
 > **Project status: WORK IN PROGRESS — EXPERIMENTAL.** This is an unfinished learning and development experiment. Features, configuration formats, and interfaces may change. Some planned functionality is not implemented yet. Do not use it as a production recruitment, security, or eligibility decision system.
 
-> **Current development status (November 2026):** This project is still under active development and is being tested by its author. Some GitHub Actions test jobs may currently fail because the project, test suite, and the author's local profile/configuration are not fully set up yet. These notifications are development/CI feedback—not evidence that the demo is ready for use or that a real job match has failed. The public portfolio demo is only an illustrative prototype: some buttons and workflows are not connected or implemented yet. Its purpose is to show the intended direction and how a future version could work. Features, configuration, and instructions may change as testing continues.
+> **CI status:** GitHub Actions runs the Python tests and TypeScript dashboard build on pushes and pull requests. While the project is experimental, both jobs are configured as non-blocking: individual failures remain visible in their job logs, but they do not fail the overall workflow. This keeps development feedback available without generating an overall failed-workflow result for unfinished features. GitHub email delivery is still controlled by each account's notification settings.
 
 ## Features
 
@@ -240,7 +240,9 @@ This is an unfinished work-in-progress experiment and early MVP, not a completed
 
 ## Development and test status
 
-The project is being built and tested incrementally. The author is currently running tests while parts of the personal development setup, profile configuration, and implementation are still incomplete. As a result, some GitHub Actions jobs may report **“Some jobs were not successful”** or a failed status. A failed CI job is a signal that a check needs investigation; it should not be interpreted as a result from the job-fit scoring demo. GitHub may send an automated email with a subject or message such as **“Tests: Some jobs were not successful”** when a GitHub Actions workflow fails. That notification comes from GitHub Actions, not from the demo's optional job-alert email feature. Do not assume the cause of a failure without checking the individual workflow log.
+The project is being built and tested incrementally. GitHub Actions runs the Python test suite and the TypeScript dashboard build on pushes and pull requests. Both jobs use GitHub Actions' job-level `continue-on-error` setting while the project is experimental. Individual failed steps remain visible in the workflow logs, but a failure in either job does not fail the overall workflow. This is intended to keep development feedback available without generating an overall failed-workflow result for unfinished features. Actual email delivery is controlled by GitHub account notification settings; this repository cannot change those personal settings.
+
+The optional email digest is a separate feature. It sends a message only when the user explicitly runs the `remotefit digest` command and has configured local SMTP settings. GitHub Actions test results do not trigger that digest.
 
 The embedded demo on the portfolio website is a visual and interactive concept example, not a finished application. Some buttons, controls, and workflows are placeholders or may not yet work. It illustrates the planned user flow and the type of result the application is intended to provide. The demo does not yet represent the complete Python application or its live job-source functionality.
 
