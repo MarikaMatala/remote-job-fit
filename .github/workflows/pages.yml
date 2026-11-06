@@ -2,7 +2,7 @@ name: Deploy GitHub Pages demo
 
 on:
   push:
-    branches: [main]
+    branches: [main, feature/weighted-skill-matching]
     paths:
       - "docs/**"
       - ".github/workflows/pages.yml"
