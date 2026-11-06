@@ -35,7 +35,7 @@ def test_score_matches_explicit_finnish_inflections_and_compounds():
     )
     matches = {item["skill"]: item["keywords"] for item in result["matched_skills"]}
     assert matches["React"] == ["reactin"]
-    assert matches["Accessibility"] == ["saavutettavuusosaaminen"]
+    assert matches["Accessibility"] == ["saavutettavuusosaamisen"]
     assert matches["HTML"] == ["html5"]
 
 
