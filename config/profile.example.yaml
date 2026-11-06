@@ -3,18 +3,30 @@
 # 2. Edit config/profile.yaml with a text editor.
 # 3. Never commit config/profile.yaml or put real personal data in this example.
 #
+# You can add ANY programming language, markup language, query language,
+# scripting language, framework, library, tool, or technology as a skill.
+# There is no fixed language allowlist. The examples below are only examples:
+# remove the ones you do not use and add your own.
+#
 # profile.target_titles:
 #   Add job titles you want to search for. These are saved for future filtering
 #   features; the current MVP does not yet use them to filter job listings.
 #
 # profile.skills:
-#   Add one item per skill or skill group.
+#   Add one item per language, technology, or skill group.
 #   - name: A readable label shown in match results.
 #   - level: Your own rating from 1 (basic) to 5 (advanced). Informational only
 #     in this MVP; the current score does not weight skills by this number.
 #   - keywords: Words/phrases that may appear in job descriptions. The current
 #     matching algorithm checks these keywords against title, description,
-#     tags, and category. Add common synonyms and technology names.
+#     tags, and category. Add language names, common spellings, abbreviations,
+#     versions, frameworks, and related tools where relevant.
+#
+# Examples of languages and technologies you may add:
+#   Python, JavaScript, TypeScript, Java, C, C++, C#, F#, Visual Basic,
+#   Go, Rust, Ruby, PHP, Swift, Kotlin, Dart, Scala, R, MATLAB, Perl,
+#   Lua, Elixir, Erlang, Haskell, Clojure, Objective-C, SQL, PL/SQL,
+#   HTML, CSS, Bash, PowerShell, and many others.
 #
 # profile.experience_keywords:
 #   Add terms describing experience you may want to use in later analysis.
@@ -33,10 +45,22 @@ profile:
   skills:
     - name: "Python"
       level: 3
-      keywords: ["python", "pytest", "fastapi"]
-    - name: "Web Development"
+      keywords: ["python", "py", "pytest", "fastapi"]
+    - name: "JavaScript and TypeScript"
       level: 3
-      keywords: ["html", "css", "javascript", "typescript", "react"]
+      keywords: ["javascript", "js", "typescript", "ts", "node.js", "nodejs"]
+    - name: "Java"
+      level: 2
+      keywords: ["java", "spring", "spring boot"]
+    - name: "C# and .NET"
+      level: 2
+      keywords: ["c#", "c sharp", ".net", "dotnet", "asp.net"]
+    - name: "Web technologies"
+      level: 3
+      keywords: ["html", "css", "react", "vue", "angular", "svelte"]
+    - name: "SQL"
+      level: 2
+      keywords: ["sql", "mysql", "postgresql", "sqlite"]
     - name: "Communication"
       level: 2
       keywords: ["communication", "documentation", "collaboration"]
