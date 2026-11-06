@@ -9,10 +9,11 @@
 # - If a future integration needs a secret, load it from a local .env variable on
 #   the Python backend. Never place secrets in TypeScript, HTML, CSS, or browser code.
 #
-# The example skill groups below cover common study/project areas:
-# frontend, backend, full-stack, REST APIs, SQL/MySQL, NoSQL/MongoDB,
-# programming languages, mobile development, UI/UX, testing, and DevOps.
-# They are editable examples, not verified qualifications or a personal CV.
+# The example roles and skill groups are informed by publicly visible Finnish
+# job advertisements and job-market listings reviewed in November 2026.
+# They are illustrative search terms, not a claim that every role is currently
+# open, not a complete list of requirements, and not verified qualifications.
+# Always check the original advertisement for required education and experience.
 #
 # To customize:
 # - name: label displayed in match results.
@@ -60,6 +61,42 @@ profile:
     - "Media Production Assistant"
     - "Digital Project Coordinator"
     - "IT Project Coordinator"
+    - "ICT Systems Administrator"
+    - "ICT Application Developer"
+    - "ICT Consultant"
+    - "Data Engineer"
+    - "Data Analyst"
+    - "Software Tester"
+    - "Test Automation Engineer"
+    - "Integration Developer"
+    - "Cloud Engineer"
+    - "AI Engineer"
+    - "Motion Designer"
+    - "Motion Graphics Designer"
+    - "2D Animator"
+    - "3D Animator"
+    - "3D Generalist"
+    - "3D Artist"
+    - "Lighting and Compositing Artist"
+    - "FX Artist"
+    - "Animation Technical Director"
+    - "3D Modeller"
+    - "Character Animator"
+    - "Video Producer"
+    - "AV Technician"
+    - "Webcast Technician"
+    - "Content and Communications Manager"
+    - "Marketing Specialist"
+    - "Marketing Assistant"
+    - "Social Media Content Creator"
+    - "SEO Specialist"
+    - "Product Marketing Specialist"
+    - "Communications Planner"
+    - "Internal Communications Specialist"
+    - "Employer Branding Specialist"
+    - "Digital Designer"
+    - "Visual Content Designer"
+    - "E-learning Content Producer"
 
   skills:
     - name: "Frontend Development"
@@ -344,6 +381,140 @@ profile:
         - "scrum"
         - "team collaboration"
         - "cross-functional teams"
+
+    - name: "Animation and 3D Production"
+      level: 1
+      keywords:
+        - "animation"
+        - "2d animation"
+        - "3d animation"
+        - "character animation"
+        - "puppet animation"
+        - "motion design"
+        - "motion graphics"
+        - "3d modelling"
+        - "3d modeling"
+        - "3d generalist"
+        - "blender"
+        - "autodesk maya"
+        - "maya"
+        - "cinema 4d"
+        - "unreal engine"
+        - "rigging"
+        - "character rigging"
+        - "lighting"
+        - "rendering"
+        - "compositing"
+        - "vfx"
+        - "visual effects"
+        - "texturing"
+        - "uv mapping"
+        - "storyboarding"
+        - "animatic"
+        - "scene composition"
+        - "showreel"
+
+    - name: "Motion Graphics and Broadcast Design"
+      level: 1
+      keywords:
+        - "after effects"
+        - "adobe after effects"
+        - "motion graphics"
+        - "broadcast graphics"
+        - "data visualization"
+        - "visual storytelling"
+        - "adobe illustrator"
+        - "adobe photoshop"
+        - "typography"
+        - "layout design"
+        - "unreal engine"
+        - "graphic systems"
+
+    - name: "Video, Audio and AV Production"
+      level: 2
+      keywords:
+        - "video production"
+        - "video editing"
+        - "premiere pro"
+        - "adobe premiere"
+        - "davinci resolve"
+        - "camera operation"
+        - "lighting setup"
+        - "sound recording"
+        - "audio post-production"
+        - "live production"
+        - "webcast"
+        - "av technology"
+        - "streaming"
+        - "media asset management"
+
+    - name: "Marketing Technology and Campaigns"
+      level: 2
+      keywords:
+        - "hubspot"
+        - "crm"
+        - "google analytics"
+        - "google ads"
+        - "meta ads"
+        - "campaign analytics"
+        - "marketing automation"
+        - "email marketing"
+        - "seo"
+        - "geo"
+        - "content strategy"
+        - "product marketing"
+        - "go-to-market"
+        - "brand management"
+        - "marketing communications"
+
+    - name: "Professional Communications"
+      level: 2
+      keywords:
+        - "corporate communications"
+        - "internal communications"
+        - "external communications"
+        - "media relations"
+        - "press releases"
+        - "editorial planning"
+        - "content calendar"
+        - "linkedin"
+        - "instagram"
+        - "facebook"
+        - "social media strategy"
+        - "copywriting"
+        - "proofreading"
+        - "storytelling"
+        - "stakeholder management"
+        - "english"
+        - "finnish"
+
+    - name: "IT Service Management and Enterprise Tools"
+      level: 2
+      keywords:
+        - "servicenow"
+        - "jira"
+        - "confluence"
+        - "microsoft 365"
+        - "sharepoint"
+        - "active directory"
+        - "incident management"
+        - "ticketing system"
+        - "itil"
+        - "user support"
+        - "customer service"
+        - "documentation"
+
+    - name: "AI-assisted Workflows"
+      level: 1
+      keywords:
+        - "generative ai"
+        - "artificial intelligence"
+        - "ai tools"
+        - "ai-assisted content"
+        - "prompt engineering"
+        - "workflow automation"
+        - "ai-assisted development"
+        - "critical evaluation of ai output"
 
 
   # These fields are saved for future features and are not currently used
