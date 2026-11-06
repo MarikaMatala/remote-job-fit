@@ -1,3 +1,5 @@
+import "./style.css";
+
 type Job = {
   id: number;
   title: string;
