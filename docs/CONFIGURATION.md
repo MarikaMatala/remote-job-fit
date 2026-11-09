@@ -184,6 +184,10 @@ Set `enabled` to `true` to request listings or `false` to skip that source. The 
 
 Changing an endpoint URL does not automatically support a new job board. A new provider usually needs a new adapter that maps its response fields to the application's common job format. Review provider terms, documentation, and rate limits before using an endpoint.
 
+**Remotive request interval:** the application enforces a six-hour minimum interval for each Remotive API endpoint (at most four requests per 24 hours). The timestamp is stored locally under `~/.cache/remote-job-fit/` or the directory set by `REMOTE_JOB_FIT_CACHE_DIR`; the raw feed response is not cached. A repeated scan inside the interval reports a source warning instead of making another request.
+
+**Provider attribution and terms:** dashboard, CLI, CSV and email outputs identify the source and retain the original listing URL. Remotive's API guidance asks developers to credit Remotive and link to the original listing, but its general Terms of Service also contain restrictions on copying or redistributing listing content. Those documents should be read together; this project does not treat API availability as blanket permission to republish listings. Before distributing stored listing descriptions or bulk exports, seek clarification from Remotive. Remote OK's feed also requires source credit and a link to the original listing.
+
 ### Add or remove location restriction phrases
 
 ```yaml
