@@ -1,14 +1,14 @@
-# KOMMENTOINTIOHJE / CODE MAP
-# Tiedoston tarkoitus: Komentorivikäyttöliittymä: komentojen ja käyttäjän syötteiden käsittely.
-# Rakenne: tuonnit ja asetukset ensin, tietorakenteet ja apufunktiot seuraavaksi, päätoiminnot lopuksi.
-# FUNKTIOIDEN ALKUKOHDAT on merkitty erikseen, jotta niitä on helpompi etsiä.
-
 """Command-line interface.
 
 WORK IN PROGRESS: configure personal job-search data in the ignored local
 config/profile.yaml file. Configure SMTP credentials only in the ignored local
 .env file. Never hard-code personal details, API keys, or passwords here.
 """
+
+# KOMMENTOINTIOHJE / CODE MAP
+# Tiedoston tarkoitus: Komentorivikäyttöliittymä: komentojen ja käyttäjän syötteiden käsittely.
+# Rakenne: tuonnit ja asetukset ensin, tietorakenteet ja apufunktiot seuraavaksi, päätoiminnot lopuksi.
+# FUNKTIOIDEN ALKUKOHDAT on merkitty erikseen, jotta niitä on helpompi etsiä.
 
 import argparse
 import csv
