@@ -22,7 +22,7 @@ def test_cli_digest_sends_only_unsent_jobs_and_marks_after_success(tmp_path, mon
     assert len(sent) == 2
     cli.digest(settings)
     assert len(sent) == 2
-    assert "No new saved listings" in capsys.readouterr().out
+    assert "No unsent saved listings" in capsys.readouterr().out
 
 
 def test_cli_digest_does_not_mark_jobs_when_smtp_fails(tmp_path, monkeypatch):
