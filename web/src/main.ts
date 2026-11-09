@@ -9,6 +9,7 @@ type Job = {
   id: number;
   title: string;
   company: string;
+  source: string;
   location: string;
   url: string;
   published_at: string | null;
@@ -66,6 +67,7 @@ function renderJobs(jobs: Job[]): void {
             <span class="score">${score}</span>
           </div>
           <p class="company">${escapeHtml(job.company || "Company not listed")}</p>
+          <p class="source">Source: ${escapeHtml(job.source || "Unknown source")}</p>
           <p class="location">${escapeHtml(job.location || "Location not specified")}</p>
           <p class="matched">${matched ? `Matched skills: ${matched}` : "No matching skills recorded"}</p>
           <a href="${escapeHtml(safeExternalUrl(job.url))}" target="_blank" rel="noopener noreferrer">View original listing ↗</a>
