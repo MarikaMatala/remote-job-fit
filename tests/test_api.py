@@ -20,6 +20,7 @@ def test_health_endpoint():
 
 
 # TESTIOSIO ALKAA: test_scan_rejects_untrusted_browser_origin.
+# FUNKTIO-OSIO PÄÄTTYY: test_health_endpoint. Seuraava osio alkaa seuraavasta funktiosta tai luokasta.
 def test_scan_rejects_untrusted_browser_origin():
     # The request must be rejected before loading settings or contacting feeds.
     client = TestClient(app)
@@ -32,6 +33,7 @@ def test_scan_rejects_untrusted_browser_origin():
 
 
 # TESTIOSIO ALKAA: test_api_rejects_non_local_host_header.
+# FUNKTIO-OSIO PÄÄTTYY: test_scan_rejects_untrusted_browser_origin. Seuraava osio alkaa seuraavasta funktiosta tai luokasta.
 def test_api_rejects_non_local_host_header():
     client = TestClient(app)
     response = client.get(
@@ -40,3 +42,5 @@ def test_api_rejects_non_local_host_header():
     )
     assert response.status_code == 400
     assert response.json()["detail"] == "This API is for local development only."
+
+# FUNKTIO-OSIO PÄÄTTYY: test_api_rejects_non_local_host_header. Seuraava osio alkaa seuraavasta funktiosta tai luokasta.
