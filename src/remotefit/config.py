@@ -9,7 +9,9 @@ Only example templates are committed. Never hard-code credentials or personal da
 """
 
 # CODE MAP / COMMENTING GUIDE
-# File purpose: Sovelluksen asetusten lukeminen, oletusarvot ja konfiguraation validointi.
+# File purpose: Load application settings, apply defaults, and validate configuration files.
+# Navigation map: YAML parsing helpers -> settings loader -> local environment and secret handling.
+# Editing tip: user-specific settings belong in ignored local config files; edit the example templates for public defaults.
 # Structure: imports and settings first, followed by data structures and helper functions, with main operations last.
 # Function start points are marked separately to make them easier to find.
 
