@@ -23,7 +23,7 @@ The project is intentionally public so that its implementation and learning proc
 
 ## Live demo
 
-An interactive browser-only preview is available at **[Remote Job Fit Demo](https://marikamatala.github.io/remote-job-fit/)** after the GitHub Pages deployment has been enabled and the changes have been merged into `main`. The public demo uses a simplified client-side matcher; it does not run the Python backend or fetch live job listings. For the full matching engine, use the local installation instructions below.
+A hosted browser demo is **not currently available**. The TypeScript dashboard in `web/` is intended to run locally alongside the Python API; it is not a standalone static website. Follow the local installation instructions below to run the project.
 
 ## Features
 
