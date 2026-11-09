@@ -43,7 +43,7 @@ function loadDemo(overrides = {}) {
     console,
   };
   vm.runInNewContext(readFileSync(new URL("./demo.js", import.meta.url), "utf8"), context);
-  return { element };
+  return { element, document };
 }
 
 test("Java does not match inside JavaScript", () => {
@@ -87,7 +87,7 @@ test("user-supplied HTML in title is escaped", () => {
 });
 
 test("language toggle updates the document language", () => {
-  const { element } = loadDemo();
+  const { element, document } = loadDemo();
   element("demo-language").listeners.click();
-  assert.equal(element("demo-language").getAttribute, undefined);
+  assert.equal(document.documentElement.lang, "en");
 });
