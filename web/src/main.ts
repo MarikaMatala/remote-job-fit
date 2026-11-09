@@ -1,6 +1,6 @@
-// KOMMENTOINTIOHJE / CODE MAP
-// Tiedoston tarkoitus: TypeScript-dashboardin käynnistys: käyttöliittymän alustaminen ja Python-rajapintaan liittyvät tapahtumat.
-// Rakenne: tuonnit ja asetukset ensin, tyypit ja apufunktiot seuraavaksi, käynnistys ja tapahtumat lopuksi.
+// CODE MAP / COMMENTING GUIDE
+// File purpose: TypeScript-dashboardin käynnistys: käyttöliittymän alustaminen ja Python-rajapintaan liittyvät tapahtumat.
+// Structure: tuonnit ja asetukset ensin, tyypit ja apufunktiot seuraavaksi, käynnistys ja tapahtumat lopuksi.
 
 // WORK IN PROGRESS: this browser dashboard is experimental.
 // Do not add personal profile data, API keys, access tokens, SMTP credentials,
@@ -45,7 +45,7 @@ function escapeHtml(value: unknown): string {
 }
 
 // FUNKTIO-OSIO ALKAA: safeExternalUrl.
-// TOIMINTO-OSIO PÄÄTTYY: escapeHtml. Seuraava osio alkaa seuraavasta toiminnosta tai tiedoston päättymisestä.
+// FUNCTION SECTION END: escapeHtml. Seuraava osio alkaa seuraavasta toiminnosta tai tiedoston päättymisestä.
 function safeExternalUrl(value: unknown): string {
   try {
     const parsed = new URL(String(value ?? ""));
@@ -56,7 +56,7 @@ function safeExternalUrl(value: unknown): string {
 }
 
 // FUNKTIO-OSIO ALKAA: renderJobs.
-// TOIMINTO-OSIO PÄÄTTYY: safeExternalUrl. Seuraava osio alkaa seuraavasta toiminnosta tai tiedoston päättymisestä.
+// FUNCTION SECTION END: safeExternalUrl. Seuraava osio alkaa seuraavasta toiminnosta tai tiedoston päättymisestä.
 function renderJobs(jobs: Job[]): void {
   jobCount.textContent = `${jobs.length} ${jobs.length === 1 ? "job" : "jobs"}`;
   if (!jobs.length) {
@@ -86,7 +86,7 @@ function renderJobs(jobs: Job[]): void {
 }
 
 // FUNKTIO-OSIO ALKAA: loadJobs.
-// TOIMINTO-OSIO PÄÄTTYY: renderJobs. Seuraava osio alkaa seuraavasta toiminnosta tai tiedoston päättymisestä.
+// FUNCTION SECTION END: renderJobs. Seuraava osio alkaa seuraavasta toiminnosta tai tiedoston päättymisestä.
 async function loadJobs(): Promise<void> {
   try {
     const response = await fetch("/api/jobs");
@@ -132,4 +132,4 @@ scanButton.addEventListener("click", async () => {
 
 void loadJobs();
 
-// TOIMINTO-OSIO PÄÄTTYY: loadJobs. Seuraava osio alkaa seuraavasta toiminnosta tai tiedoston päättymisestä.
+// FUNCTION SECTION END: loadJobs. Seuraava osio alkaa seuraavasta toiminnosta tai tiedoston päättymisestä.
