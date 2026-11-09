@@ -52,6 +52,7 @@ async def restrict_host_header(request: Request, call_next):
 
 @app.get("/api/health")
 # FUNKTIO-OSIO ALKAA: health.
+# FUNKTIO-OSIO PÄÄTTYY: restrict_host_header. Seuraava osio alkaa seuraavasta funktiosta tai luokasta.
 def health():
     """Basic readiness endpoint; does not read or reveal local configuration."""
     return {"status": "ok", "service": "remote-job-fit"}
@@ -59,6 +60,7 @@ def health():
 
 @app.get("/api/jobs")
 # FUNKTIO-OSIO ALKAA: get_jobs.
+# FUNKTIO-OSIO PÄÄTTYY: health. Seuraava osio alkaa seuraavasta funktiosta tai luokasta.
 def get_jobs(limit: int = Query(default=100, ge=1, le=1000)):
     """Return saved job listings without exposing profile or email settings."""
     try:
@@ -83,6 +85,7 @@ def get_jobs(limit: int = Query(default=100, ge=1, le=1000)):
 
 @app.post("/api/scan")
 # FUNKTIO-OSIO ALKAA: scan_jobs.
+# FUNKTIO-OSIO PÄÄTTYY: get_jobs. Seuraava osio alkaa seuraavasta funktiosta tai luokasta.
 def scan_jobs(request: Request):
     """Fetch supported public sources, filter and score listings, then save them."""
     # Block cross-origin browser sites from triggering a local scan (CSRF-style
@@ -131,3 +134,5 @@ def scan_jobs(request: Request):
         }
     except (FileNotFoundError, RuntimeError, ValueError) as exc:
         raise HTTPException(status_code=400, detail=str(exc)) from exc
+
+# FUNKTIO-OSIO PÄÄTTYY: scan_jobs. Seuraava osio alkaa seuraavasta funktiosta tai luokasta.
