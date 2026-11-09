@@ -5,10 +5,10 @@ config/profile.yaml file. Configure SMTP credentials only in the ignored local
 .env file. Never hard-code personal details, API keys, or passwords here.
 """
 
-# KOMMENTOINTIOHJE / CODE MAP
-# Tiedoston tarkoitus: Komentorivikäyttöliittymä: komentojen ja käyttäjän syötteiden käsittely.
-# Rakenne: tuonnit ja asetukset ensin, tietorakenteet ja apufunktiot seuraavaksi, päätoiminnot lopuksi.
-# FUNKTIOIDEN ALKUKOHDAT on merkitty erikseen, jotta niitä on helpompi etsiä.
+# CODE MAP / COMMENTING GUIDE
+# File purpose: Command-line interface: handles commands and user input.
+# Structure: imports and settings first, followed by data structures and helper functions, with main operations last.
+# Function start points are marked separately to make them easier to find.
 
 import argparse
 import csv
@@ -24,7 +24,7 @@ from .emailer import send_digest
 from .sources import fetch_all
 
 
-# FUNKTIO-OSIO ALKAA: scan.
+# FUNCTION SECTION START: scan.
 def scan(settings):
     notices = []
     jobs, errors = fetch_all(
@@ -51,8 +51,8 @@ def scan(settings):
         print(f"Source warning: {error}")
 
 
-# FUNKTIO-OSIO ALKAA: show_list.
-# FUNKTIO-OSIO PÄÄTTYY: scan. Seuraava osio alkaa seuraavasta funktiosta tai luokasta.
+# FUNCTION SECTION START: show_list.
+# FUNCTION SECTION END: scan. The next section starts at the next function or class.
 def show_list(settings):
     connection = connect(settings["database_path"])
     rows = list_jobs(connection)
@@ -70,8 +70,8 @@ def show_list(settings):
         )
 
 
-# FUNKTIO-OSIO ALKAA: export_jobs.
-# FUNKTIO-OSIO PÄÄTTYY: show_list. Seuraava osio alkaa seuraavasta funktiosta tai luokasta.
+# FUNCTION SECTION START: export_jobs.
+# FUNCTION SECTION END: show_list. The next section starts at the next function or class.
 def export_jobs(settings, output):
     connection = connect(settings["database_path"])
     rows = list_jobs(connection, limit=10000)
@@ -85,8 +85,8 @@ def export_jobs(settings, output):
     print(f"Exported {len(rows)} jobs to {output}")
 
 
-# FUNKTIO-OSIO ALKAA: digest.
-# FUNKTIO-OSIO PÄÄTTYY: export_jobs. Seuraava osio alkaa seuraavasta funktiosta tai luokasta.
+# FUNCTION SECTION START: digest.
+# FUNCTION SECTION END: export_jobs. The next section starts at the next function or class.
 def digest(settings):
     connection = connect(settings["database_path"])
     rows = list_unsent_jobs(connection, limit=25)
@@ -107,8 +107,8 @@ def digest(settings):
     print(f"Email digest sent with {len(jobs)} unsent saved listings.")
 
 
-# FUNKTIO-OSIO ALKAA: main.
-# FUNKTIO-OSIO PÄÄTTYY: digest. Seuraava osio alkaa seuraavasta funktiosta tai luokasta.
+# FUNCTION SECTION START: main.
+# FUNCTION SECTION END: digest. The next section starts at the next function or class.
 def main():
     parser = argparse.ArgumentParser(prog="remotefit", description="Discover and analyse worldwide-remote jobs.")
     subparsers = parser.add_subparsers(dest="command", required=True)
@@ -135,4 +135,4 @@ def main():
 if __name__ == "__main__":
     main()
 
-# FUNKTIO-OSIO PÄÄTTYY: main. Seuraava osio alkaa seuraavasta funktiosta tai luokasta.
+# FUNCTION SECTION END: main. The next section starts at the next function or class.
