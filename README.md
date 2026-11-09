@@ -6,6 +6,17 @@ An open-source, configurable experiment for exploring job discovery and comparin
 
 The first version was created to help its author map their own skills and explore suitable job titles across IT, ICT, software development, digital media, design, and communications. The public project has since been made generic so anyone can adapt it to their own background, interests, experience, and career goals. The example role titles and skill groups are starting points only—not a CV, a list of required skills, or verified qualifications. Keep your personal profile in the private local configuration file. The public repository contains no personal profile, contact details, passwords, API keys, access tokens, or email credentials.
 
+## Why this project exists
+
+Remote Job Fit has four connected purposes:
+
+1. **A practical portfolio and work sample.** The project demonstrates its author's approach to planning, building, testing, documenting, reviewing, and improving a software project. It is intended to support job applications and make practical skills and development decisions visible. The repository and its history show an evolving process—not a claim that the author is an experienced specialist in every technology used.
+2. **Learning through making.** The project is a hands-on environment for learning new tools, strengthening existing skills, experimenting with implementation choices, and understanding the full development cycle. Bugs, limitations, tests, and iterative improvements are part of that process.
+3. **An open example others can learn from.** Job seekers, students, and developers are welcome to explore the source, use the project as inspiration, and adapt the ideas to their own job search, portfolio, or learning projects. The generic example profile is a starting point, not a prescribed career path or a claim about anyone's skills.
+4. **A project that others can extend.** Contributions, constructive feedback, forks, and independent adaptations are welcome under the applicable licence and third-party data terms. You do not need to use the project exactly as provided; make it fit your needs and share improvements where useful.
+
+The project is intentionally public so that its implementation and learning process can be inspected. It is an open-source learning and portfolio project with a practical job-search use case—not a commercial recruitment product or an automated decision-maker. See [CONTRIBUTING.md](CONTRIBUTING.md) for ways to participate.
+
 > **Project status: WORK IN PROGRESS — EXPERIMENTAL.** This is an unfinished learning and development experiment. Features, configuration formats, and interfaces may change. Some planned functionality is not implemented yet. Do not use it as a production recruitment, security, or eligibility decision system.
 
 > **CI status:** GitHub Actions runs the Python tests, TypeScript dashboard build, and browser-demo JavaScript syntax check on pushes and pull requests. These checks are blocking: a failure makes the workflow fail. Branch protection is not currently configured, so maintainers should require the checks and pull requests through a GitHub branch protection rule or repository ruleset.
