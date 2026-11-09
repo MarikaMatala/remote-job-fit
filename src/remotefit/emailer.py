@@ -5,16 +5,16 @@ sender, and recipient in the ignored local .env file. Never hard-code them
 here or commit them. Do not use this module to send credentials in email.
 """
 
-# KOMMENTOINTIOHJE / CODE MAP
-# Tiedoston tarkoitus: Sähköpostiviestien muodostaminen ja lähettämisen hallinta.
-# Rakenne: tuonnit ja asetukset ensin, tietorakenteet ja apufunktiot seuraavaksi, päätoiminnot lopuksi.
-# FUNKTIOIDEN ALKUKOHDAT on merkitty erikseen, jotta niitä on helpompi etsiä.
+# CODE MAP / COMMENTING GUIDE
+# File purpose: Builds email messages and manages sending.
+# Structure: imports and settings first, followed by data structures and helper functions, with main operations last.
+# Function start points are marked separately to make them easier to find.
 
 import smtplib
 from email.message import EmailMessage
 
 
-# FUNKTIO-OSIO ALKAA: send_digest.
+# FUNCTION SECTION START: send_digest.
 def send_digest(settings, jobs):
     required = ("host", "username", "password", "from", "to")
     missing = [key for key in required if not settings.get(key)]
@@ -45,4 +45,4 @@ def send_digest(settings, jobs):
         server.login(settings["username"], settings["password"])
         server.send_message(message)
 
-# FUNKTIO-OSIO PÄÄTTYY: send_digest. Seuraava osio alkaa seuraavasta funktiosta tai luokasta.
+# FUNCTION SECTION END: send_digest. The next section starts at the next function or class.
