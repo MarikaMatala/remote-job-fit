@@ -1,11 +1,11 @@
 <!doctype html>
 <!--
-  KOMMENTOINTIOHJE / CODE MAP
-  Tiedoston tarkoitus: TypeScript-dashboardin HTML-käynnistyssivu.
+  CODE MAP / COMMENTING GUIDE
+  File purpose: TypeScript-dashboardin HTML-käynnistyssivu.
   HEAD = metatiedot ja resurssit; BODY = käyttöliittymän näkyvä rakenne.
 -->
 <html lang="en">
-  <!-- HEAD-OSIO ALKAA. -->
+  <!-- HEAD SECTION STARTS. -->
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -13,15 +13,15 @@
     <meta name="description" content="A local dashboard for worldwide-remote job discovery and skill matching." />
     <title>Remote Job Fit</title>
   </head>
-<!-- HEAD-OSIO PÄÄTTYY. -->
-  <!-- BODY-OSIO ALKAA. -->
+<!-- HEAD SECTION ENDS. -->
+  <!-- BODY SECTION STARTS. -->
 <body>
     <div id="app">
       <header class="topbar">
         <a class="brand" href="/">Remote Job Fit</a>
         <span class="local-label">LOCAL DASHBOARD</span>
       </header>
-      <!-- PÄÄSISÄLTÖ ALKAA. -->
+      <!-- MAIN CONTENT STARTS. -->
 <main>
         <section class="intro">
           <div>
@@ -48,10 +48,10 @@
           </div>
         </section>
         <p class="footnote">The dashboard connects only to the local API. Your profile and email credentials are not displayed or sent to the browser.</p>
-      <!-- PÄÄSISÄLTÖ PÄÄTTYY. -->
+      <!-- MAIN CONTENT ENDS. -->
 </main>
     </div>
     <script type="module" src="/src/main.ts"></script>
-  <!-- BODY-OSIO PÄÄTTYY. -->
+  <!-- BODY SECTION ENDS. -->
 </body>
 </html>
