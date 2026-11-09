@@ -80,7 +80,7 @@ def is_worldwide_remote(job, reject_restrictions=None):
         if job.get(key) is not None
     ).casefold()
     return any(
-        re.search(r"(?<!\\w)" + re.escape(marker) + r"(?!\\w)", eligibility_text)
+        re.search(r"(?<!\w)" + re.escape(marker) + r"(?!\w)", eligibility_text)
         for marker in WORLDWIDE_MARKERS
     )
 
