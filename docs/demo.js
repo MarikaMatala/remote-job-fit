@@ -24,8 +24,10 @@ function containsSkill(text,skill){
 }
 const lines=s=>s.split(/(?<=[.!?;])\s+|[\r\n]+/).map(x=>x.trim()).filter(Boolean);
 // TOIMINTO ALKAA: t.
+// TOIMINTO-OSIO PÄÄTTYY: containsSkill. Seuraava osio alkaa seuraavasta toiminnosta tai tiedoston päättymisestä.
 const t = (fi,en)=>language==="fi"?fi:en;
 // FUNKTIO-OSIO ALKAA: classify.
+// TOIMINTO-OSIO PÄÄTTYY: t. Seuraava osio alkaa seuraavasta toiminnosta tai tiedoston päättymisestä.
 function classify(line){
  const s=norm(line);
  if(/\b(optional|not required|would be helpful|familiarity with)\b/.test(s))return"optional";
@@ -34,6 +36,7 @@ function classify(line){
  return"unspecified";
 }
 // FUNKTIO-OSIO ALKAA: experienceSignals.
+// TOIMINTO-OSIO PÄÄTTYY: classify. Seuraava osio alkaa seuraavasta toiminnosta tai tiedoston päättymisestä.
 function experienceSignals(text){
  const out=[],range=/(\d+)\s*(?:-|–|to)\s*(\d+)\s*(?:years?|yrs?|vuotta|vuoden)/i,single=/(\d+)\s*\+?\s*(?:years?|yrs?|vuotta|vuoden)/i;
  const levels=[["entry",/\b(intern|internship|graduate|entry[- ]level|junior|trainee)\b|harjoittelija/i],["mid",/\b(mid[- ]level|intermediate|regular)\b|keskitaso/i],["senior",/\b(senior|lead|principal|staff engineer|head of)\b|seniori|johtava/i]];
@@ -43,6 +46,7 @@ function experienceSignals(text){
  }return out;
 }
 // FUNKTIO-OSIO ALKAA: analyse.
+// TOIMINTO-OSIO PÄÄTTYY: experienceSignals. Seuraava osio alkaa seuraavasta toiminnosta tai tiedoston päättymisestä.
 function analyse(){
  const profile=[...new Set(skills.value.split(/[,;\n]/).map(s=>s.trim()).filter(Boolean))],jobLines=lines(title.value+"\n"+ad.value),weights={required:1.5,preferred:1,optional:.75,unspecified:1};
  let earned=0,total=0;const matched=[],missing=[];
@@ -60,8 +64,10 @@ function analyse(){
  results.scrollIntoView({behavior:matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth",block:"start"});
 }
 // FUNKTIO-OSIO ALKAA: updateCount.
+// TOIMINTO-OSIO PÄÄTTYY: analyse. Seuraava osio alkaa seuraavasta toiminnosta tai tiedoston päättymisestä.
 function updateCount(){count.textContent=ad.value.length.toLocaleString(language==="fi"?"fi-FI":"en-US")+" / 12 000"}
 // FUNKTIO-OSIO ALKAA: setLanguage.
+// TOIMINTO-OSIO PÄÄTTYY: updateCount. Seuraava osio alkaa seuraavasta toiminnosta tai tiedoston päättymisestä.
 function setLanguage(next){
  language=next;document.documentElement.lang=next;
  document.querySelectorAll("[data-fi][data-en]").forEach(el=>{const value=el.dataset[next];if(value!==undefined)el.textContent=value});
@@ -78,3 +84,4 @@ $("reset-demo").addEventListener("click",()=>{title.value=initial.title;ad.value
 $("demo-language").addEventListener("click",()=>setLanguage(language==="fi"?"en":"fi"));
 updateCount();
 })();
+// TOIMINTO-OSIO PÄÄTTYY: setLanguage. Seuraava osio alkaa seuraavasta toiminnosta tai tiedoston päättymisestä.
