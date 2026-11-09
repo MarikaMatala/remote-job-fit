@@ -1,8 +1,13 @@
+// KOMMENTOINTIOHJE / CODE MAP
+// Tiedoston tarkoitus: Testit selaindemon osaamisvertailun ja käyttöliittymälogiikan toiminnalle.
+// Rakenne: tuonnit ja asetukset ensin, tyypit ja apufunktiot seuraavaksi, käynnistys ja tapahtumat lopuksi.
+
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import test from "node:test";
 import vm from "node:vm";
 
+// FUNKTIO-OSIO ALKAA: loadDemo.
 function loadDemo(overrides = {}) {
   const elements = new Map();
   function element(id, initial = {}) {
