@@ -1,3 +1,8 @@
+# KOMMENTOINTIOHJE / CODE MAP
+# Tiedoston tarkoitus: Python-rajapinta, jonka kautta selainkäyttöliittymä käyttää Remote Job Fit -toimintoja.
+# Rakenne: tuonnit ja asetukset ensin, tietorakenteet ja apufunktiot seuraavaksi, päätoiminnot lopuksi.
+# FUNKTIOIDEN ALKUKOHDAT on merkitty erikseen, jotta niitä on helpompi etsiä.
+
 """Local HTTP API for the optional TypeScript dashboard.
 
 WORK IN PROGRESS: this API is experimental and intended for localhost only.
@@ -33,6 +38,7 @@ app.add_middleware(
 
 
 @app.middleware("http")
+# FUNKTIO-OSIO ALKAA: restrict_host_header.
 async def restrict_host_header(request: Request, call_next):
     """Reduce DNS-rebinding risk by accepting only local development hosts."""
     host = (request.url.hostname or "").lower()
@@ -45,12 +51,14 @@ async def restrict_host_header(request: Request, call_next):
 
 
 @app.get("/api/health")
+# FUNKTIO-OSIO ALKAA: health.
 def health():
     """Basic readiness endpoint; does not read or reveal local configuration."""
     return {"status": "ok", "service": "remote-job-fit"}
 
 
 @app.get("/api/jobs")
+# FUNKTIO-OSIO ALKAA: get_jobs.
 def get_jobs(limit: int = Query(default=100, ge=1, le=1000)):
     """Return saved job listings without exposing profile or email settings."""
     try:
@@ -74,6 +82,7 @@ def get_jobs(limit: int = Query(default=100, ge=1, le=1000)):
 
 
 @app.post("/api/scan")
+# FUNKTIO-OSIO ALKAA: scan_jobs.
 def scan_jobs(request: Request):
     """Fetch supported public sources, filter and score listings, then save them."""
     # Block cross-origin browser sites from triggering a local scan (CSRF-style
