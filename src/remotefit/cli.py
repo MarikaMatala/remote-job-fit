@@ -52,6 +52,7 @@ def scan(settings):
 
 
 # FUNKTIO-OSIO ALKAA: show_list.
+# FUNKTIO-OSIO PÄÄTTYY: scan. Seuraava osio alkaa seuraavasta funktiosta tai luokasta.
 def show_list(settings):
     connection = connect(settings["database_path"])
     rows = list_jobs(connection)
@@ -70,6 +71,7 @@ def show_list(settings):
 
 
 # FUNKTIO-OSIO ALKAA: export_jobs.
+# FUNKTIO-OSIO PÄÄTTYY: show_list. Seuraava osio alkaa seuraavasta funktiosta tai luokasta.
 def export_jobs(settings, output):
     connection = connect(settings["database_path"])
     rows = list_jobs(connection, limit=10000)
@@ -84,6 +86,7 @@ def export_jobs(settings, output):
 
 
 # FUNKTIO-OSIO ALKAA: digest.
+# FUNKTIO-OSIO PÄÄTTYY: export_jobs. Seuraava osio alkaa seuraavasta funktiosta tai luokasta.
 def digest(settings):
     connection = connect(settings["database_path"])
     rows = list_unsent_jobs(connection, limit=25)
@@ -105,6 +108,7 @@ def digest(settings):
 
 
 # FUNKTIO-OSIO ALKAA: main.
+# FUNKTIO-OSIO PÄÄTTYY: digest. Seuraava osio alkaa seuraavasta funktiosta tai luokasta.
 def main():
     parser = argparse.ArgumentParser(prog="remotefit", description="Discover and analyse worldwide-remote jobs.")
     subparsers = parser.add_subparsers(dest="command", required=True)
@@ -130,3 +134,5 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+# FUNKTIO-OSIO PÄÄTTYY: main. Seuraava osio alkaa seuraavasta funktiosta tai luokasta.
