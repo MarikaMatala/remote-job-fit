@@ -33,12 +33,14 @@ def _mapping(value, label):
 
 
 # FUNKTIO-OSIO ALKAA: _read_yaml.
+# FUNKTIO-OSIO PÄÄTTYY: _mapping. Seuraava osio alkaa seuraavasta funktiosta tai luokasta.
 def _read_yaml(path, label):
     with path.open("r", encoding="utf-8") as handle:
         return _mapping(yaml.safe_load(handle), label)
 
 
 # FUNKTIO-OSIO ALKAA: load_settings.
+# FUNKTIO-OSIO PÄÄTTYY: _read_yaml. Seuraava osio alkaa seuraavasta funktiosta tai luokasta.
 def load_settings(project_root: Path | None = None):
     """Load settings from a project directory (defaults to this checkout).
 
@@ -84,3 +86,5 @@ def load_settings(project_root: Path | None = None):
             "use_tls": os.getenv("SMTP_USE_TLS", "true").lower() == "true",
         },
     }
+
+# FUNKTIO-OSIO PÄÄTTYY: load_settings. Seuraava osio alkaa seuraavasta funktiosta tai luokasta.
