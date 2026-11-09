@@ -107,10 +107,22 @@ def fetch_remotive(url):
     return results
 
 
-def fetch_remoteok(url):
-    """Map Remote OK's array feed, whose first item is feed metadata."""
+def fetch_remoteok(url, notice_callback=None):
+    """Map Remote OK's feed and surface its current first-item legal notice."""
     payload = _get_json(url)
-    items = _records(payload[1:]) if isinstance(payload, list) and payload else []
+    if not isinstance(payload, list) or not payload or not isinstance(payload[0], dict):
+        raise ValueError("Remote OK feed is missing its legal notice metadata.")
+    metadata = payload[0]
+    legal = metadata.get("legal")
+    if not isinstance(legal, str) or not legal.strip():
+        raise ValueError("Remote OK feed has no usable legal notice.")
+    notice = {
+        "legal": legal.strip(),
+        "last_updated": metadata.get("last_updated"),
+    }
+    if notice_callback:
+        notice_callback("Remote OK", notice)
+    items = _records(payload[1:])
     fetched_at = _timestamp()
     results = []
     for item in items:
@@ -136,8 +148,8 @@ def fetch_remoteok(url):
     return results
 
 
-def fetch_all(source_config):
-    """Fetch enabled known providers and return safe, non-sensitive warnings."""
+def fetch_all(source_config, notice_callback=None):
+    """Fetch enabled providers and expose provider notices without logging secrets."""
     collected = []
     errors = []
     adapters = {"remotive": fetch_remotive, "remoteok": fetch_remoteok}
@@ -151,7 +163,10 @@ def fetch_all(source_config):
             url = settings.get("url")
             if not isinstance(url, str) or not url.strip():
                 raise ValueError("Missing source URL")
-            collected.extend(adapter(url))
+            if name == "remoteok":
+                collected.extend(adapter(url, notice_callback=notice_callback))
+            else:
+                collected.extend(adapter(url))
         except (httpx.HTTPError, ValueError, KeyError, TypeError) as exc:
             # Do not include exception text: a custom URL may contain a token.
             errors.append(f"{name}: {type(exc).__name__}")

@@ -11,13 +11,20 @@ from pathlib import Path
 
 from .analysis import is_worldwide_remote, score_job
 from .config import load_settings
-from .db import connect, list_jobs, save_jobs
+from .db import (
+    connect, list_jobs, list_unsent_jobs, mark_jobs_sent,
+    save_jobs, save_source_notice,
+)
 from .emailer import send_digest
 from .sources import fetch_all
 
 
 def scan(settings):
-    jobs, errors = fetch_all(settings["sources"])
+    notices = []
+    jobs, errors = fetch_all(
+        settings["sources"],
+        notice_callback=lambda source, notice: notices.append((source, notice)),
+    )
     accepted = []
     for job in jobs:
         if not is_worldwide_remote(job, settings["filters"].get("reject_restrictions", [])):
@@ -26,7 +33,12 @@ def scan(settings):
         accepted.append(job)
     connection = connect(settings["database_path"])
     inserted = save_jobs(connection, accepted)
+    for source, notice in notices:
+        save_source_notice(connection, source, notice)
     connection.close()
+    for source, notice in notices:
+        print(f"{source} API notice (last_updated: {notice.get('last_updated', 'not supplied')}):")
+        print(notice["legal"])
     print(f"Fetched {len(jobs)} listings; {len(accepted)} passed the worldwide-remote filter.")
     print(f"Saved {inserted} new listings. Existing listings are not duplicated.")
     for error in errors:
@@ -65,14 +77,22 @@ def export_jobs(settings, output):
 
 def digest(settings):
     connection = connect(settings["database_path"])
-    rows = list_jobs(connection, limit=25)
-    connection.close()
+    rows = list_unsent_jobs(connection, limit=25)
+    if not rows:
+        connection.close()
+        print("No new saved listings to email. Previously sent listings were skipped.")
+        return
     jobs = [dict(row) for row in rows]
     for job in jobs:
         import json
         job["analysis"] = json.loads(job.get("analysis_json") or "{}")
-    send_digest(settings["smtp"], jobs)
-    print(f"Email digest sent with {len(jobs)} saved listings.")
+    # Mark as sent only after SMTP confirms successful message delivery.
+    try:
+        send_digest(settings["smtp"], jobs)
+        mark_jobs_sent(connection, [job["id"] for job in jobs])
+    finally:
+        connection.close()
+    print(f"Email digest sent with {len(jobs)} new listings.")
 
 
 def main():
