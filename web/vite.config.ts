@@ -1,3 +1,7 @@
+// KOMMENTOINTIOHJE / CODE MAP
+// Tiedoston tarkoitus: Vite-kehityspalvelimen ja tuotantokoontiversion asetukset.
+// Rakenne: tuonnit ja asetukset ensin, tyypit ja apufunktiot seuraavaksi, käynnistys ja tapahtumat lopuksi.
+
 import { defineConfig } from "vite";
 
 export default defineConfig({
