@@ -16,7 +16,8 @@ An interactive browser-only preview is available at **[Remote Job Fit Demo](http
 
 ## Features
 
-- Fetches job listings from supported public sources (Remotive and Remote OK).
+- Fetches job listings from supported public sources (Remotive and Remote OK), with a six-hour minimum interval for Remotive requests.
+- Identifies each provider and links back to the original listing in dashboard, CLI, CSV and email outputs.
 - Filters for roles advertised as worldwide / work-from-anywhere remote. Treats ambiguous location policies cautiously.
 - Compares job descriptions with skills from a local, private profile.
 - Shows a transparent **skill-match score (0–10)**, matched skills, missing skills, and evidence coverage.
