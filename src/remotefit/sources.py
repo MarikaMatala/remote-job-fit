@@ -9,6 +9,7 @@ import hashlib
 import os
 from pathlib import Path
 import time
+from urllib.parse import urlsplit
 
 import httpx
 
@@ -23,7 +24,9 @@ def _remotive_rate_limit_path(url):
         "REMOTE_JOB_FIT_CACHE_DIR",
         Path.home() / ".cache" / "remote-job-fit",
     )).expanduser()
-    digest = hashlib.sha256(url.encode("utf-8")).hexdigest()
+    parsed = urlsplit(url)
+    endpoint = f"{parsed.netloc.lower()}{parsed.path}"
+    digest = hashlib.sha256(endpoint.encode("utf-8")).hexdigest()
     return cache_root / f"remotive-request-{digest}.txt"
 
 
