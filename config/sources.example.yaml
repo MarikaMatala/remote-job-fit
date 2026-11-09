@@ -1,7 +1,7 @@
-# KOMMENTOINTIOHJE / CODE MAP
-# Tiedoston tarkoitus: Esimerkkiasetukset työnhakupalveluiden ja muiden työpaikkalähteiden määrittelylle.
-# Rakenne: yleiset asetukset ensin; jokainen seuraava avain tai työvaihe määrittää oman asetuskokonaisuutensa.
-# Muuta arvoja harkiten ja säilytä YAML-sisennys.
+# CODE MAP / COMMENTING GUIDE
+# File purpose: Esimerkkiasetukset työnhakupalveluiden ja muiden työpaikkalähteiden määrittelylle.
+# Structure: general settings first; each following key or workflow step defines its own configuration group.
+# Edit values carefully and preserve YAML indentation.
 
 # JOB SOURCE AND LOCATION FILTER SETTINGS
 # WORK IN PROGRESS: provider integrations and filter behavior may change.
