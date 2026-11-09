@@ -8,7 +8,7 @@ The first version was created to help its author map their own skills and explor
 
 > **Project status: WORK IN PROGRESS — EXPERIMENTAL.** This is an unfinished learning and development experiment. Features, configuration formats, and interfaces may change. Some planned functionality is not implemented yet. Do not use it as a production recruitment, security, or eligibility decision system.
 
-> **CI status:** GitHub Actions runs the Python tests and TypeScript dashboard build on pushes and pull requests. While the project is experimental, both jobs are configured as non-blocking: individual failures remain visible in their job logs, but they do not fail the overall workflow. This keeps development feedback available without generating an overall failed-workflow result for unfinished features. GitHub email delivery is still controlled by each account's notification settings.
+> **CI status:** GitHub Actions runs the Python tests, TypeScript dashboard build, and browser-demo JavaScript syntax check on pushes and pull requests. These checks are blocking: a failure makes the workflow fail. Branch protection is not currently configured, so maintainers should require the checks and pull requests through a GitHub branch protection rule or repository ruleset.
 
 ## Live demo
 
@@ -16,7 +16,7 @@ An interactive browser-only preview is available at **[Remote Job Fit Demo](http
 
 ## Features
 
-- Fetches job listings from supported public sources (Remotive and Remote OK), with a six-hour minimum interval for Remotive requests.
+- Fetches job listings from supported public sources (Remotive and Remote OK), with a six-hour minimum interval for Remotive requests and validation/storage of Remote OK's live API legal notice.
 - Identifies each provider and links back to the original listing in dashboard, CLI, CSV and email outputs.
 - Filters for roles advertised as worldwide / work-from-anywhere remote. Treats ambiguous location policies cautiously.
 - Compares job descriptions with skills from a local, private profile.
@@ -24,7 +24,7 @@ An interactive browser-only preview is available at **[Remote Job Fit Demo](http
 - Extracts explicit experience signals from job adverts, including years of experience, junior/mid/senior wording, and whether experience is described as project, industry, professional, or relevant experience.
 - Records publication date, application deadline (when supplied), and the date the listing was first discovered.
 - Stores discovered jobs in a local SQLite database.
-- Optionally sends an email digest through an SMTP server configured locally.
+- Optionally sends an email digest through a locally configured SMTP server, tracking which listings have already been sent so repeat digests do not resend them.
 - Supports CSV export for further analysis.
 - Includes an optional TypeScript dashboard (Vite) backed by a local Python FastAPI service.
 - Includes editable role-title examples and skill groups spanning software development, web and mobile development, IT support, infrastructure, cloud, cybersecurity, data, UI/UX, graphic design, media production, digital marketing, communications, testing, and project coordination.
@@ -251,7 +251,7 @@ This is an unfinished work-in-progress experiment and early MVP, not a completed
 
 ## Development and test status
 
-The project is being built and tested incrementally. GitHub Actions runs the Python test suite and the TypeScript dashboard build on pushes and pull requests. Both jobs use GitHub Actions' job-level `continue-on-error` setting while the project is experimental. Individual failed steps remain visible in the workflow logs, but a failure in either job does not fail the overall workflow. This is intended to keep development feedback available without generating an overall failed-workflow result for unfinished features. Actual email delivery is controlled by GitHub account notification settings; this repository cannot change those personal settings.
+The project is being built and tested incrementally. GitHub Actions runs the Python test suite, TypeScript dashboard build, and browser-demo JavaScript syntax check on pushes and pull requests. These checks are blocking and fail the workflow when a check fails. Branch protection is not currently configured; requiring pull requests and successful checks before merging is recommended. GitHub Actions workflow notifications remain subject to each account's notification settings.
 
 The optional email digest is a separate feature. It sends a message only when the user explicitly runs the `remotefit digest` command and has configured local SMTP settings. GitHub Actions test results do not trigger that digest.
 
