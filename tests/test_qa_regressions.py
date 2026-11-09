@@ -31,6 +31,7 @@ def test_worldwide_filter_rejects_common_country_and_time_zone_restrictions():
 
 
 # TESTIOSIO ALKAA: test_worldwide_filter_keeps_unrestricted_structured_worldwide_role.
+# FUNKTIO-OSIO PÄÄTTYY: test_worldwide_filter_rejects_common_country_and_time_zone_restrictions. Seuraava osio alkaa seuraavasta määrittelystä tai tiedoston lopusta.
 def test_worldwide_filter_keeps_unrestricted_structured_worldwide_role():
     assert is_worldwide_remote({
         "location": "Worldwide",
@@ -39,6 +40,7 @@ def test_worldwide_filter_keeps_unrestricted_structured_worldwide_role():
 
 
 # TESTIOSIO ALKAA: test_api_scan_persists_and_returns_provider_notice.
+# FUNKTIO-OSIO PÄÄTTYY: test_worldwide_filter_keeps_unrestricted_structured_worldwide_role. Seuraava osio alkaa seuraavasta määrittelystä tai tiedoston lopusta.
 def test_api_scan_persists_and_returns_provider_notice(monkeypatch):
     notice = {"legal": "Credit Remote OK and link to the original listing.", "last_updated": "2026-11-09"}
     saved_notices = []
@@ -75,6 +77,7 @@ def test_api_scan_persists_and_returns_provider_notice(monkeypatch):
 
 
 # TESTIOSIO ALKAA: test_email_digest_uses_first_seen_timestamp.
+# FUNKTIO-OSIO PÄÄTTYY: test_api_scan_persists_and_returns_provider_notice. Seuraava osio alkaa seuraavasta määrittelystä tai tiedoston lopusta.
 def test_email_digest_uses_first_seen_timestamp(monkeypatch):
     sent = {}
     class FakeSMTP:
@@ -103,6 +106,7 @@ def test_email_digest_uses_first_seen_timestamp(monkeypatch):
 
 
 # TESTIOSIO ALKAA: test_cli_digest_reports_unsent_saved_listings.
+# FUNKTIO-OSIO PÄÄTTYY: test_email_digest_uses_first_seen_timestamp. Seuraava osio alkaa seuraavasta määrittelystä tai tiedoston lopusta.
 def test_cli_digest_reports_unsent_saved_listings(monkeypatch, capsys):
     class Connection:
         def close(self):
@@ -111,3 +115,5 @@ def test_cli_digest_reports_unsent_saved_listings(monkeypatch, capsys):
     monkeypatch.setattr(cli, "list_unsent_jobs", lambda *_args, **_kwargs: [])
     cli.digest({"database_path": ":memory:"})
     assert "No unsent saved listings to email." in capsys.readouterr().out
+
+# FUNKTIO-OSIO PÄÄTTYY: test_cli_digest_reports_unsent_saved_listings. Seuraava osio alkaa seuraavasta määrittelystä tai tiedoston lopusta.
