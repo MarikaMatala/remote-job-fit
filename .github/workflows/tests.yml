@@ -18,7 +18,7 @@ jobs:
           python-version: "3.11"
       - name: Install project and test dependencies
         run: |
-          python -m pip install --upgrade pip
+          python -m pip install --upgrade pip setuptools pytest
           pip install -e ".[dev]"
       - name: Run tests
         run: pytest
