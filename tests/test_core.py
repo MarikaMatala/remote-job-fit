@@ -65,7 +65,8 @@ def test_remotive_adapter_skips_invalid_rows_and_normalizes_tags(monkeypatch, tm
 
 def test_remoteok_adapter_skips_feed_metadata_and_malformed_rows(monkeypatch):
     monkeypatch.setattr(sources, "_get_json", lambda _url: [
-        {"legal": "feed metadata"},
+        {"legal": "Please link back to Remote OK and mention Remote OK as a source.",
+         "last_updated": 1794000000},
         {"slug": "python-role", "position": "Python Developer", "tags": ["Python"]},
         {"id": 99, "position": "No stable URL", "tags": None},
         "not a record",
@@ -78,6 +79,31 @@ def test_remoteok_adapter_skips_feed_metadata_and_malformed_rows(monkeypatch):
     assert jobs[0]["company"] == ""
     assert jobs[0]["tags"] == ["Python"]
     assert jobs[1]["tags"] == []
+
+
+def test_remoteok_notice_is_returned_to_callback(monkeypatch):
+    monkeypatch.setattr(sources, "_get_json", lambda _url: [
+        {"legal": "Credit Remote OK and link to each original listing.",
+         "last_updated": 1794000000},
+    ])
+    notices = []
+    assert sources.fetch_remoteok(
+        "https://feed.example/jobs",
+        notice_callback=lambda source, notice: notices.append((source, notice)),
+    ) == []
+    assert notices == [("Remote OK", {
+        "legal": "Credit Remote OK and link to each original listing.",
+        "last_updated": 1794000000,
+    })]
+
+
+def test_remoteok_rejects_missing_legal_notice(monkeypatch):
+    monkeypatch.setattr(sources, "_get_json", lambda _url: [
+        {"last_updated": 1794000000},
+        {"id": 1, "position": "Python Developer"},
+    ])
+    with pytest.raises(ValueError, match="no usable legal notice"):
+        sources.fetch_remoteok("https://feed.example/jobs")
 
 
 def test_fetch_all_redacts_sensitive_source_urls_from_warnings(monkeypatch, tmp_path):
@@ -133,3 +159,25 @@ def test_remotive_enforces_six_hour_request_interval(monkeypatch, tmp_path):
     with pytest.raises(ValueError, match="rate-limited"):
         sources.fetch_remotive("https://feed.example/jobs")
     assert calls == ["https://feed.example/jobs"]
+
+
+
+def test_digest_sent_tracking_skips_already_sent_jobs(tmp_path):
+    from remotefit.db import list_unsent_jobs, mark_jobs_sent
+
+    connection = connect(tmp_path / "digest.sqlite3")
+    try:
+        jobs = [
+            {"source": "Remote OK", "source_id": f"job-{n}",
+             "title": f"Developer {n}", "analysis": {"score": 7}}
+            for n in range(1, 4)
+        ]
+        assert save_jobs(connection, jobs) == 3
+        unsent = list_unsent_jobs(connection)
+        assert len(unsent) == 3
+        assert mark_jobs_sent(connection, [unsent[0]["id"], unsent[1]["id"]]) == 2
+        remaining = list_unsent_jobs(connection)
+        assert len(remaining) == 1
+        assert remaining[0]["title"] == unsent[2]["title"]
+    finally:
+        connection.close()
