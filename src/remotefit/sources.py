@@ -1,3 +1,8 @@
+# KOMMENTOINTIOHJE / CODE MAP
+# Tiedoston tarkoitus: Työpaikkalähteiden määrittely, hakeminen ja lähdetietojen käsittely.
+# Rakenne: tuonnit ja asetukset ensin, tietorakenteet ja apufunktiot seuraavaksi, päätoiminnot lopuksi.
+# FUNKTIOIDEN ALKUKOHDAT on merkitty erikseen, jotta niitä on helpompi etsiä.
+
 """Adapters for documented public job-listing endpoints.
 
 Provider payloads are external input: validate their shape, skip malformed rows,
@@ -19,6 +24,7 @@ USER_AGENT = "RemoteJobFit/0.2 (open-source job discovery tool)"
 REMOTIVE_MIN_INTERVAL_SECONDS = 6 * 60 * 60
 
 
+# FUNKTIO-OSIO ALKAA: _remotive_rate_limit_path.
 def _remotive_rate_limit_path(url):
     cache_root = Path(os.environ.get(
         "REMOTE_JOB_FIT_CACHE_DIR",
@@ -30,6 +36,7 @@ def _remotive_rate_limit_path(url):
     return cache_root / f"remotive-request-{digest}.txt"
 
 
+# FUNKTIO-OSIO ALKAA: _get_remotive_json.
 def _get_remotive_json(url):
     marker = _remotive_rate_limit_path(url)
     now = time.time()
@@ -52,6 +59,7 @@ def _get_remotive_json(url):
     return payload
 
 
+# FUNKTIO-OSIO ALKAA: _get_json.
 def _get_json(url):
     """Fetch one JSON response with a bounded timeout and a descriptive UA."""
     response = httpx.get(url, headers={"User-Agent": USER_AGENT}, timeout=20)
@@ -59,6 +67,7 @@ def _get_json(url):
     return response.json()
 
 
+# FUNKTIO-OSIO ALKAA: _records.
 def _records(value):
     """Return only mapping-like records from an untrusted provider payload."""
     if not isinstance(value, list):
@@ -66,6 +75,7 @@ def _records(value):
     return [item for item in value if isinstance(item, dict)]
 
 
+# FUNKTIO-OSIO ALKAA: _tags.
 def _tags(value):
     """Normalize provider tags to a list of non-empty strings."""
     if not isinstance(value, list):
@@ -73,10 +83,12 @@ def _tags(value):
     return [str(tag).strip() for tag in value if tag is not None and str(tag).strip()]
 
 
+# FUNKTIO-OSIO ALKAA: _timestamp.
 def _timestamp():
     return datetime.now(timezone.utc).isoformat()
 
 
+# FUNKTIO-OSIO ALKAA: fetch_remotive.
 def fetch_remotive(url):
     """Map Remotive's public feed into the application's common job shape."""
     payload = _get_remotive_json(url)
@@ -107,6 +119,7 @@ def fetch_remotive(url):
     return results
 
 
+# FUNKTIO-OSIO ALKAA: fetch_remoteok.
 def fetch_remoteok(url, notice_callback=None):
     """Map Remote OK's feed and surface its current first-item legal notice."""
     payload = _get_json(url)
@@ -148,6 +161,7 @@ def fetch_remoteok(url, notice_callback=None):
     return results
 
 
+# FUNKTIO-OSIO ALKAA: fetch_all.
 def fetch_all(source_config, notice_callback=None):
     """Fetch enabled providers and expose provider notices without logging secrets."""
     collected = []
