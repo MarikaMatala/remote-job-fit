@@ -1,8 +1,3 @@
-# KOMMENTOINTIOHJE / CODE MAP
-# Tiedoston tarkoitus: Sovelluksen asetusten lukeminen, oletusarvot ja konfiguraation validointi.
-# Rakenne: tuonnit ja asetukset ensin, tietorakenteet ja apufunktiot seuraavaksi, päätoiminnot lopuksi.
-# FUNKTIOIDEN ALKUKOHDAT on merkitty erikseen, jotta niitä on helpompi etsiä.
-
 """Load private, machine-local settings without depending on the shell's cwd.
 
 User-editable values belong in:
@@ -12,6 +7,11 @@ User-editable values belong in:
 
 Only example templates are committed. Never hard-code credentials or personal data.
 """
+
+# KOMMENTOINTIOHJE / CODE MAP
+# Tiedoston tarkoitus: Sovelluksen asetusten lukeminen, oletusarvot ja konfiguraation validointi.
+# Rakenne: tuonnit ja asetukset ensin, tietorakenteet ja apufunktiot seuraavaksi, päätoiminnot lopuksi.
+# FUNKTIOIDEN ALKUKOHDAT on merkitty erikseen, jotta niitä on helpompi etsiä.
 
 from pathlib import Path
 import os
