@@ -1,3 +1,8 @@
+# KOMMENTOINTIOHJE / CODE MAP
+# Tiedoston tarkoitus: Testit lähteiden, attribuution ja alkuperätietojen oikeellisuudelle.
+# Rakenne: testien valmistelut ja apufunktiot ensin, yksittäiset testitapaukset seuraavaksi.
+# Jokainen testifunktio on oma tarkistuskokonaisuutensa.
+
 import csv
 
 from remotefit.cli import export_jobs, show_list
@@ -20,6 +25,7 @@ def _saved_job(connection):
     }])
 
 
+# TESTIOSIO ALKAA: test_cli_list_and_csv_include_source_and_original_url.
 def test_cli_list_and_csv_include_source_and_original_url(tmp_path, capsys):
     database = tmp_path / "jobs.sqlite3"
     connection = connect(database)
@@ -40,6 +46,7 @@ def test_cli_list_and_csv_include_source_and_original_url(tmp_path, capsys):
     assert row["url"] == "https://remoteok.com/remote-jobs/example-1"
 
 
+# TESTIOSIO ALKAA: test_email_digest_includes_source_and_original_listing.
 def test_email_digest_includes_source_and_original_listing(monkeypatch):
     captured = {}
 
