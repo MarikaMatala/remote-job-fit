@@ -45,6 +45,7 @@ function escapeHtml(value: unknown): string {
 }
 
 // FUNKTIO-OSIO ALKAA: safeExternalUrl.
+// TOIMINTO-OSIO PÄÄTTYY: escapeHtml. Seuraava osio alkaa seuraavasta toiminnosta tai tiedoston päättymisestä.
 function safeExternalUrl(value: unknown): string {
   try {
     const parsed = new URL(String(value ?? ""));
@@ -55,6 +56,7 @@ function safeExternalUrl(value: unknown): string {
 }
 
 // FUNKTIO-OSIO ALKAA: renderJobs.
+// TOIMINTO-OSIO PÄÄTTYY: safeExternalUrl. Seuraava osio alkaa seuraavasta toiminnosta tai tiedoston päättymisestä.
 function renderJobs(jobs: Job[]): void {
   jobCount.textContent = `${jobs.length} ${jobs.length === 1 ? "job" : "jobs"}`;
   if (!jobs.length) {
@@ -84,6 +86,7 @@ function renderJobs(jobs: Job[]): void {
 }
 
 // FUNKTIO-OSIO ALKAA: loadJobs.
+// TOIMINTO-OSIO PÄÄTTYY: renderJobs. Seuraava osio alkaa seuraavasta toiminnosta tai tiedoston päättymisestä.
 async function loadJobs(): Promise<void> {
   try {
     const response = await fetch("/api/jobs");
@@ -128,3 +131,5 @@ scanButton.addEventListener("click", async () => {
 });
 
 void loadJobs();
+
+// TOIMINTO-OSIO PÄÄTTYY: loadJobs. Seuraava osio alkaa seuraavasta toiminnosta tai tiedoston päättymisestä.
