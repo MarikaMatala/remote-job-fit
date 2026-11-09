@@ -1,14 +1,14 @@
-# KOMMENTOINTIOHJE / CODE MAP
-# Tiedoston tarkoitus: Sähköpostiviestien muodostaminen ja lähettämisen hallinta.
-# Rakenne: tuonnit ja asetukset ensin, tietorakenteet ja apufunktiot seuraavaksi, päätoiminnot lopuksi.
-# FUNKTIOIDEN ALKUKOHDAT on merkitty erikseen, jotta niitä on helpompi etsiä.
-
 """Optional SMTP email digest delivery.
 
 WORK IN PROGRESS: configure your own SMTP host, username, app password,
 sender, and recipient in the ignored local .env file. Never hard-code them
 here or commit them. Do not use this module to send credentials in email.
 """
+
+# KOMMENTOINTIOHJE / CODE MAP
+# Tiedoston tarkoitus: Sähköpostiviestien muodostaminen ja lähettämisen hallinta.
+# Rakenne: tuonnit ja asetukset ensin, tietorakenteet ja apufunktiot seuraavaksi, päätoiminnot lopuksi.
+# FUNKTIOIDEN ALKUKOHDAT on merkitty erikseen, jotta niitä on helpompi etsiä.
 
 import smtplib
 from email.message import EmailMessage
