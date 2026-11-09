@@ -270,6 +270,3 @@ The MIT License in [LICENSE](LICENSE) applies only to the original project code 
 Job listings are fetched from external providers and should be used only in accordance with the provider's current terms. Attribution and links to original listings do not by themselves grant permission to republish, redistribute, or commercially reuse listing content. The project does not claim ownership of third-party data. Remove externally sourced content if a provider's terms or rights holder requires it.
 
 
-### CV and LinkedIn input in the browser demo
-
-The browser demo can extract known skill keywords from pasted CV/LinkedIn profile text or a local .txt/.md file. PDF and Word CV text can be copied into the local text field. A LinkedIn URL is accepted only as a reference: the demo does not scrape or automatically fetch LinkedIn profile data. Extracted skills are added to the editable skills field for review. CV text is processed locally in the browser tab and is not uploaded or stored.
