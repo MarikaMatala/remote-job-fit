@@ -1,3 +1,8 @@
+# KOMMENTOINTIOHJE / CODE MAP
+# Tiedoston tarkoitus: Työpaikkailmoituksen analysointi, osaamisvaatimusten tunnistus ja profiilin vertailu.
+# Rakenne: tuonnit ja asetukset ensin, tietorakenteet ja apufunktiot seuraavaksi, päätoiminnot lopuksi.
+# FUNKTIOIDEN ALKUKOHDAT on merkitty erikseen, jotta niitä on helpompi etsiä.
+
 """Transparent, evidence-based job filtering and profile matching.
 
 The match score is a heuristic fit indicator, not a hiring probability.
@@ -63,6 +68,7 @@ _BUILTIN_RESTRICTIONS = (
     r"\b(?:overlap|aligned) with (?:the )?(?:[a-z]{2,4}|utc|gmt)[+-]?\d{0,2}\b",
 )
 
+# FUNKTIO-OSIO ALKAA: is_worldwide_remote.
 def is_worldwide_remote(job, reject_restrictions=None):
     """Conservatively filter worldwide roles; this is not a legal parser.
 
@@ -97,11 +103,13 @@ def is_worldwide_remote(job, reject_restrictions=None):
     )
 
 
+# FUNKTIO-OSIO ALKAA: _normalise_match_text.
 def _normalise_match_text(value):
     """Normalize Unicode and case for consistent Finnish/English matching."""
     return unicodedata.normalize("NFKC", str(value)).casefold()
 
 
+# FUNKTIO-OSIO ALKAA: _keyword_pattern.
 def _keyword_pattern(keyword):
     """Match a complete Unicode word/phrase, not a substring of another word."""
     normalized = _normalise_match_text(keyword).strip()
@@ -110,6 +118,7 @@ def _keyword_pattern(keyword):
     return r"(?<!\w)" + re.escape(normalized) + r"(?!\w)"
 
 
+# FUNKTIO-OSIO ALKAA: _requirement_type.
 def _requirement_type(context):
     """Classify requirement language close to a matched skill mention."""
     if _OPTIONAL_RE.search(context):
@@ -121,6 +130,7 @@ def _requirement_type(context):
     return "unspecified"
 
 
+# FUNKTIO-OSIO ALKAA: _required_level.
 def _required_level(context):
     """Infer a conservative 1–5 level only from explicit nearby wording."""
     years = _YEARS_RE.search(context)
@@ -136,11 +146,13 @@ def _required_level(context):
     return None
 
 
+# FUNKTIO-OSIO ALKAA: _find_keyword.
 def _find_keyword(text, keyword):
     pattern = _keyword_pattern(keyword)
     return re.search(pattern, text) if pattern else None
 
 
+# FUNKTIO-OSIO ALKAA: _local_context.
 def _local_context(text, start, end):
     """Keep requirement cues within the sentence containing the skill mention."""
     boundaries = ".!?;" + chr(10)
@@ -173,6 +185,7 @@ _EXPERIENCE_SCOPE_PATTERNS = {
 }
 
 
+# FUNKTIO-OSIO ALKAA: analyze_experience_requirements.
 def analyze_experience_requirements(job):
     """Extract explicit experience and seniority signals without guessing eligibility."""
     description = " ".join(str(job.get(key, "")) for key in (
@@ -228,6 +241,7 @@ def analyze_experience_requirements(job):
     }
 
 
+# FUNKTIO-OSIO ALKAA: score_job.
 def score_job(profile, job):
     """Return a 0–10 weighted skill-match score and auditable evidence.
 
@@ -358,6 +372,7 @@ def score_job(profile, job):
     }
 
 
+# FUNKTIO-OSIO ALKAA: applicant_baseline.
 def applicant_baseline(applicant_count, openings=1):
     """Return a descriptive applicant/opening ratio, never a hiring probability."""
     if not isinstance(applicant_count, int) or applicant_count < 0:
