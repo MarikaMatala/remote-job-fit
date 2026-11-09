@@ -7,7 +7,8 @@ and never include a configured URL in error messages (it may contain a token).
 # CODE MAP / COMMENTING GUIDE
 # File purpose: Defines job sources, fetches listings, and processes source data.
 # Structure: imports and settings first, followed by data structures and helper functions, with main operations last.
-# Function start points are marked separately to make them easier to find.
+# Navigation map: provider rate limiting -> safe JSON requests -> payload normalization -> source-specific fetchers.
+# Editing tip: add a new provider as a separate fetch function and validate its external payload before saving any records.
 
 from datetime import datetime, timezone
 import hashlib
