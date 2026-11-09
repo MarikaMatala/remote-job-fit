@@ -1,6 +1,12 @@
+# KOMMENTOINTIOHJE / CODE MAP
+# Tiedoston tarkoitus: Testit koosteiden ja aiempien hakutulosten historian käsittelylle.
+# Rakenne: testien valmistelut ja apufunktiot ensin, yksittäiset testitapaukset seuraavaksi.
+# Jokainen testifunktio on oma tarkistuskokonaisuutensa.
+
 import pytest
 
 
+# TESTIOSIO ALKAA: test_cli_digest_sends_only_unsent_jobs_and_marks_after_success.
 def test_cli_digest_sends_only_unsent_jobs_and_marks_after_success(tmp_path, monkeypatch, capsys):
     from remotefit import cli
     from remotefit.db import connect, save_jobs
@@ -25,6 +31,7 @@ def test_cli_digest_sends_only_unsent_jobs_and_marks_after_success(tmp_path, mon
     assert "No unsent saved listings" in capsys.readouterr().out
 
 
+# TESTIOSIO ALKAA: test_cli_digest_does_not_mark_jobs_when_smtp_fails.
 def test_cli_digest_does_not_mark_jobs_when_smtp_fails(tmp_path, monkeypatch):
     from remotefit import cli
     from remotefit.db import connect, list_unsent_jobs, save_jobs
