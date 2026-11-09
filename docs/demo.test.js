@@ -96,3 +96,5 @@ test("language toggle updates the document language", () => {
   element("demo-language").listeners.click();
   assert.equal(document.documentElement.lang, "en");
 });
+
+// TOIMINTO-OSIO PÄÄTTYY: loadDemo. Seuraava osio alkaa seuraavasta toiminnosta tai tiedoston päättymisestä.
