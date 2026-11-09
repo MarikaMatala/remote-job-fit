@@ -4,10 +4,10 @@ Provider payloads are external input: validate their shape, skip malformed rows,
 and never include a configured URL in error messages (it may contain a token).
 """
 
-# KOMMENTOINTIOHJE / CODE MAP
-# Tiedoston tarkoitus: Työpaikkalähteiden määrittely, hakeminen ja lähdetietojen käsittely.
-# Rakenne: tuonnit ja asetukset ensin, tietorakenteet ja apufunktiot seuraavaksi, päätoiminnot lopuksi.
-# FUNKTIOIDEN ALKUKOHDAT on merkitty erikseen, jotta niitä on helpompi etsiä.
+# CODE MAP / COMMENTING GUIDE
+# File purpose: Defines job sources, fetches listings, and processes source data.
+# Structure: imports and settings first, followed by data structures and helper functions, with main operations last.
+# Function start points are marked separately to make them easier to find.
 
 from datetime import datetime, timezone
 import hashlib
@@ -24,7 +24,7 @@ USER_AGENT = "RemoteJobFit/0.2 (open-source job discovery tool)"
 REMOTIVE_MIN_INTERVAL_SECONDS = 6 * 60 * 60
 
 
-# FUNKTIO-OSIO ALKAA: _remotive_rate_limit_path.
+# FUNCTION SECTION START: _remotive_rate_limit_path.
 def _remotive_rate_limit_path(url):
     cache_root = Path(os.environ.get(
         "REMOTE_JOB_FIT_CACHE_DIR",
@@ -36,8 +36,8 @@ def _remotive_rate_limit_path(url):
     return cache_root / f"remotive-request-{digest}.txt"
 
 
-# FUNKTIO-OSIO ALKAA: _get_remotive_json.
-# FUNKTIO-OSIO PÄÄTTYY: _remotive_rate_limit_path. Seuraava osio alkaa seuraavasta funktiosta tai luokasta.
+# FUNCTION SECTION START: _get_remotive_json.
+# FUNCTION SECTION END: _remotive_rate_limit_path. The next section starts at the next function or class.
 def _get_remotive_json(url):
     marker = _remotive_rate_limit_path(url)
     now = time.time()
@@ -60,8 +60,8 @@ def _get_remotive_json(url):
     return payload
 
 
-# FUNKTIO-OSIO ALKAA: _get_json.
-# FUNKTIO-OSIO PÄÄTTYY: _get_remotive_json. Seuraava osio alkaa seuraavasta funktiosta tai luokasta.
+# FUNCTION SECTION START: _get_json.
+# FUNCTION SECTION END: _get_remotive_json. The next section starts at the next function or class.
 def _get_json(url):
     """Fetch one JSON response with a bounded timeout and a descriptive UA."""
     response = httpx.get(url, headers={"User-Agent": USER_AGENT}, timeout=20)
@@ -69,8 +69,8 @@ def _get_json(url):
     return response.json()
 
 
-# FUNKTIO-OSIO ALKAA: _records.
-# FUNKTIO-OSIO PÄÄTTYY: _get_json. Seuraava osio alkaa seuraavasta funktiosta tai luokasta.
+# FUNCTION SECTION START: _records.
+# FUNCTION SECTION END: _get_json. The next section starts at the next function or class.
 def _records(value):
     """Return only mapping-like records from an untrusted provider payload."""
     if not isinstance(value, list):
@@ -78,8 +78,8 @@ def _records(value):
     return [item for item in value if isinstance(item, dict)]
 
 
-# FUNKTIO-OSIO ALKAA: _tags.
-# FUNKTIO-OSIO PÄÄTTYY: _records. Seuraava osio alkaa seuraavasta funktiosta tai luokasta.
+# FUNCTION SECTION START: _tags.
+# FUNCTION SECTION END: _records. The next section starts at the next function or class.
 def _tags(value):
     """Normalize provider tags to a list of non-empty strings."""
     if not isinstance(value, list):
@@ -87,14 +87,14 @@ def _tags(value):
     return [str(tag).strip() for tag in value if tag is not None and str(tag).strip()]
 
 
-# FUNKTIO-OSIO ALKAA: _timestamp.
-# FUNKTIO-OSIO PÄÄTTYY: _tags. Seuraava osio alkaa seuraavasta funktiosta tai luokasta.
+# FUNCTION SECTION START: _timestamp.
+# FUNCTION SECTION END: _tags. The next section starts at the next function or class.
 def _timestamp():
     return datetime.now(timezone.utc).isoformat()
 
 
-# FUNKTIO-OSIO ALKAA: fetch_remotive.
-# FUNKTIO-OSIO PÄÄTTYY: _timestamp. Seuraava osio alkaa seuraavasta funktiosta tai luokasta.
+# FUNCTION SECTION START: fetch_remotive.
+# FUNCTION SECTION END: _timestamp. The next section starts at the next function or class.
 def fetch_remotive(url):
     """Map Remotive's public feed into the application's common job shape."""
     payload = _get_remotive_json(url)
@@ -125,8 +125,8 @@ def fetch_remotive(url):
     return results
 
 
-# FUNKTIO-OSIO ALKAA: fetch_remoteok.
-# FUNKTIO-OSIO PÄÄTTYY: fetch_remotive. Seuraava osio alkaa seuraavasta funktiosta tai luokasta.
+# FUNCTION SECTION START: fetch_remoteok.
+# FUNCTION SECTION END: fetch_remotive. The next section starts at the next function or class.
 def fetch_remoteok(url, notice_callback=None):
     """Map Remote OK's feed and surface its current first-item legal notice."""
     payload = _get_json(url)
@@ -168,8 +168,8 @@ def fetch_remoteok(url, notice_callback=None):
     return results
 
 
-# FUNKTIO-OSIO ALKAA: fetch_all.
-# FUNKTIO-OSIO PÄÄTTYY: fetch_remoteok. Seuraava osio alkaa seuraavasta funktiosta tai luokasta.
+# FUNCTION SECTION START: fetch_all.
+# FUNCTION SECTION END: fetch_remoteok. The next section starts at the next function or class.
 def fetch_all(source_config, notice_callback=None):
     """Fetch enabled providers and expose provider notices without logging secrets."""
     collected = []
@@ -194,4 +194,4 @@ def fetch_all(source_config, notice_callback=None):
             errors.append(f"{name}: {type(exc).__name__}")
     return collected, errors
 
-# FUNKTIO-OSIO PÄÄTTYY: fetch_all. Seuraava osio alkaa seuraavasta funktiosta tai luokasta.
+# FUNCTION SECTION END: fetch_all. The next section starts at the next function or class.
