@@ -1,3 +1,7 @@
+// KOMMENTOINTIOHJE / CODE MAP
+// Tiedoston tarkoitus: TypeScript-dashboardin käynnistys: käyttöliittymän alustaminen ja Python-rajapintaan liittyvät tapahtumat.
+// Rakenne: tuonnit ja asetukset ensin, tyypit ja apufunktiot seuraavaksi, käynnistys ja tapahtumat lopuksi.
+
 // WORK IN PROGRESS: this browser dashboard is experimental.
 // Do not add personal profile data, API keys, access tokens, SMTP credentials,
 // private API endpoints, or account details to frontend files. Browser code is
@@ -28,6 +32,7 @@ const scanButton = document.querySelector<HTMLButtonElement>("#scan-button")!;
 const jobList = document.querySelector<HTMLDivElement>("#job-list")!;
 const jobCount = document.querySelector<HTMLSpanElement>("#job-count")!;
 
+// FUNKTIO-OSIO ALKAA: escapeHtml.
 function escapeHtml(value: unknown): string {
   const entities: Record<string, string> = {
     "&": "&amp;",
@@ -39,6 +44,7 @@ function escapeHtml(value: unknown): string {
   return String(value ?? "").replace(/[&<>"']/g, (character) => entities[character] ?? character);
 }
 
+// FUNKTIO-OSIO ALKAA: safeExternalUrl.
 function safeExternalUrl(value: unknown): string {
   try {
     const parsed = new URL(String(value ?? ""));
@@ -48,6 +54,7 @@ function safeExternalUrl(value: unknown): string {
   }
 }
 
+// FUNKTIO-OSIO ALKAA: renderJobs.
 function renderJobs(jobs: Job[]): void {
   jobCount.textContent = `${jobs.length} ${jobs.length === 1 ? "job" : "jobs"}`;
   if (!jobs.length) {
@@ -76,6 +83,7 @@ function renderJobs(jobs: Job[]): void {
   }).join("");
 }
 
+// FUNKTIO-OSIO ALKAA: loadJobs.
 async function loadJobs(): Promise<void> {
   try {
     const response = await fetch("/api/jobs");
