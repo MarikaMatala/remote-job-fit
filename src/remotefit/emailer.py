@@ -1,3 +1,8 @@
+# KOMMENTOINTIOHJE / CODE MAP
+# Tiedoston tarkoitus: Sähköpostiviestien muodostaminen ja lähettämisen hallinta.
+# Rakenne: tuonnit ja asetukset ensin, tietorakenteet ja apufunktiot seuraavaksi, päätoiminnot lopuksi.
+# FUNKTIOIDEN ALKUKOHDAT on merkitty erikseen, jotta niitä on helpompi etsiä.
+
 """Optional SMTP email digest delivery.
 
 WORK IN PROGRESS: configure your own SMTP host, username, app password,
@@ -9,6 +14,7 @@ import smtplib
 from email.message import EmailMessage
 
 
+# FUNKTIO-OSIO ALKAA: send_digest.
 def send_digest(settings, jobs):
     required = ("host", "username", "password", "from", "to")
     missing = [key for key in required if not settings.get(key)]
