@@ -6,7 +6,9 @@ Do not commit database files or insert passwords, API keys, or account secrets.
 """
 
 # CODE MAP / COMMENTING GUIDE
-# File purpose: Tietokantayhteydet, tietojen tallennus ja tietokantakyselyt.
+# File purpose: SQLite database connections, job storage, and database queries.
+# Navigation map: database connection and schema -> save jobs -> list jobs -> source notices -> email delivery state.
+# Editing tip: update SQL schema and its related read/write functions together; never commit local database files.
 # Structure: imports and settings first, followed by data structures and helper functions, with main operations last.
 # Function start points are marked separately to make them easier to find.
 
