@@ -1,6 +1,6 @@
-# KOMMENTOINTIOHJE / CODE MAP
-# Tiedoston tarkoitus: Sovelluksen ydintoimintojen ja peruslogiikan testit.
-# Rakenne: testien valmistelut ja apufunktiot ensin, yksittäiset testitapaukset seuraavaksi.
+# CODE MAP / COMMENTING GUIDE
+# File purpose: Sovelluksen ydintoimintojen ja peruslogiikan testit.
+# Structure: test setup and helper functions first, followed by individual test cases.
 # Jokainen testifunktio on oma tarkistuskokonaisuutensa.
 
 import httpx
@@ -10,7 +10,7 @@ from remotefit import config, sources
 from remotefit.db import connect, list_jobs, save_jobs
 
 
-# TESTIOSIO ALKAA: test_settings_load_from_project_root_not_current_directory.
+# TEST SECTION START: test_settings_load_from_project_root_not_current_directory.
 def test_settings_load_from_project_root_not_current_directory(tmp_path, monkeypatch):
     project = tmp_path / "project"
     config_dir = project / "config"
@@ -37,8 +37,8 @@ def test_settings_load_from_project_root_not_current_directory(tmp_path, monkeyp
     assert settings["smtp"]["port"] == 465
 
 
-# TESTIOSIO ALKAA: test_settings_reject_non_mapping_yaml_sections.
-# FUNKTIO-OSIO PÄÄTTYY: test_settings_load_from_project_root_not_current_directory. Seuraava osio alkaa seuraavasta määrittelystä tai tiedoston lopusta.
+# TEST SECTION START: test_settings_reject_non_mapping_yaml_sections.
+# FUNCTION SECTION END: test_settings_load_from_project_root_not_current_directory. The next section starts at the next definition or at the end of the file.
 def test_settings_reject_non_mapping_yaml_sections(tmp_path):
     config_dir = tmp_path / "config"
     config_dir.mkdir(parents=True)
@@ -49,8 +49,8 @@ def test_settings_reject_non_mapping_yaml_sections(tmp_path):
         config.load_settings(tmp_path)
 
 
-# TESTIOSIO ALKAA: test_remotive_adapter_skips_invalid_rows_and_normalizes_tags.
-# FUNKTIO-OSIO PÄÄTTYY: test_settings_reject_non_mapping_yaml_sections. Seuraava osio alkaa seuraavasta määrittelystä tai tiedoston lopusta.
+# TEST SECTION START: test_remotive_adapter_skips_invalid_rows_and_normalizes_tags.
+# FUNCTION SECTION END: test_settings_reject_non_mapping_yaml_sections. The next section starts at the next definition or at the end of the file.
 def test_remotive_adapter_skips_invalid_rows_and_normalizes_tags(monkeypatch, tmp_path):
     monkeypatch.setenv("REMOTE_JOB_FIT_CACHE_DIR", str(tmp_path))
     monkeypatch.setattr(sources, "_get_json", lambda _url: {
@@ -73,8 +73,8 @@ def test_remotive_adapter_skips_invalid_rows_and_normalizes_tags(monkeypatch, tm
     assert jobs[0]["fetched_at"].endswith("+00:00")
 
 
-# TESTIOSIO ALKAA: test_remoteok_adapter_skips_feed_metadata_and_malformed_rows.
-# FUNKTIO-OSIO PÄÄTTYY: test_remotive_adapter_skips_invalid_rows_and_normalizes_tags. Seuraava osio alkaa seuraavasta määrittelystä tai tiedoston lopusta.
+# TEST SECTION START: test_remoteok_adapter_skips_feed_metadata_and_malformed_rows.
+# FUNCTION SECTION END: test_remotive_adapter_skips_invalid_rows_and_normalizes_tags. The next section starts at the next definition or at the end of the file.
 def test_remoteok_adapter_skips_feed_metadata_and_malformed_rows(monkeypatch):
     monkeypatch.setattr(sources, "_get_json", lambda _url: [
         {"legal": "Please link back to Remote OK and mention Remote OK as a source.",
@@ -93,8 +93,8 @@ def test_remoteok_adapter_skips_feed_metadata_and_malformed_rows(monkeypatch):
     assert jobs[1]["tags"] == []
 
 
-# TESTIOSIO ALKAA: test_remoteok_notice_is_returned_to_callback.
-# FUNKTIO-OSIO PÄÄTTYY: test_remoteok_adapter_skips_feed_metadata_and_malformed_rows. Seuraava osio alkaa seuraavasta määrittelystä tai tiedoston lopusta.
+# TEST SECTION START: test_remoteok_notice_is_returned_to_callback.
+# FUNCTION SECTION END: test_remoteok_adapter_skips_feed_metadata_and_malformed_rows. The next section starts at the next definition or at the end of the file.
 def test_remoteok_notice_is_returned_to_callback(monkeypatch):
     monkeypatch.setattr(sources, "_get_json", lambda _url: [
         {"legal": "Credit Remote OK and link to each original listing.",
@@ -111,8 +111,8 @@ def test_remoteok_notice_is_returned_to_callback(monkeypatch):
     })]
 
 
-# TESTIOSIO ALKAA: test_remoteok_rejects_missing_legal_notice.
-# FUNKTIO-OSIO PÄÄTTYY: test_remoteok_notice_is_returned_to_callback. Seuraava osio alkaa seuraavasta määrittelystä tai tiedoston lopusta.
+# TEST SECTION START: test_remoteok_rejects_missing_legal_notice.
+# FUNCTION SECTION END: test_remoteok_notice_is_returned_to_callback. The next section starts at the next definition or at the end of the file.
 def test_remoteok_rejects_missing_legal_notice(monkeypatch):
     monkeypatch.setattr(sources, "_get_json", lambda _url: [
         {"last_updated": 1794000000},
@@ -122,8 +122,8 @@ def test_remoteok_rejects_missing_legal_notice(monkeypatch):
         sources.fetch_remoteok("https://feed.example/jobs")
 
 
-# TESTIOSIO ALKAA: test_fetch_all_redacts_sensitive_source_urls_from_warnings.
-# FUNKTIO-OSIO PÄÄTTYY: test_remoteok_rejects_missing_legal_notice. Seuraava osio alkaa seuraavasta määrittelystä tai tiedoston lopusta.
+# TEST SECTION START: test_fetch_all_redacts_sensitive_source_urls_from_warnings.
+# FUNCTION SECTION END: test_remoteok_rejects_missing_legal_notice. The next section starts at the next definition or at the end of the file.
 def test_fetch_all_redacts_sensitive_source_urls_from_warnings(monkeypatch, tmp_path):
     monkeypatch.setenv("REMOTE_JOB_FIT_CACHE_DIR", str(tmp_path))
     secret_url = "https://feed.example/jobs?token=do-not-leak"
@@ -143,8 +143,8 @@ def test_fetch_all_redacts_sensitive_source_urls_from_warnings(monkeypatch, tmp_
     assert "do-not-leak" not in " ".join(errors)
 
 
-# TESTIOSIO ALKAA: test_database_ignores_duplicate_provider_records.
-# FUNKTIO-OSIO PÄÄTTYY: test_fetch_all_redacts_sensitive_source_urls_from_warnings. Seuraava osio alkaa seuraavasta määrittelystä tai tiedoston lopusta.
+# TEST SECTION START: test_database_ignores_duplicate_provider_records.
+# FUNCTION SECTION END: test_fetch_all_redacts_sensitive_source_urls_from_warnings. The next section starts at the next definition or at the end of the file.
 def test_database_ignores_duplicate_provider_records(tmp_path):
     connection = connect(tmp_path / "jobs.sqlite3")
     job = {
@@ -170,8 +170,8 @@ def test_database_ignores_duplicate_provider_records(tmp_path):
 
 
 
-# TESTIOSIO ALKAA: test_remotive_enforces_six_hour_request_interval.
-# FUNKTIO-OSIO PÄÄTTYY: test_database_ignores_duplicate_provider_records. Seuraava osio alkaa seuraavasta määrittelystä tai tiedoston lopusta.
+# TEST SECTION START: test_remotive_enforces_six_hour_request_interval.
+# FUNCTION SECTION END: test_database_ignores_duplicate_provider_records. The next section starts at the next definition or at the end of the file.
 def test_remotive_enforces_six_hour_request_interval(monkeypatch, tmp_path):
     monkeypatch.setenv("REMOTE_JOB_FIT_CACHE_DIR", str(tmp_path))
     calls = []
@@ -184,8 +184,8 @@ def test_remotive_enforces_six_hour_request_interval(monkeypatch, tmp_path):
 
 
 
-# TESTIOSIO ALKAA: test_digest_sent_tracking_skips_already_sent_jobs.
-# FUNKTIO-OSIO PÄÄTTYY: test_remotive_enforces_six_hour_request_interval. Seuraava osio alkaa seuraavasta määrittelystä tai tiedoston lopusta.
+# TEST SECTION START: test_digest_sent_tracking_skips_already_sent_jobs.
+# FUNCTION SECTION END: test_remotive_enforces_six_hour_request_interval. The next section starts at the next definition or at the end of the file.
 def test_digest_sent_tracking_skips_already_sent_jobs(tmp_path):
     from remotefit.db import list_unsent_jobs, mark_jobs_sent
 
@@ -206,4 +206,4 @@ def test_digest_sent_tracking_skips_already_sent_jobs(tmp_path):
     finally:
         connection.close()
 
-# FUNKTIO-OSIO PÄÄTTYY: test_digest_sent_tracking_skips_already_sent_jobs. Seuraava osio alkaa seuraavasta määrittelystä tai tiedoston lopusta.
+# FUNCTION SECTION END: test_digest_sent_tracking_skips_already_sent_jobs. The next section starts at the next definition or at the end of the file.
