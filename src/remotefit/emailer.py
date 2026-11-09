@@ -28,7 +28,7 @@ def send_digest(settings, jobs):
             f"Match score: {job.get('analysis', {}).get('score', 'N/A')}/10",
             f"Published: {job.get('published_at') or 'Not provided'}",
             f"Deadline: {job.get('deadline') or 'Not provided'}",
-            f"First seen: {job.get('fetched_at') or 'Not recorded'}",
+            f"First seen: {job.get('first_seen_at') or 'Not recorded'}",
             f"Original listing: {job.get('url', '')}",
             "",
         ])
