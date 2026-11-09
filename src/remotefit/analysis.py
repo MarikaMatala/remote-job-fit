@@ -68,7 +68,7 @@ _BUILTIN_RESTRICTIONS = (
     r"\b(?:overlap|aligned) with (?:the )?(?:[a-z]{2,4}|utc|gmt)[+-]?\d{0,2}\b",
 )
 
-# FUNKTIO-OSIO ALKAA: is_worldwide_remote.
+# Tarkistaa, onko työpaikka aidosti maailmanlaajuisesti etätyötä vai rajoittaako ilmoitus sijaintia tai työskentelymaata.
 def is_worldwide_remote(job, reject_restrictions=None):
     """Conservatively filter worldwide roles; this is not a legal parser.
 
@@ -103,14 +103,14 @@ def is_worldwide_remote(job, reject_restrictions=None):
     )
 
 
-# FUNKTIO-OSIO ALKAA: _normalise_match_text.
+# Yhtenäistää tekstin hakua varten, jotta kirjainkoko ja välimerkit eivät estä avainsanan tunnistamista.
 # FUNKTIO-OSIO PÄÄTTYY: is_worldwide_remote. Seuraava osio alkaa seuraavasta funktiosta tai luokasta.
 def _normalise_match_text(value):
     """Normalize Unicode and case for consistent Finnish/English matching."""
     return unicodedata.normalize("NFKC", str(value)).casefold()
 
 
-# FUNKTIO-OSIO ALKAA: _keyword_pattern.
+# Rakentaa avainsanalle hakukuvion, joka tunnistaa kokonaiset termit eikä vahingossa niiden osia.
 # FUNKTIO-OSIO PÄÄTTYY: _normalise_match_text. Seuraava osio alkaa seuraavasta funktiosta tai luokasta.
 def _keyword_pattern(keyword):
     """Match a complete Unicode word/phrase, not a substring of another word."""
@@ -120,7 +120,7 @@ def _keyword_pattern(keyword):
     return r"(?<!\w)" + re.escape(normalized) + r"(?!\w)"
 
 
-# FUNKTIO-OSIO ALKAA: _requirement_type.
+# Tunnistaa ilmoituksen tekstiyhteydestä, onko kyse pakollisesta vai toivotusta osaamisvaatimuksesta.
 # FUNKTIO-OSIO PÄÄTTYY: _keyword_pattern. Seuraava osio alkaa seuraavasta funktiosta tai luokasta.
 def _requirement_type(context):
     """Classify requirement language close to a matched skill mention."""
@@ -133,7 +133,7 @@ def _requirement_type(context):
     return "unspecified"
 
 
-# FUNKTIO-OSIO ALKAA: _required_level.
+# Arvioi tekstiyhteydestä vaaditun osaamistason tai kokemuksen vaativuuden.
 # FUNKTIO-OSIO PÄÄTTYY: _requirement_type. Seuraava osio alkaa seuraavasta funktiosta tai luokasta.
 def _required_level(context):
     """Infer a conservative 1–5 level only from explicit nearby wording."""
@@ -150,14 +150,14 @@ def _required_level(context):
     return None
 
 
-# FUNKTIO-OSIO ALKAA: _find_keyword.
+# Etsii avainsanan tekstistä ja palauttaa osuman sijainnin, jos termi löytyy.
 # FUNKTIO-OSIO PÄÄTTYY: _required_level. Seuraava osio alkaa seuraavasta funktiosta tai luokasta.
 def _find_keyword(text, keyword):
     pattern = _keyword_pattern(keyword)
     return re.search(pattern, text) if pattern else None
 
 
-# FUNKTIO-OSIO ALKAA: _local_context.
+# Poimii avainsanan ympäriltä rajatun tekstikatkelman, jotta vaatimusta voidaan tulkita asiayhteydessä.
 # FUNKTIO-OSIO PÄÄTTYY: _find_keyword. Seuraava osio alkaa seuraavasta funktiosta tai luokasta.
 def _local_context(text, start, end):
     """Keep requirement cues within the sentence containing the skill mention."""
@@ -191,7 +191,7 @@ _EXPERIENCE_SCOPE_PATTERNS = {
 }
 
 
-# FUNKTIO-OSIO ALKAA: analyze_experience_requirements.
+# Tunnistaa työpaikkailmoituksesta kokemukseen, senioriteettiin ja osaamisvaatimuksiin liittyviä tekstivihjeitä.
 # FUNKTIO-OSIO PÄÄTTYY: _local_context. Seuraava osio alkaa seuraavasta funktiosta tai luokasta.
 def analyze_experience_requirements(job):
     """Extract explicit experience and seniority signals without guessing eligibility."""
@@ -248,7 +248,7 @@ def analyze_experience_requirements(job):
     }
 
 
-# FUNKTIO-OSIO ALKAA: score_job.
+# Vertaa käyttäjän osaamisprofiilia työpaikkailmoitukseen ja muodostaa läpinäkyvän, sääntöpohjaisen sopivuuspisteytyksen.
 # FUNKTIO-OSIO PÄÄTTYY: analyze_experience_requirements. Seuraava osio alkaa seuraavasta funktiosta tai luokasta.
 def score_job(profile, job):
     """Return a 0–10 weighted skill-match score and auditable evidence.
@@ -380,7 +380,7 @@ def score_job(profile, job):
     }
 
 
-# FUNKTIO-OSIO ALKAA: applicant_baseline.
+# Laskee hakijamäärän ja avoimien paikkojen perusteella karkean vertailutason; tulos ei ole arvio työllistymisen todennäköisyydestä.
 # FUNKTIO-OSIO PÄÄTTYY: score_job. Seuraava osio alkaa seuraavasta funktiosta tai luokasta.
 def applicant_baseline(applicant_count, openings=1):
     """Return a descriptive applicant/opening ratio, never a hiring probability."""
