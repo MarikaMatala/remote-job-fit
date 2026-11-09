@@ -1,5 +1,5 @@
 # CODE MAP / COMMENTING GUIDE
-# File purpose: Testit lähteiden, attribuution ja alkuperätietojen oikeellisuudelle.
+# File purpose: Tests for source attribution and the correctness of origin metadata.
 # Structure: test setup and helper functions first, followed by individual test cases.
 # Jokainen testifunktio on oma tarkistuskokonaisuutensa.
 
