@@ -1,3 +1,7 @@
+// KOMMENTOINTIOHJE / CODE MAP
+// Tiedoston tarkoitus: Remote Job Fit -selaindemon vanha JavaScript-toteutus.
+// Rakenne: tuonnit ja asetukset ensin, tyypit ja apufunktiot seuraavaksi, käynnistys ja tapahtumat lopuksi.
+
 (() => {
 "use strict";
 const $=id=>document.getElementById(id);
@@ -13,12 +17,15 @@ let language="fi",lastAnalysis=null;
 const esc=s=>String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const norm=s=>String(s).normalize("NFKC").toLocaleLowerCase("fi-FI");
 const matchText=s=>norm(s).replace(/[^\p{L}\p{N}]+/gu," ").trim().replace(/\s+/g," ");
+// FUNKTIO-OSIO ALKAA: containsSkill.
 function containsSkill(text,skill){
  const haystack=" "+matchText(text)+" ",needle=" "+matchText(skill)+" ";
  return needle.trim().length>0 && haystack.includes(needle);
 }
 const lines=s=>s.split(/(?<=[.!?;])\s+|[\r\n]+/).map(x=>x.trim()).filter(Boolean);
-const t=(fi,en)=>language==="fi"?fi:en;
+// TOIMINTO ALKAA: t.
+const t = (fi,en)=>language==="fi"?fi:en;
+// FUNKTIO-OSIO ALKAA: classify.
 function classify(line){
  const s=norm(line);
  if(/\b(optional|not required|would be helpful|familiarity with)\b/.test(s))return"optional";
@@ -26,6 +33,7 @@ function classify(line){
  if(/\b(required|requirement|essential|mandatory|we require|must have|proficient in)\b|vaaditaan|edellytetään|pakollinen|vähintään/.test(s))return"required";
  return"unspecified";
 }
+// FUNKTIO-OSIO ALKAA: experienceSignals.
 function experienceSignals(text){
  const out=[],range=/(\d+)\s*(?:-|–|to)\s*(\d+)\s*(?:years?|yrs?|vuotta|vuoden)/i,single=/(\d+)\s*\+?\s*(?:years?|yrs?|vuotta|vuoden)/i;
  const levels=[["entry",/\b(intern|internship|graduate|entry[- ]level|junior|trainee)\b|harjoittelija/i],["mid",/\b(mid[- ]level|intermediate|regular)\b|keskitaso/i],["senior",/\b(senior|lead|principal|staff engineer|head of)\b|seniori|johtava/i]];
@@ -34,6 +42,7 @@ function experienceSignals(text){
   out.push({years:r?r[1]+"–"+r[2]+" "+t("vuotta","years"):n?n[1]+(/\d+\s*\+/.test(line)?"+ ":" ")+t("vuotta","years"):"",level:level?level[0]:"",scope,evidence:line});
  }return out;
 }
+// FUNKTIO-OSIO ALKAA: analyse.
 function analyse(){
  const profile=[...new Set(skills.value.split(/[,;\n]/).map(s=>s.trim()).filter(Boolean))],jobLines=lines(title.value+"\n"+ad.value),weights={required:1.5,preferred:1,optional:.75,unspecified:1};
  let earned=0,total=0;const matched=[],missing=[];
@@ -50,7 +59,9 @@ function analyse(){
  results.innerHTML='<div class="result-head"><div><p class="eyebrow">'+t("ANALYYSI VALMIS","ANALYSIS COMPLETE")+'</p><h2>'+esc(title.value||t("Työpaikkailmoitus","Job advert"))+'</h2><p class="summary">'+matched.length+" / "+profile.length+" "+t("profiilin osaamista tunnistettiin ilmoituksesta.","profile skills recognised in the advert.")+'</p></div><div class="score"><strong>'+pct+'%</strong><small>'+t("DEMO-OSUMA","DEMO MATCH")+'</small></div></div><div class="meter" role="img" aria-label="'+pct+'%"><span style="width:'+pct+'%"></span></div><p class="hint">'+t("Suuntaa antava avainsanavertailu — ei arvio todellisesta soveltuvuudesta.","Indicative keyword comparison — not an assessment of real-world suitability.")+'</p><div class="columns"><article class="card"><h3>✓ '+t("Tunnistetut osaamiset","Matched skills")+' ('+matched.length+')</h3><div class="chips">'+chips(matched)+'</div></article><article class="card"><h3>＋ '+t("Profiilista puuttuvat","Not in profile")+' ('+missing.length+')</h3><div class="chips">'+chips(missing,true)+'</div></article></div><article class="card"><h3>'+t("Kokemus- ja senioriteettivihjeet","Experience and seniority signals")+' ('+exp.length+')</h3>'+expHtml+'</article>';
  results.scrollIntoView({behavior:matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth",block:"start"});
 }
+// FUNKTIO-OSIO ALKAA: updateCount.
 function updateCount(){count.textContent=ad.value.length.toLocaleString(language==="fi"?"fi-FI":"en-US")+" / 12 000"}
+// FUNKTIO-OSIO ALKAA: setLanguage.
 function setLanguage(next){
  language=next;document.documentElement.lang=next;
  document.querySelectorAll("[data-fi][data-en]").forEach(el=>{const value=el.dataset[next];if(value!==undefined)el.textContent=value});
