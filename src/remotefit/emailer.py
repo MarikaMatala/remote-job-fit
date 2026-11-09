@@ -44,3 +44,5 @@ def send_digest(settings, jobs):
             server.starttls()
         server.login(settings["username"], settings["password"])
         server.send_message(message)
+
+# FUNKTIO-OSIO PÄÄTTYY: send_digest. Seuraava osio alkaa seuraavasta funktiosta tai luokasta.
