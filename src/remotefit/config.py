@@ -8,10 +8,10 @@ User-editable values belong in:
 Only example templates are committed. Never hard-code credentials or personal data.
 """
 
-# KOMMENTOINTIOHJE / CODE MAP
-# Tiedoston tarkoitus: Sovelluksen asetusten lukeminen, oletusarvot ja konfiguraation validointi.
-# Rakenne: tuonnit ja asetukset ensin, tietorakenteet ja apufunktiot seuraavaksi, päätoiminnot lopuksi.
-# FUNKTIOIDEN ALKUKOHDAT on merkitty erikseen, jotta niitä on helpompi etsiä.
+# CODE MAP / COMMENTING GUIDE
+# File purpose: Sovelluksen asetusten lukeminen, oletusarvot ja konfiguraation validointi.
+# Structure: imports and settings first, followed by data structures and helper functions, with main operations last.
+# Function start points are marked separately to make them easier to find.
 
 from pathlib import Path
 import os
@@ -22,7 +22,7 @@ from dotenv import load_dotenv
 ROOT = Path(__file__).resolve().parents[2]
 
 
-# FUNKTIO-OSIO ALKAA: _mapping.
+# FUNCTION SECTION START: _mapping.
 def _mapping(value, label):
     """Require a YAML mapping while treating an empty document as defaults."""
     if value is None:
@@ -32,15 +32,15 @@ def _mapping(value, label):
     return value
 
 
-# FUNKTIO-OSIO ALKAA: _read_yaml.
-# FUNKTIO-OSIO PÄÄTTYY: _mapping. Seuraava osio alkaa seuraavasta funktiosta tai luokasta.
+# FUNCTION SECTION START: _read_yaml.
+# FUNCTION SECTION END: _mapping. The next section starts at the next function or class.
 def _read_yaml(path, label):
     with path.open("r", encoding="utf-8") as handle:
         return _mapping(yaml.safe_load(handle), label)
 
 
-# FUNKTIO-OSIO ALKAA: load_settings.
-# FUNKTIO-OSIO PÄÄTTYY: _read_yaml. Seuraava osio alkaa seuraavasta funktiosta tai luokasta.
+# FUNCTION SECTION START: load_settings.
+# FUNCTION SECTION END: _read_yaml. The next section starts at the next function or class.
 def load_settings(project_root: Path | None = None):
     """Load settings from a project directory (defaults to this checkout).
 
@@ -87,4 +87,4 @@ def load_settings(project_root: Path | None = None):
         },
     }
 
-# FUNKTIO-OSIO PÄÄTTYY: load_settings. Seuraava osio alkaa seuraavasta funktiosta tai luokasta.
+# FUNCTION SECTION END: load_settings. The next section starts at the next function or class.
