@@ -32,7 +32,7 @@ def send_digest(settings, jobs):
             f"Original listing: {job.get('url', '')}",
             "",
         ])
-    message.set_content("\n".join(lines) if lines else "No new matching jobs were found.")
+    message.set_content("\n".join(lines) if lines else "No saved matching listings were found.")
     with smtplib.SMTP(settings["host"], settings["port"], timeout=20) as server:
         if settings.get("use_tls", True):
             server.starttls()
