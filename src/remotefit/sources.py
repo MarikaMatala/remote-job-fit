@@ -37,6 +37,7 @@ def _remotive_rate_limit_path(url):
 
 
 # FUNKTIO-OSIO ALKAA: _get_remotive_json.
+# FUNKTIO-OSIO PÄÄTTYY: _remotive_rate_limit_path. Seuraava osio alkaa seuraavasta funktiosta tai luokasta.
 def _get_remotive_json(url):
     marker = _remotive_rate_limit_path(url)
     now = time.time()
@@ -60,6 +61,7 @@ def _get_remotive_json(url):
 
 
 # FUNKTIO-OSIO ALKAA: _get_json.
+# FUNKTIO-OSIO PÄÄTTYY: _get_remotive_json. Seuraava osio alkaa seuraavasta funktiosta tai luokasta.
 def _get_json(url):
     """Fetch one JSON response with a bounded timeout and a descriptive UA."""
     response = httpx.get(url, headers={"User-Agent": USER_AGENT}, timeout=20)
@@ -68,6 +70,7 @@ def _get_json(url):
 
 
 # FUNKTIO-OSIO ALKAA: _records.
+# FUNKTIO-OSIO PÄÄTTYY: _get_json. Seuraava osio alkaa seuraavasta funktiosta tai luokasta.
 def _records(value):
     """Return only mapping-like records from an untrusted provider payload."""
     if not isinstance(value, list):
@@ -76,6 +79,7 @@ def _records(value):
 
 
 # FUNKTIO-OSIO ALKAA: _tags.
+# FUNKTIO-OSIO PÄÄTTYY: _records. Seuraava osio alkaa seuraavasta funktiosta tai luokasta.
 def _tags(value):
     """Normalize provider tags to a list of non-empty strings."""
     if not isinstance(value, list):
@@ -84,11 +88,13 @@ def _tags(value):
 
 
 # FUNKTIO-OSIO ALKAA: _timestamp.
+# FUNKTIO-OSIO PÄÄTTYY: _tags. Seuraava osio alkaa seuraavasta funktiosta tai luokasta.
 def _timestamp():
     return datetime.now(timezone.utc).isoformat()
 
 
 # FUNKTIO-OSIO ALKAA: fetch_remotive.
+# FUNKTIO-OSIO PÄÄTTYY: _timestamp. Seuraava osio alkaa seuraavasta funktiosta tai luokasta.
 def fetch_remotive(url):
     """Map Remotive's public feed into the application's common job shape."""
     payload = _get_remotive_json(url)
@@ -120,6 +126,7 @@ def fetch_remotive(url):
 
 
 # FUNKTIO-OSIO ALKAA: fetch_remoteok.
+# FUNKTIO-OSIO PÄÄTTYY: fetch_remotive. Seuraava osio alkaa seuraavasta funktiosta tai luokasta.
 def fetch_remoteok(url, notice_callback=None):
     """Map Remote OK's feed and surface its current first-item legal notice."""
     payload = _get_json(url)
@@ -162,6 +169,7 @@ def fetch_remoteok(url, notice_callback=None):
 
 
 # FUNKTIO-OSIO ALKAA: fetch_all.
+# FUNKTIO-OSIO PÄÄTTYY: fetch_remoteok. Seuraava osio alkaa seuraavasta funktiosta tai luokasta.
 def fetch_all(source_config, notice_callback=None):
     """Fetch enabled providers and expose provider notices without logging secrets."""
     collected = []
@@ -185,3 +193,5 @@ def fetch_all(source_config, notice_callback=None):
             # Do not include exception text: a custom URL may contain a token.
             errors.append(f"{name}: {type(exc).__name__}")
     return collected, errors
+
+# FUNKTIO-OSIO PÄÄTTYY: fetch_all. Seuraava osio alkaa seuraavasta funktiosta tai luokasta.
