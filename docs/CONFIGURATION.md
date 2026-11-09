@@ -84,7 +84,7 @@ skills:
 ```
 
 - `name`: A short label displayed in match results.
-- `level`: Your own level from 1 to 5. It is informational in the current MVP and does not change the score.
+- `level`: Your own level from 1 to 5. The Python matcher uses this value only when the job advert explicitly states a nearby proficiency level (for example, basic, intermediate, or advanced). If the advert does not state a proficiency level, no level penalty or bonus is applied.
 - `keywords`: Canonical terms used in the current matching feature.
 - `aliases`: Optional mapping from a canonical keyword to alternative spellings, Finnish inflections, abbreviations or equivalent terms. Aliases are treated as alternatives to the canonical keyword, not as additional score items. Matching is case-insensitive and Unicode-normalized, but it does not perform automatic Finnish stemming.
 
@@ -130,7 +130,7 @@ These are generic starting points, not a claim that every contributor knows ever
 
 **API privacy:** add API technologies (such as REST or JSON) as skill keywords if relevant. Never add API keys, bearer tokens, passwords, private endpoint URLs, or real account details to this YAML file. The current public job feeds do not require API keys. If a future integration needs credentials, keep them in a local environment variable and access them only from the Python backend—not from browser code.
 
-**Current behavior:** keywords are compared with the job title, description, tags, and category. A keyword match is not proof of experience or proficiency. Avoid adding very broad words that will match unrelated jobs.
+**Current behavior:** keywords are compared with the job title, description, tags, and category. When an advert explicitly states a proficiency level near a matched skill, the Python scorer compares that cue with your self-rating. A keyword match is not proof of experience or proficiency. Avoid adding very broad words that will match unrelated jobs.
 
 ### experience_keywords
 
@@ -347,3 +347,14 @@ Do not scrape login-protected pages, bypass access controls, or violate a job bo
 The portfolio browser demo can extract a limited set of known skill keywords from pasted CV or LinkedIn profile text, or from a local `.txt` or `.md` file. PDF and Word documents are not parsed directly by this lightweight demo; copy their text into the field instead. Extracted terms are added to the skills field for review and editing. This is keyword extraction, not a complete CV parser: it does not reliably interpret dates, employment history, education levels, seniority, or context.
 
 A LinkedIn profile URL can be entered as a reference, but the demo does not fetch or scrape profile content. LinkedIn access is restricted and a public browser-only page cannot assume authenticated API access. To use LinkedIn information, copy the relevant profile sections yourself and paste the text. No CV text or file is transmitted or persisted by the demo.
+
+
+## Remote OK legal notice and email delivery history
+
+When the Remote OK source is enabled, the adapter reads the first feed object as metadata, validates that it contains the current `legal` notice, and stores that notice and its `last_updated` value in the local SQLite database. Each scan displays the notice in the terminal. The feed is not processed as job data if its legal notice is missing. The notice may change; follow the live wording supplied by Remote OK rather than relying on an old copied excerpt. Each displayed or emailed job retains its original Remote OK listing URL and source name. Do not use the Remote OK logo without written permission.
+
+The email digest sends only listings that have not previously been included in a successfully sent digest, up to 25 per run. Sent job IDs and timestamps are tracked in the local SQLite database. A failed SMTP send does not mark listings as sent, so they remain eligible for the next attempt. Running `remotefit digest` when there are no unsent listings does not send an empty email. Existing databases are upgraded automatically when opened; no manual migration is required.
+
+## CI checks and branch protection
+
+The GitHub Actions workflow runs the Python tests, TypeScript dashboard build, and browser-demo JavaScript syntax check on pushes and pull requests. These jobs are blocking: a failed check makes the workflow fail. The repository's main branch was not protected in the last repository review. To prevent unreviewed direct pushes, configure a GitHub branch protection rule or repository ruleset requiring the `Tests` workflow checks (Python and dashboard jobs) and pull requests before merging. Branch protection could not be changed from this project update.
