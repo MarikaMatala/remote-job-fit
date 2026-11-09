@@ -112,3 +112,5 @@ textarea{resize:vertical}input:focus,textarea:focus{border-color:var(--bronze);o
 }
 /* RESPONSIIVINEN OSIO: mukauttaa käyttöliittymän näyttökoon mukaan. */
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{transition:none!important;animation:none!important}}
+
+/* TIEDOSTON TYYLIOSIO PÄÄTTYY TÄHÄN. */
