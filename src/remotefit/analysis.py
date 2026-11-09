@@ -1,14 +1,14 @@
-# KOMMENTOINTIOHJE / CODE MAP
-# Tiedoston tarkoitus: Työpaikkailmoituksen analysointi, osaamisvaatimusten tunnistus ja profiilin vertailu.
-# Rakenne: tuonnit ja asetukset ensin, tietorakenteet ja apufunktiot seuraavaksi, päätoiminnot lopuksi.
-# FUNKTIOIDEN ALKUKOHDAT on merkitty erikseen, jotta niitä on helpompi etsiä.
-
 """Transparent, evidence-based job filtering and profile matching.
 
 The match score is a heuristic fit indicator, not a hiring probability.
 It uses configured skill keywords, requirement language and explicit
 proficiency cues near matched keywords. It does not infer qualifications.
 """
+
+# KOMMENTOINTIOHJE / CODE MAP
+# Tiedoston tarkoitus: Työpaikkailmoituksen analysointi, osaamisvaatimusten tunnistus ja profiilin vertailu.
+# Rakenne: tuonnit ja asetukset ensin, tietorakenteet ja apufunktiot seuraavaksi, päätoiminnot lopuksi.
+# FUNKTIOIDEN ALKUKOHDAT on merkitty erikseen, jotta niitä on helpompi etsiä.
 
 import re
 import unicodedata
