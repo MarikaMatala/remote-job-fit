@@ -1,8 +1,3 @@
-# KOMMENTOINTIOHJE / CODE MAP
-# Tiedoston tarkoitus: Python-rajapinta, jonka kautta selainkäyttöliittymä käyttää Remote Job Fit -toimintoja.
-# Rakenne: tuonnit ja asetukset ensin, tietorakenteet ja apufunktiot seuraavaksi, päätoiminnot lopuksi.
-# FUNKTIOIDEN ALKUKOHDAT on merkitty erikseen, jotta niitä on helpompi etsiä.
-
 """Local HTTP API for the optional TypeScript dashboard.
 
 WORK IN PROGRESS: this API is experimental and intended for localhost only.
@@ -10,6 +5,12 @@ Keep profile details, SMTP credentials, API keys, and private endpoints out of
 this source file. Add personal settings only to ignored local config/.env files.
 The API never returns profile or SMTP settings to the browser.
 """
+
+# KOMMENTOINTIOHJE / CODE MAP
+# Tiedoston tarkoitus: Python-rajapinta, jonka kautta selainkäyttöliittymä käyttää Remote Job Fit -toimintoja.
+# Rakenne: tuonnit ja asetukset ensin, tietorakenteet ja apufunktiot seuraavaksi, päätoiminnot lopuksi.
+# FUNKTIOIDEN ALKUKOHDAT on merkitty erikseen, jotta niitä on helpompi etsiä.
+
 import json
 
 from fastapi import FastAPI, HTTPException, Query, Request
