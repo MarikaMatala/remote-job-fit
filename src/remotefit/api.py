@@ -6,10 +6,10 @@ this source file. Add personal settings only to ignored local config/.env files.
 The API never returns profile or SMTP settings to the browser.
 """
 
-# KOMMENTOINTIOHJE / CODE MAP
-# Tiedoston tarkoitus: Python-rajapinta, jonka kautta selainkäyttöliittymä käyttää Remote Job Fit -toimintoja.
-# Rakenne: tuonnit ja asetukset ensin, tietorakenteet ja apufunktiot seuraavaksi, päätoiminnot lopuksi.
-# FUNKTIOIDEN ALKUKOHDAT on merkitty erikseen, jotta niitä on helpompi etsiä.
+# CODE MAP / COMMENTING GUIDE
+# File purpose: Python API used by the browser interface to access Remote Job Fit features.
+# Structure: imports and settings first, followed by data structures and helper functions, with main operations last.
+# Function start points are marked separately to make them easier to find.
 
 import json
 
@@ -39,7 +39,7 @@ app.add_middleware(
 
 
 @app.middleware("http")
-# FUNKTIO-OSIO ALKAA: restrict_host_header.
+# FUNCTION SECTION START: restrict_host_header.
 async def restrict_host_header(request: Request, call_next):
     """Reduce DNS-rebinding risk by accepting only local development hosts."""
     host = (request.url.hostname or "").lower()
@@ -52,16 +52,16 @@ async def restrict_host_header(request: Request, call_next):
 
 
 @app.get("/api/health")
-# FUNKTIO-OSIO ALKAA: health.
-# FUNKTIO-OSIO PÄÄTTYY: restrict_host_header. Seuraava osio alkaa seuraavasta funktiosta tai luokasta.
+# FUNCTION SECTION START: health.
+# FUNCTION SECTION END: restrict_host_header. The next section starts at the next function or class.
 def health():
     """Basic readiness endpoint; does not read or reveal local configuration."""
     return {"status": "ok", "service": "remote-job-fit"}
 
 
 @app.get("/api/jobs")
-# FUNKTIO-OSIO ALKAA: get_jobs.
-# FUNKTIO-OSIO PÄÄTTYY: health. Seuraava osio alkaa seuraavasta funktiosta tai luokasta.
+# FUNCTION SECTION START: get_jobs.
+# FUNCTION SECTION END: health. The next section starts at the next function or class.
 def get_jobs(limit: int = Query(default=100, ge=1, le=1000)):
     """Return saved job listings without exposing profile or email settings."""
     try:
@@ -85,8 +85,8 @@ def get_jobs(limit: int = Query(default=100, ge=1, le=1000)):
 
 
 @app.post("/api/scan")
-# FUNKTIO-OSIO ALKAA: scan_jobs.
-# FUNKTIO-OSIO PÄÄTTYY: get_jobs. Seuraava osio alkaa seuraavasta funktiosta tai luokasta.
+# FUNCTION SECTION START: scan_jobs.
+# FUNCTION SECTION END: get_jobs. The next section starts at the next function or class.
 def scan_jobs(request: Request):
     """Fetch supported public sources, filter and score listings, then save them."""
     # Block cross-origin browser sites from triggering a local scan (CSRF-style
@@ -136,4 +136,4 @@ def scan_jobs(request: Request):
     except (FileNotFoundError, RuntimeError, ValueError) as exc:
         raise HTTPException(status_code=400, detail=str(exc)) from exc
 
-# FUNKTIO-OSIO PÄÄTTYY: scan_jobs. Seuraava osio alkaa seuraavasta funktiosta tai luokasta.
+# FUNCTION SECTION END: scan_jobs. The next section starts at the next function or class.
