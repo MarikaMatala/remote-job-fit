@@ -8,17 +8,21 @@ proficiency cues near matched keywords. It does not infer qualifications.
 # CODE MAP / COMMENTING GUIDE
 # File purpose: Job posting analysis, skill requirement detection, and profile matching.
 # Structure: imports and settings first, followed by data structures and helper functions, with main operations last.
-# Function start points are marked separately to make them easier to find.
+# Navigation map: worldwide-remote validation -> text normalization -> keyword matching -> requirement classification -> experience analysis -> match scoring.
+# Editing tip: update keyword dictionaries and regular expressions near the top before changing matching logic below.
+# Function start/end markers identify the boundaries of each processing step.
 
 import re
 import unicodedata
 
+# SECTION 1 START: phrases that indicate a role may be open to applicants worldwide.
 WORLDWIDE_MARKERS = (
     "work from anywhere", "anywhere in the world", "worldwide",
     "global remote", "globally remote", "any location", "open to any location",
     "remote - global", "remote worldwide",
 )
 
+# SECTION 2 START: weighting used when a listing labels requirements as required, preferred, or optional.
 REQUIREMENT_WEIGHTS = {
     "required": 1.5,
     "preferred": 1.0,
@@ -69,6 +73,7 @@ _BUILTIN_RESTRICTIONS = (
 )
 
 # Checks whether a role is genuinely worldwide remote or whether the listing restricts location or eligible work countries.
+# SECTION 3 START: location eligibility and worldwide-remote checks.
 def is_worldwide_remote(job, reject_restrictions=None):
     """Conservatively filter worldwide roles; this is not a legal parser.
 
@@ -105,6 +110,7 @@ def is_worldwide_remote(job, reject_restrictions=None):
 
 # Normalizes text for searching so that letter case and punctuation do not prevent keyword matching.
 # FUNCTION SECTION END: is_worldwide_remote. The next section starts at the next function or class.
+# SECTION 4 START: text cleanup and keyword matching helpers.
 def _normalise_match_text(value):
     """Normalize Unicode and case for consistent Finnish/English matching."""
     return unicodedata.normalize("NFKC", str(value)).casefold()
@@ -193,6 +199,7 @@ _EXPERIENCE_SCOPE_PATTERNS = {
 
 # Detects text signals related to experience, seniority, and skill requirements in a job listing.
 # FUNCTION SECTION END: _local_context. The next section starts at the next function or class.
+# SECTION 5 START: experience and seniority signals from job descriptions.
 def analyze_experience_requirements(job):
     """Extract explicit experience and seniority signals without guessing eligibility."""
     description = " ".join(str(job.get(key, "")) for key in (
@@ -250,6 +257,7 @@ def analyze_experience_requirements(job):
 
 # Compares the user's skills profile with a job listing and calculates a transparent, rule-based match score.
 # FUNCTION SECTION END: analyze_experience_requirements. The next section starts at the next function or class.
+# SECTION 6 START: final profile-to-vacancy matching and transparent score calculation.
 def score_job(profile, job):
     """Return a 0–10 weighted skill-match score and auditable evidence.
 
