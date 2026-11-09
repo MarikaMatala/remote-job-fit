@@ -9,7 +9,8 @@ The API never returns profile or SMTP settings to the browser.
 # CODE MAP / COMMENTING GUIDE
 # File purpose: Python API used by the browser interface to access Remote Job Fit features.
 # Structure: imports and settings first, followed by data structures and helper functions, with main operations last.
-# Function start points are marked separately to make them easier to find.
+# Navigation map: local host validation -> health endpoint -> job listing endpoint -> scan endpoint -> local server startup.
+# Editing tip: keep this API bound to localhost and return only the fields required by the browser dashboard.
 
 import json
 
