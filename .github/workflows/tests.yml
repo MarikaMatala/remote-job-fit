@@ -1,5 +1,5 @@
 # CODE MAP / COMMENTING GUIDE
-# File purpose: GitHub Actions -testityönkulku: asentaa riippuvuudet ja suorittaa automaattiset testit.
+# File purpose: GitHub Actions test workflow: installs dependencies and runs automated tests.
 # Structure: general settings first; each following key or workflow step defines its own configuration group.
 # Edit values carefully and preserve YAML indentation.
 
