@@ -32,6 +32,7 @@ def test_cli_digest_sends_only_unsent_jobs_and_marks_after_success(tmp_path, mon
 
 
 # TESTIOSIO ALKAA: test_cli_digest_does_not_mark_jobs_when_smtp_fails.
+# FUNKTIO-OSIO PÄÄTTYY: test_cli_digest_sends_only_unsent_jobs_and_marks_after_success. Seuraava osio alkaa seuraavasta määrittelystä tai tiedoston lopusta.
 def test_cli_digest_does_not_mark_jobs_when_smtp_fails(tmp_path, monkeypatch):
     from remotefit import cli
     from remotefit.db import connect, list_unsent_jobs, save_jobs
@@ -56,3 +57,5 @@ def test_cli_digest_does_not_mark_jobs_when_smtp_fails(tmp_path, monkeypatch):
         assert len(list_unsent_jobs(connection)) == 1
     finally:
         connection.close()
+
+# FUNKTIO-OSIO PÄÄTTYY: test_cli_digest_does_not_mark_jobs_when_smtp_fails. Seuraava osio alkaa seuraavasta määrittelystä tai tiedoston lopusta.
