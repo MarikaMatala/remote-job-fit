@@ -1,3 +1,8 @@
+# KOMMENTOINTIOHJE / CODE MAP
+# Tiedoston tarkoitus: Komentorivikäyttöliittymä: komentojen ja käyttäjän syötteiden käsittely.
+# Rakenne: tuonnit ja asetukset ensin, tietorakenteet ja apufunktiot seuraavaksi, päätoiminnot lopuksi.
+# FUNKTIOIDEN ALKUKOHDAT on merkitty erikseen, jotta niitä on helpompi etsiä.
+
 """Command-line interface.
 
 WORK IN PROGRESS: configure personal job-search data in the ignored local
@@ -19,6 +24,7 @@ from .emailer import send_digest
 from .sources import fetch_all
 
 
+# FUNKTIO-OSIO ALKAA: scan.
 def scan(settings):
     notices = []
     jobs, errors = fetch_all(
@@ -45,6 +51,7 @@ def scan(settings):
         print(f"Source warning: {error}")
 
 
+# FUNKTIO-OSIO ALKAA: show_list.
 def show_list(settings):
     connection = connect(settings["database_path"])
     rows = list_jobs(connection)
@@ -62,6 +69,7 @@ def show_list(settings):
         )
 
 
+# FUNKTIO-OSIO ALKAA: export_jobs.
 def export_jobs(settings, output):
     connection = connect(settings["database_path"])
     rows = list_jobs(connection, limit=10000)
@@ -75,6 +83,7 @@ def export_jobs(settings, output):
     print(f"Exported {len(rows)} jobs to {output}")
 
 
+# FUNKTIO-OSIO ALKAA: digest.
 def digest(settings):
     connection = connect(settings["database_path"])
     rows = list_unsent_jobs(connection, limit=25)
@@ -95,6 +104,7 @@ def digest(settings):
     print(f"Email digest sent with {len(jobs)} unsent saved listings.")
 
 
+# FUNKTIO-OSIO ALKAA: main.
 def main():
     parser = argparse.ArgumentParser(prog="remotefit", description="Discover and analyse worldwide-remote jobs.")
     subparsers = parser.add_subparsers(dest="command", required=True)
