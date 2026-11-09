@@ -87,9 +87,11 @@ def digest(settings):
         import json
         job["analysis"] = json.loads(job.get("analysis_json") or "{}")
     # Mark as sent only after SMTP confirms successful message delivery.
-    send_digest(settings["smtp"], jobs)
-    mark_jobs_sent(connection, [job["id"] for job in jobs])
-    connection.close()
+    try:
+        send_digest(settings["smtp"], jobs)
+        mark_jobs_sent(connection, [job["id"] for job in jobs])
+    finally:
+        connection.close()
     print(f"Email digest sent with {len(jobs)} new listings.")
 
 
