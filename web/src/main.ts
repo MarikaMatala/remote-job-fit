@@ -1,6 +1,8 @@
 // CODE MAP / COMMENTING GUIDE
 // File purpose: TypeScript dashboard entry point: initializes the interface and handles Python API events.
-// Structure: imports and settings first, followed by types and helper functions, with initialization and event handlers last.
+// Structure: imports and DOM references -> data types -> safe-output helpers -> job rendering -> API loading -> event handlers.
+// Editing tip: if you change an element selector here, update the matching id in web/index.html as well.
+// Keep API credentials and personal profile data in the Python backend, never in browser code.
 
 // WORK IN PROGRESS: this browser dashboard is experimental.
 // Do not add personal profile data, API keys, access tokens, SMTP credentials,
@@ -9,6 +11,7 @@
 // backend environment and expose only the minimum data required by the UI.
 import "./style.css";
 
+// SECTION 1 START: shape of a job record returned by the Python API.
 type Job = {
   id: number;
   title: string;
@@ -32,6 +35,7 @@ const scanButton = document.querySelector<HTMLButtonElement>("#scan-button")!;
 const jobList = document.querySelector<HTMLDivElement>("#job-list")!;
 const jobCount = document.querySelector<HTMLSpanElement>("#job-count")!;
 
+// SECTION 2 START: safe text and URL helpers used when rendering external data.
 // FUNCTION SECTION START: escapeHtml.
 function escapeHtml(value: unknown): string {
   const entities: Record<string, string> = {
@@ -55,6 +59,7 @@ function safeExternalUrl(value: unknown): string {
   }
 }
 
+// SECTION 3 START: build and update the visible job listing cards.
 // FUNCTION SECTION START: renderJobs.
 // FUNCTION SECTION END: safeExternalUrl. The next section starts at the next function or at the end of the file.
 function renderJobs(jobs: Job[]): void {
@@ -85,6 +90,7 @@ function renderJobs(jobs: Job[]): void {
   }).join("");
 }
 
+// SECTION 4 START: retrieve jobs from the local Python API and update the dashboard status.
 // FUNCTION SECTION START: loadJobs.
 // FUNCTION SECTION END: renderJobs. The next section starts at the next function or at the end of the file.
 async function loadJobs(): Promise<void> {
@@ -102,6 +108,7 @@ async function loadJobs(): Promise<void> {
   }
 }
 
+// SECTION 5 START: user-triggered scan action and page initialization.
 scanButton.addEventListener("click", async () => {
   scanButton.disabled = true;
   scanStatus.textContent = "Scanning public job sources…";
