@@ -224,7 +224,7 @@ The Python MVP uses a transparent, weighted keyword-matching heuristic:
 - **Evidence details:** matched skills, missing skill groups, requirement classifications, and per-keyword level comparisons are returned for review.
 - **Experience evidence:** explicit year ranges, seniority labels, experience scope, and required/preferred wording are extracted from job-ad sentences. This is a separate descriptive signal and does not currently change the skill score or compare years against a candidate profile.
 
-Matching normalizes Unicode text and uses Unicode-aware word boundaries, so Finnish letters are handled correctly and terms are not matched as arbitrary substrings. Use each skill's optional `aliases` mapping for alternate spellings and Finnish inflections. Aliases are alternatives to a canonical keyword, so they do not inflate the score denominator. The matcher does not guess Finnish grammar or automatically stem words. Target titles, experience keywords, and excluded keywords are stored as configurable profile fields but are not yet applied to the score. The separate portfolio browser demo has its own illustrative sample roles and scoring logic. See the configuration guide for this distinction.
+Matching normalizes Unicode text and uses Unicode-aware word boundaries, so Finnish letters are handled correctly and terms are not matched as arbitrary substrings. Use each skill's optional `aliases` mapping for alternate spellings and Finnish inflections. Aliases are alternatives to a canonical keyword, so they do not inflate the score denominator. The matcher does not guess Finnish grammar or automatically stem words. Target titles, experience keywords, and excluded keywords are stored as configurable profile fields but are not yet applied to the score. The public browser demo at the GitHub Pages project URL is the canonical interactive demo (`docs/index.html`). It has a simplified client-side matcher and illustrative sample roles; it does not run the Python backend or fetch live job listings. The older portfolio-root demo URL now redirects visitors to this canonical version. See the configuration guide for this distinction.
 
 Requirement and proficiency cues are heuristic text classifications. They may miss wording, interpret context imperfectly, or fail to recognize an employer's intended meaning. This is a preliminary screening aid, not a hiring probability, qualification verification, or eligibility decision. It does not yet evaluate legal work eligibility, compensation, language requirements, interview performance, or company culture.
 
@@ -255,7 +255,7 @@ The project is being built and tested incrementally. GitHub Actions runs the Pyt
 
 The optional email digest is a separate feature. It sends a message only when the user explicitly runs the `remotefit digest` command and has configured local SMTP settings. GitHub Actions test results do not trigger that digest.
 
-The embedded demo on the portfolio website is a visual and interactive concept example, not a finished application. Some buttons, controls, and workflows are placeholders or may not yet work. It illustrates the planned user flow and the type of result the application is intended to provide. The demo does not yet represent the complete Python application or its live job-source functionality.
+The canonical public browser demo is maintained only in this repository at `docs/index.html` and is published through GitHub Pages. The older demo URL in the portfolio repository is retained as a lightweight redirect so existing bookmarks continue to work. Do not develop or publish a second copy of the demo in the portfolio repository; make demo changes here to avoid version drift.
 
 The project is being modified and updated during this testing phase. Please expect incomplete features, changing configuration, and occasional test failures. The repository is shared as a work in progress, not as a stable release or production-ready service.
 
@@ -263,9 +263,11 @@ The project is being modified and updated during this testing phase. Please expe
 
 Issues and pull requests are welcome. Keep examples fictional and generic. Never submit real personal information, credentials, private job-search data, or database exports.
 
-## License
+## License and third-party materials
 
-MIT. See [LICENSE](LICENSE).
+The MIT License in [LICENSE](LICENSE) applies only to the original project code and documentation authored for this repository, to the extent those materials are owned by the project contributors. It does **not** grant rights to third-party job advertisements, job-listing descriptions or metadata, provider APIs or datasets, employer names, trademarks, logos, images, or other externally supplied content. Those materials remain subject to their respective owners' rights, licences, API terms, and usage restrictions.
+
+Job listings are fetched from external providers and should be used only in accordance with the provider's current terms. Attribution and links to original listings do not by themselves grant permission to republish, redistribute, or commercially reuse listing content. The project does not claim ownership of third-party data. Remove externally sourced content if a provider's terms or rights holder requires it.
 
 
 ### CV and LinkedIn input in the browser demo
