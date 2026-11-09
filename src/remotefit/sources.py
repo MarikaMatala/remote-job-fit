@@ -1,13 +1,13 @@
-# KOMMENTOINTIOHJE / CODE MAP
-# Tiedoston tarkoitus: Työpaikkalähteiden määrittely, hakeminen ja lähdetietojen käsittely.
-# Rakenne: tuonnit ja asetukset ensin, tietorakenteet ja apufunktiot seuraavaksi, päätoiminnot lopuksi.
-# FUNKTIOIDEN ALKUKOHDAT on merkitty erikseen, jotta niitä on helpompi etsiä.
-
 """Adapters for documented public job-listing endpoints.
 
 Provider payloads are external input: validate their shape, skip malformed rows,
 and never include a configured URL in error messages (it may contain a token).
 """
+
+# KOMMENTOINTIOHJE / CODE MAP
+# Tiedoston tarkoitus: Työpaikkalähteiden määrittely, hakeminen ja lähdetietojen käsittely.
+# Rakenne: tuonnit ja asetukset ensin, tietorakenteet ja apufunktiot seuraavaksi, päätoiminnot lopuksi.
+# FUNKTIOIDEN ALKUKOHDAT on merkitty erikseen, jotta niitä on helpompi etsiä.
 
 from datetime import datetime, timezone
 import hashlib
