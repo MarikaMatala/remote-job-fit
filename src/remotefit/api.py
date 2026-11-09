@@ -13,7 +13,7 @@ from starlette.responses import JSONResponse
 
 from .analysis import is_worldwide_remote, score_job
 from .config import load_settings
-from .db import connect, list_jobs, save_jobs
+from .db import connect, list_jobs, save_jobs, save_source_notice
 from .sources import fetch_all
 
 app = FastAPI(
@@ -84,7 +84,11 @@ def scan_jobs(request: Request):
         raise HTTPException(status_code=403, detail="Origin is not allowed.")
     try:
         settings = load_settings()
-        jobs, errors = fetch_all(settings["sources"])
+        notices = []
+        jobs, errors = fetch_all(
+            settings["sources"],
+            notice_callback=lambda source, notice: notices.append((source, notice)),
+        )
         accepted = []
         for job in jobs:
             if not is_worldwide_remote(
@@ -97,6 +101,8 @@ def scan_jobs(request: Request):
         connection = connect(settings["database_path"])
         try:
             inserted = save_jobs(connection, accepted)
+            for source, notice in notices:
+                save_source_notice(connection, source, notice)
         finally:
             connection.close()
 
@@ -105,6 +111,14 @@ def scan_jobs(request: Request):
             "accepted": len(accepted),
             "saved": inserted,
             "warnings": errors,
+            "source_notices": [
+                {
+                    "source": source,
+                    "legal": notice["legal"],
+                    "last_updated": notice.get("last_updated"),
+                }
+                for source, notice in notices
+            ],
         }
     except (FileNotFoundError, RuntimeError, ValueError) as exc:
         raise HTTPException(status_code=400, detail=str(exc)) from exc
