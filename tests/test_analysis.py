@@ -24,12 +24,14 @@ def test_worldwide_requires_explicit_structured_eligibility_signal():
 
 
 # TESTIOSIO ALKAA: test_restricted_listing_is_rejected.
+# FUNKTIO-OSIO PÄÄTTYY: test_worldwide_requires_explicit_structured_eligibility_signal. Seuraava osio alkaa seuraavasta funktiosta tai luokasta.
 def test_restricted_listing_is_rejected():
     job = {"title": "Worldwide Remote Developer", "description": "US only"}
     assert not is_worldwide_remote(job, ["us only"])
 
 
 # TESTIOSIO ALKAA: test_skill_score_and_evidence.
+# FUNKTIO-OSIO PÄÄTTYY: test_restricted_listing_is_rejected. Seuraava osio alkaa seuraavasta funktiosta tai luokasta.
 def test_skill_score_and_evidence():
     profile = {"skills": [
         {"name": "Python", "keywords": ["python", "pytest"]},
@@ -42,6 +44,7 @@ def test_skill_score_and_evidence():
 
 
 # TESTIOSIO ALKAA: test_score_matches_explicit_finnish_inflections_and_compounds.
+# FUNKTIO-OSIO PÄÄTTYY: test_skill_score_and_evidence. Seuraava osio alkaa seuraavasta funktiosta tai luokasta.
 def test_score_matches_explicit_finnish_inflections_and_compounds():
     profile = {"skills": [
         {"name": "React", "keywords": ["react"], "aliases": {"react": ["reactin", "reactia"]}},
@@ -61,6 +64,7 @@ def test_score_matches_explicit_finnish_inflections_and_compounds():
 
 
 # TESTIOSIO ALKAA: test_keyword_boundaries_are_unicode_aware.
+# FUNKTIO-OSIO PÄÄTTYY: test_score_matches_explicit_finnish_inflections_and_compounds. Seuraava osio alkaa seuraavasta funktiosta tai luokasta.
 def test_keyword_boundaries_are_unicode_aware():
     profile = {"skills": [
         {"name": "Java", "keywords": ["java"]},
@@ -75,6 +79,7 @@ def test_keyword_boundaries_are_unicode_aware():
 
 
 # TESTIOSIO ALKAA: test_keyword_matching_normalizes_unicode_compatibility_forms.
+# FUNKTIO-OSIO PÄÄTTYY: test_keyword_boundaries_are_unicode_aware. Seuraava osio alkaa seuraavasta funktiosta tai luokasta.
 def test_keyword_matching_normalizes_unicode_compatibility_forms():
     profile = {"skills": [{"name": "JavaScript", "keywords": ["javascript"]}]}
     result = score_job(profile, {"description": "ＪａｖａＳｃｒｉｐｔ"})
@@ -82,6 +87,7 @@ def test_keyword_matching_normalizes_unicode_compatibility_forms():
 
 
 # TESTIOSIO ALKAA: test_required_skill_has_more_weight_than_preferred_skill.
+# FUNKTIO-OSIO PÄÄTTYY: test_keyword_matching_normalizes_unicode_compatibility_forms. Seuraava osio alkaa seuraavasta funktiosta tai luokasta.
 def test_required_skill_has_more_weight_than_preferred_skill():
     profile = {"skills": [
         {"name": "Python", "level": 3, "keywords": ["python"]},
@@ -96,6 +102,7 @@ def test_required_skill_has_more_weight_than_preferred_skill():
 
 
 # TESTIOSIO ALKAA: test_explicit_level_requirement_affects_match_score.
+# FUNKTIO-OSIO PÄÄTTYY: test_required_skill_has_more_weight_than_preferred_skill. Seuraava osio alkaa seuraavasta funktiosta tai luokasta.
 def test_explicit_level_requirement_affects_match_score():
     profile = {"skills": [{"name": "Python", "level": 2, "keywords": ["python"]}]}
     low_level = score_job(profile, {"description": "Basic knowledge of Python required."})
@@ -108,6 +115,7 @@ def test_explicit_level_requirement_affects_match_score():
 
 
 # TESTIOSIO ALKAA: test_unmatched_keywords_remain_in_denominator.
+# FUNKTIO-OSIO PÄÄTTYY: test_explicit_level_requirement_affects_match_score. Seuraava osio alkaa seuraavasta funktiosta tai luokasta.
 def test_unmatched_keywords_remain_in_denominator():
     profile = {"skills": [{"name": "Python", "level": 3, "keywords": ["python", "pytest"]}]}
     result = score_job(profile, {"description": "Python is required."})
@@ -115,6 +123,7 @@ def test_unmatched_keywords_remain_in_denominator():
 
 
 # TESTIOSIO ALKAA: test_applicant_baseline_is_not_probability.
+# FUNKTIO-OSIO PÄÄTTYY: test_unmatched_keywords_remain_in_denominator. Seuraava osio alkaa seuraavasta funktiosta tai luokasta.
 def test_applicant_baseline_is_not_probability():
     assert applicant_baseline(100, 1) == 1.0
     assert applicant_baseline(None) is None
@@ -122,6 +131,7 @@ def test_applicant_baseline_is_not_probability():
 
 
 # TESTIOSIO ALKAA: test_extracts_required_years_and_seniority.
+# FUNKTIO-OSIO PÄÄTTYY: test_applicant_baseline_is_not_probability. Seuraava osio alkaa seuraavasta funktiosta tai luokasta.
 def test_extracts_required_years_and_seniority():
     result = analyze_experience_requirements({
         "title": "Senior Python Developer",
@@ -136,6 +146,7 @@ def test_extracts_required_years_and_seniority():
 
 
 # TESTIOSIO ALKAA: test_extracts_years_range_and_preferred_project_experience.
+# FUNKTIO-OSIO PÄÄTTYY: test_extracts_required_years_and_seniority. Seuraava osio alkaa seuraavasta funktiosta tai luokasta.
 def test_extracts_years_range_and_preferred_project_experience():
     result = analyze_experience_requirements({
         "description": "2–4 years of project experience would be an advantage."
@@ -148,6 +159,7 @@ def test_extracts_years_range_and_preferred_project_experience():
 
 
 # TESTIOSIO ALKAA: test_extracts_finnish_experience_and_junior_signals.
+# FUNKTIO-OSIO PÄÄTTYY: test_extracts_years_range_and_preferred_project_experience. Seuraava osio alkaa seuraavasta funktiosta tai luokasta.
 def test_extracts_finnish_experience_and_junior_signals():
     result = analyze_experience_requirements({
         "title": "Junior-ohjelmistokehittäjä",
@@ -161,6 +173,7 @@ def test_extracts_finnish_experience_and_junior_signals():
 
 
 # TESTIOSIO ALKAA: test_experience_parser_does_not_invent_requirements.
+# FUNKTIO-OSIO PÄÄTTYY: test_extracts_finnish_experience_and_junior_signals. Seuraava osio alkaa seuraavasta funktiosta tai luokasta.
 def test_experience_parser_does_not_invent_requirements():
     result = analyze_experience_requirements({
         "title": "Software Developer",
@@ -171,6 +184,7 @@ def test_experience_parser_does_not_invent_requirements():
 
 
 # TESTIOSIO ALKAA: test_score_includes_experience_evidence_without_changing_skill_score.
+# FUNKTIO-OSIO PÄÄTTYY: test_experience_parser_does_not_invent_requirements. Seuraava osio alkaa seuraavasta funktiosta tai luokasta.
 def test_score_includes_experience_evidence_without_changing_skill_score():
     profile = {"skills": [{"name": "Python", "keywords": ["python"], "level": 3}]}
     result = score_job(profile, {
@@ -182,9 +196,12 @@ def test_score_includes_experience_evidence_without_changing_skill_score():
 
 
 # TESTIOSIO ALKAA: test_worldwide_structured_signal_is_rejected_when_restriction_is_present.
+# FUNKTIO-OSIO PÄÄTTYY: test_score_includes_experience_evidence_without_changing_skill_score. Seuraava osio alkaa seuraavasta funktiosta tai luokasta.
 def test_worldwide_structured_signal_is_rejected_when_restriction_is_present():
     job = {
         "location": "Worldwide",
         "description": "Applicants must be resident in the United States."
     }
     assert not is_worldwide_remote(job, ["United States"])
+
+# FUNKTIO-OSIO PÄÄTTYY: test_worldwide_structured_signal_is_rejected_when_restriction_is_present. Seuraava osio alkaa seuraavasta funktiosta tai luokasta.
