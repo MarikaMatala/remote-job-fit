@@ -208,7 +208,7 @@ filters:
 
 Add phrases that commonly indicate the job is limited to a country, region, or residency. Remove a phrase only if you understand the consequences.
 
-**Important:** the current filter is a basic phrase check. It requires an explicit worldwide marker such as "worldwide", "work from anywhere", or "anywhere in the world", and rejects listings containing a configured restriction phrase. The `worldwide_only` setting is descriptive in this MVP; the code currently applies the worldwide check regardless of that value. The filter can miss restrictions expressed in other wording or languages. Always check the employer's original listing.
+**Important:** the filter requires an explicit worldwide marker in a structured provider field and rejects listings containing configured phrases or a limited set of common country, work-authorisation, and time-zone restriction patterns. This is still a heuristic—not a complete legal or eligibility parser—and can miss restrictions expressed in other wording or languages. The `worldwide_only` setting is descriptive in this MVP; the code currently applies the worldwide check regardless of that value. Always check the employer's original listing.
 
 ## 5. Email settings: .env
 

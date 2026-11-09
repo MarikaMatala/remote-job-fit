@@ -145,7 +145,7 @@ Open `.env` in a text editor and enter your own SMTP server settings. Leave emai
 | `config/sources.example.yaml` | Generic source defaults and example filter phrases | Public template; do not add personal data |
 | `.env.example` | Empty setting names and safe defaults | Public template; never put real credentials here |
 
-The example profile is deliberately broad so you can make the project your own. You do not need to keep every suggested role or skill. For a field-by-field guide and safe customization steps, read **[Configuration Guide](docs/CONFIGURATION.md)**. The example job families and skills are informed by public job adverts and market listings reviewed in November 2026; see **[Role and Skill Research](docs/ROLE-RESEARCH.md)** for the dated source list, examples and limitations.
+The example profile is deliberately broad so you can make the project your own. You do not need to keep every suggested role or skill. For a field-by-field guide and safe customization steps, read **[Configuration Guide](docs/CONFIGURATION.md)**. See the **[Quality Assurance Checklist](docs/QUALITY-CHECKLIST.md)** for automated checks, manual accessibility review, repository safeguards, and local database backup/deletion guidance. The example job families and skills are informed by public job adverts and market listings reviewed in November 2026; see **[Role and Skill Research](docs/ROLE-RESEARCH.md)** for the dated source list, examples and limitations.
 
 ## Usage
 
@@ -270,6 +270,3 @@ The MIT License in [LICENSE](LICENSE) applies only to the original project code 
 Job listings are fetched from external providers and should be used only in accordance with the provider's current terms. Attribution and links to original listings do not by themselves grant permission to republish, redistribute, or commercially reuse listing content. The project does not claim ownership of third-party data. Remove externally sourced content if a provider's terms or rights holder requires it.
 
 
-### CV and LinkedIn input in the browser demo
-
-The browser demo can extract known skill keywords from pasted CV/LinkedIn profile text or a local .txt/.md file. PDF and Word CV text can be copied into the local text field. A LinkedIn URL is accepted only as a reference: the demo does not scrape or automatically fetch LinkedIn profile data. Extracted skills are added to the editable skills field for review. CV text is processed locally in the browser tab and is not uploaded or stored.

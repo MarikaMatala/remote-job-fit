@@ -19,8 +19,9 @@
 #   A listing containing one of these phrases is rejected by the current filter.
 #   This is a simple text check, not a complete legal/work-eligibility parser.
 #
-# Note: filters.worldwide_only is descriptive in this MVP; the current code
-# always requires an explicit worldwide marker in the listing text.
+# Note: the filter requires a worldwide marker in structured location or
+# eligibility data. Common restrictions are checked in listing text, but this
+# heuristic is not a complete legal, residency, or time-zone eligibility parser.
 
 sources:
   remotive:
