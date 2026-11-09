@@ -96,11 +96,20 @@ scanButton.addEventListener("click", async () => {
   scanStatus.textContent = "Scanning public job sources…";
   try {
     const response = await fetch("/api/scan", { method: "POST" });
-    const payload = await response.json();
+    const payload = await response.json() as {
+      fetched: number; accepted: number; saved: number;
+      warnings?: string[];
+      source_notices?: Array<{ source: string; legal: string; last_updated?: string | null }>;
+      detail?: string;
+    };
     if (!response.ok) throw new Error(payload.detail ?? "Scan failed.");
     scanStatus.textContent = `Fetched ${payload.fetched}; ${payload.accepted} matched the worldwide filter; ${payload.saved} new listings saved.`;
     if (payload.warnings?.length) {
       scanStatus.textContent += ` Source warnings: ${payload.warnings.join(" | ")}`;
+    }
+    for (const notice of payload.source_notices ?? []) {
+      const updated = notice.last_updated ? ` (updated ${notice.last_updated})` : "";
+      scanStatus.textContent += ` ${notice.source} API notice${updated}: ${notice.legal}`;
     }
     await loadJobs();
   } catch (error) {
