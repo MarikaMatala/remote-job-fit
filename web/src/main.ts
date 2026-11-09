@@ -1,6 +1,6 @@
 // CODE MAP / COMMENTING GUIDE
-// File purpose: TypeScript-dashboardin käynnistys: käyttöliittymän alustaminen ja Python-rajapintaan liittyvät tapahtumat.
-// Structure: tuonnit ja asetukset ensin, tyypit ja apufunktiot seuraavaksi, käynnistys ja tapahtumat lopuksi.
+// File purpose: TypeScript dashboard entry point: initializes the interface and handles Python API events.
+// Structure: imports and settings first, followed by types and helper functions, with initialization and event handlers last.
 
 // WORK IN PROGRESS: this browser dashboard is experimental.
 // Do not add personal profile data, API keys, access tokens, SMTP credentials,
@@ -32,7 +32,7 @@ const scanButton = document.querySelector<HTMLButtonElement>("#scan-button")!;
 const jobList = document.querySelector<HTMLDivElement>("#job-list")!;
 const jobCount = document.querySelector<HTMLSpanElement>("#job-count")!;
 
-// FUNKTIO-OSIO ALKAA: escapeHtml.
+// FUNCTION SECTION START: escapeHtml.
 function escapeHtml(value: unknown): string {
   const entities: Record<string, string> = {
     "&": "&amp;",
@@ -44,8 +44,8 @@ function escapeHtml(value: unknown): string {
   return String(value ?? "").replace(/[&<>"']/g, (character) => entities[character] ?? character);
 }
 
-// FUNKTIO-OSIO ALKAA: safeExternalUrl.
-// FUNCTION SECTION END: escapeHtml. Seuraava osio alkaa seuraavasta toiminnosta tai tiedoston päättymisestä.
+// FUNCTION SECTION START: safeExternalUrl.
+// FUNCTION SECTION END: escapeHtml. The next section starts at the next function or at the end of the file.
 function safeExternalUrl(value: unknown): string {
   try {
     const parsed = new URL(String(value ?? ""));
@@ -55,8 +55,8 @@ function safeExternalUrl(value: unknown): string {
   }
 }
 
-// FUNKTIO-OSIO ALKAA: renderJobs.
-// FUNCTION SECTION END: safeExternalUrl. Seuraava osio alkaa seuraavasta toiminnosta tai tiedoston päättymisestä.
+// FUNCTION SECTION START: renderJobs.
+// FUNCTION SECTION END: safeExternalUrl. The next section starts at the next function or at the end of the file.
 function renderJobs(jobs: Job[]): void {
   jobCount.textContent = `${jobs.length} ${jobs.length === 1 ? "job" : "jobs"}`;
   if (!jobs.length) {
@@ -85,8 +85,8 @@ function renderJobs(jobs: Job[]): void {
   }).join("");
 }
 
-// FUNKTIO-OSIO ALKAA: loadJobs.
-// FUNCTION SECTION END: renderJobs. Seuraava osio alkaa seuraavasta toiminnosta tai tiedoston päättymisestä.
+// FUNCTION SECTION START: loadJobs.
+// FUNCTION SECTION END: renderJobs. The next section starts at the next function or at the end of the file.
 async function loadJobs(): Promise<void> {
   try {
     const response = await fetch("/api/jobs");
@@ -132,4 +132,4 @@ scanButton.addEventListener("click", async () => {
 
 void loadJobs();
 
-// FUNCTION SECTION END: loadJobs. Seuraava osio alkaa seuraavasta toiminnosta tai tiedoston päättymisestä.
+// FUNCTION SECTION END: loadJobs. The next section starts at the next function or at the end of the file.
