@@ -1,6 +1,12 @@
+# KOMMENTOINTIOHJE / CODE MAP
+# Tiedoston tarkoitus: Testit työpaikkailmoitusten analysoinnille ja osaamisvaatimusten vertailulle.
+# Rakenne: testien valmistelut ja apufunktiot ensin, yksittäiset testitapaukset seuraavaksi.
+# Jokainen testifunktio on oma tarkistuskokonaisuutensa.
+
 from remotefit.analysis import analyze_experience_requirements, applicant_baseline, is_worldwide_remote, score_job
 
 
+# TESTIOSIO ALKAA: test_worldwide_requires_explicit_structured_eligibility_signal.
 def test_worldwide_requires_explicit_structured_eligibility_signal():
     assert is_worldwide_remote({"title": "Python Developer", "location": "Worldwide"})
     assert is_worldwide_remote({"location": "Remote - Worldwide"})
@@ -17,11 +23,13 @@ def test_worldwide_requires_explicit_structured_eligibility_signal():
     })
 
 
+# TESTIOSIO ALKAA: test_restricted_listing_is_rejected.
 def test_restricted_listing_is_rejected():
     job = {"title": "Worldwide Remote Developer", "description": "US only"}
     assert not is_worldwide_remote(job, ["us only"])
 
 
+# TESTIOSIO ALKAA: test_skill_score_and_evidence.
 def test_skill_score_and_evidence():
     profile = {"skills": [
         {"name": "Python", "keywords": ["python", "pytest"]},
@@ -33,6 +41,7 @@ def test_skill_score_and_evidence():
     assert result["matched_skills"][0]["skill"] == "Python"
 
 
+# TESTIOSIO ALKAA: test_score_matches_explicit_finnish_inflections_and_compounds.
 def test_score_matches_explicit_finnish_inflections_and_compounds():
     profile = {"skills": [
         {"name": "React", "keywords": ["react"], "aliases": {"react": ["reactin", "reactia"]}},
@@ -51,6 +60,7 @@ def test_score_matches_explicit_finnish_inflections_and_compounds():
     assert result["score"] == 10.0
 
 
+# TESTIOSIO ALKAA: test_keyword_boundaries_are_unicode_aware.
 def test_keyword_boundaries_are_unicode_aware():
     profile = {"skills": [
         {"name": "Java", "keywords": ["java"]},
@@ -64,12 +74,14 @@ def test_keyword_boundaries_are_unicode_aware():
     assert result["missing_skills"] == ["Java", "Cafe"]
 
 
+# TESTIOSIO ALKAA: test_keyword_matching_normalizes_unicode_compatibility_forms.
 def test_keyword_matching_normalizes_unicode_compatibility_forms():
     profile = {"skills": [{"name": "JavaScript", "keywords": ["javascript"]}]}
     result = score_job(profile, {"description": "ＪａｖａＳｃｒｉｐｔ"})
     assert result["matched_skills"][0]["keywords"] == ["javascript"]
 
 
+# TESTIOSIO ALKAA: test_required_skill_has_more_weight_than_preferred_skill.
 def test_required_skill_has_more_weight_than_preferred_skill():
     profile = {"skills": [
         {"name": "Python", "level": 3, "keywords": ["python"]},
@@ -83,6 +95,7 @@ def test_required_skill_has_more_weight_than_preferred_skill():
     assert result["requirement_summary"]["preferred"] == ["Docker"]
 
 
+# TESTIOSIO ALKAA: test_explicit_level_requirement_affects_match_score.
 def test_explicit_level_requirement_affects_match_score():
     profile = {"skills": [{"name": "Python", "level": 2, "keywords": ["python"]}]}
     low_level = score_job(profile, {"description": "Basic knowledge of Python required."})
@@ -94,18 +107,21 @@ def test_explicit_level_requirement_affects_match_score():
     assert detail["level_fit"] == 0.5
 
 
+# TESTIOSIO ALKAA: test_unmatched_keywords_remain_in_denominator.
 def test_unmatched_keywords_remain_in_denominator():
     profile = {"skills": [{"name": "Python", "level": 3, "keywords": ["python", "pytest"]}]}
     result = score_job(profile, {"description": "Python is required."})
     assert result["score"] == 6.0
 
 
+# TESTIOSIO ALKAA: test_applicant_baseline_is_not_probability.
 def test_applicant_baseline_is_not_probability():
     assert applicant_baseline(100, 1) == 1.0
     assert applicant_baseline(None) is None
 
 
 
+# TESTIOSIO ALKAA: test_extracts_required_years_and_seniority.
 def test_extracts_required_years_and_seniority():
     result = analyze_experience_requirements({
         "title": "Senior Python Developer",
@@ -119,6 +135,7 @@ def test_extracts_required_years_and_seniority():
     assert item["requirement"] == "required"
 
 
+# TESTIOSIO ALKAA: test_extracts_years_range_and_preferred_project_experience.
 def test_extracts_years_range_and_preferred_project_experience():
     result = analyze_experience_requirements({
         "description": "2–4 years of project experience would be an advantage."
@@ -130,6 +147,7 @@ def test_extracts_years_range_and_preferred_project_experience():
     assert item["requirement"] == "preferred"
 
 
+# TESTIOSIO ALKAA: test_extracts_finnish_experience_and_junior_signals.
 def test_extracts_finnish_experience_and_junior_signals():
     result = analyze_experience_requirements({
         "title": "Junior-ohjelmistokehittäjä",
@@ -142,6 +160,7 @@ def test_extracts_finnish_experience_and_junior_signals():
     assert item["requirement"] == "preferred"
 
 
+# TESTIOSIO ALKAA: test_experience_parser_does_not_invent_requirements.
 def test_experience_parser_does_not_invent_requirements():
     result = analyze_experience_requirements({
         "title": "Software Developer",
@@ -151,6 +170,7 @@ def test_experience_parser_does_not_invent_requirements():
     assert result["has_explicit_requirements"] is False
 
 
+# TESTIOSIO ALKAA: test_score_includes_experience_evidence_without_changing_skill_score.
 def test_score_includes_experience_evidence_without_changing_skill_score():
     profile = {"skills": [{"name": "Python", "keywords": ["python"], "level": 3}]}
     result = score_job(profile, {
@@ -161,6 +181,7 @@ def test_score_includes_experience_evidence_without_changing_skill_score():
 
 
 
+# TESTIOSIO ALKAA: test_worldwide_structured_signal_is_rejected_when_restriction_is_present.
 def test_worldwide_structured_signal_is_rejected_when_restriction_is_present():
     job = {
         "location": "Worldwide",
