@@ -1,3 +1,8 @@
+# KOMMENTOINTIOHJE / CODE MAP
+# Tiedoston tarkoitus: Tietokantayhteydet, tietojen tallennus ja tietokantakyselyt.
+# Rakenne: tuonnit ja asetukset ensin, tietorakenteet ja apufunktiot seuraavaksi, päätoiminnot lopuksi.
+# FUNKTIOIDEN ALKUKOHDAT on merkitty erikseen, jotta niitä on helpompi etsiä.
+
 """SQLite persistence for locally discovered job listings.
 
 WORK IN PROGRESS: the database is local application data, not a public example.
@@ -11,6 +16,7 @@ import sqlite3
 from datetime import datetime, timezone
 
 
+# FUNKTIO-OSIO ALKAA: connect.
 def connect(database_path):
     path = Path(database_path)
     path.parent.mkdir(parents=True, exist_ok=True)
@@ -55,6 +61,7 @@ def connect(database_path):
     return connection
 
 
+# FUNKTIO-OSIO ALKAA: save_jobs.
 def save_jobs(connection, jobs):
     now = datetime.now(timezone.utc).isoformat()
     inserted = 0
@@ -78,6 +85,7 @@ def save_jobs(connection, jobs):
     return inserted
 
 
+# FUNKTIO-OSIO ALKAA: list_jobs.
 def list_jobs(connection, limit=50):
     return connection.execute(
         "SELECT * FROM jobs ORDER BY first_seen_at DESC LIMIT ?", (limit,)
@@ -85,6 +93,7 @@ def list_jobs(connection, limit=50):
 
 
 
+# FUNKTIO-OSIO ALKAA: save_source_notice.
 def save_source_notice(connection, source, notice):
     """Persist the latest provider-supplied terms notice locally."""
     checked_at = datetime.now(timezone.utc).isoformat()
@@ -100,6 +109,7 @@ def save_source_notice(connection, source, notice):
     connection.commit()
 
 
+# FUNKTIO-OSIO ALKAA: list_unsent_jobs.
 def list_unsent_jobs(connection, limit=25):
     """Return newest saved jobs that have not appeared in a successful digest."""
     return connection.execute("""
@@ -111,6 +121,7 @@ def list_unsent_jobs(connection, limit=25):
     """, (limit,)).fetchall()
 
 
+# FUNKTIO-OSIO ALKAA: mark_jobs_sent.
 def mark_jobs_sent(connection, job_ids):
     """Mark jobs as delivered only after the SMTP send succeeds."""
     if not job_ids:
