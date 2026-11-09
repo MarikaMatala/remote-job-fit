@@ -1,6 +1,6 @@
 # Remote Job Fit
 
-<!-- Last reviewed: 2026-11-06 22:13 (Europe/Helsinki). -->
+<!-- Last reviewed: 2026-11-09 (Europe/Helsinki). -->
 
 An open-source, configurable experiment for exploring job discovery and comparing job requirements with a private skills profile. It is being developed as a practical way to map skills, identify possible career directions, and learn how a job-matching tool could work. It includes a Python command-line tool, a TypeScript browser dashboard, and an editable example profile.
 
