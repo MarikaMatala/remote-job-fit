@@ -12,6 +12,11 @@ const initial={title:title.value,text:ad.value,skills:skills.value};
 let language="fi",lastAnalysis=null;
 const esc=s=>String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const norm=s=>String(s).normalize("NFKC").toLocaleLowerCase("fi-FI");
+const matchText=s=>norm(s).replace(/[^\p{L}\p{N}]+/gu," ").trim().replace(/\s+/g," ");
+function containsSkill(text,skill){
+ const haystack=" "+matchText(text)+" ",needle=" "+matchText(skill)+" ";
+ return needle.trim().length>0 && haystack.includes(needle);
+}
 const lines=s=>s.split(/(?<=[.!?;])\s+|[\r\n]+/).map(x=>x.trim()).filter(Boolean);
 const t=(fi,en)=>language==="fi"?fi:en;
 function classify(line){
@@ -32,7 +37,13 @@ function experienceSignals(text){
 function analyse(){
  const profile=[...new Set(skills.value.split(/[,;\n]/).map(s=>s.trim()).filter(Boolean))],jobLines=lines(title.value+"\n"+ad.value),weights={required:1.5,preferred:1,optional:.75,unspecified:1};
  let earned=0,total=0;const matched=[],missing=[];
- for(const skill of profile){const key=norm(skill),line=jobLines.find(s=>norm(s).includes(key));const kind=line?classify(line):"unspecified";total+=weights[kind];if(line){earned+=weights[kind];matched.push({skill,kind})}else missing.push(skill)}
+ for(const skill of profile){
+  const evidence=jobLines.filter(line=>containsSkill(line,skill));
+  const kinds=evidence.map(classify);
+  const kind=kinds.includes("required")?"required":kinds.includes("preferred")?"preferred":kinds.includes("optional")?"optional":"unspecified";
+  total+=weights[kind];
+  if(evidence.length){earned+=weights[kind];matched.push({skill,kind})}else missing.push(skill)
+ }
  const pct=total?Math.round(earned/total*100):0,exp=experienceSignals(title.value+"\n"+ad.value);lastAnalysis={pct,matched,missing,exp};
  const chips=(arr,isMissing=false)=>arr.length?arr.map(x=>'<span class="chip '+(isMissing?'missing':'')+'">'+esc(x.skill)+' <small>· '+esc(t(x.kind==="required"?"Pakollinen":x.kind==="preferred"?"Toivottu":x.kind==="optional"?"Valinnainen":"Ei luokiteltu",x.kind))+'</small></span>').join(""):'<span class="hint">'+t("Ei tunnistettuja osumia.","No matches identified.")+'</span>';
  const expHtml=exp.length?exp.map(x=>'<div class="experience"><strong>'+esc([x.years,x.level].filter(Boolean).join(" · ")||t("Kokemusmaininta","Experience signal"))+'</strong><small>'+esc(x.scope+" · "+x.evidence)+'</small></div>').join(""):'<p class="hint">'+t("Kokemusvuosia tai senioriteettia kuvaavia ilmauksia ei tunnistettu.","No years-of-experience or seniority signals were recognised.")+'</p>';
