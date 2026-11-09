@@ -17,18 +17,19 @@ def send_digest(settings, jobs):
             "Email is not configured. Set the required SMTP values in your local .env file."
         )
     message = EmailMessage()
-    message["Subject"] = f"Remote Job Fit: {len(jobs)} new matching jobs"
+    message["Subject"] = f"Remote Job Fit: {len(jobs)} saved matching listings"
     message["From"] = settings["from"]
     message["To"] = settings["to"]
     lines = []
     for job in jobs:
         lines.extend([
             f"{job.get('title', 'Untitled')} — {job.get('company', 'Unknown company')}",
+            f"Source: {job.get('source') or 'Unknown source'}",
             f"Match score: {job.get('analysis', {}).get('score', 'N/A')}/10",
             f"Published: {job.get('published_at') or 'Not provided'}",
             f"Deadline: {job.get('deadline') or 'Not provided'}",
             f"First seen: {job.get('fetched_at') or 'Not recorded'}",
-            job.get("url", ""),
+            f"Original listing: {job.get('url', '')}",
             "",
         ])
     message.set_content("\n".join(lines) if lines else "No new matching jobs were found.")
