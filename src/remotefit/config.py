@@ -1,3 +1,8 @@
+# KOMMENTOINTIOHJE / CODE MAP
+# Tiedoston tarkoitus: Sovelluksen asetusten lukeminen, oletusarvot ja konfiguraation validointi.
+# Rakenne: tuonnit ja asetukset ensin, tietorakenteet ja apufunktiot seuraavaksi, päätoiminnot lopuksi.
+# FUNKTIOIDEN ALKUKOHDAT on merkitty erikseen, jotta niitä on helpompi etsiä.
+
 """Load private, machine-local settings without depending on the shell's cwd.
 
 User-editable values belong in:
@@ -17,6 +22,7 @@ from dotenv import load_dotenv
 ROOT = Path(__file__).resolve().parents[2]
 
 
+# FUNKTIO-OSIO ALKAA: _mapping.
 def _mapping(value, label):
     """Require a YAML mapping while treating an empty document as defaults."""
     if value is None:
@@ -26,11 +32,13 @@ def _mapping(value, label):
     return value
 
 
+# FUNKTIO-OSIO ALKAA: _read_yaml.
 def _read_yaml(path, label):
     with path.open("r", encoding="utf-8") as handle:
         return _mapping(yaml.safe_load(handle), label)
 
 
+# FUNKTIO-OSIO ALKAA: load_settings.
 def load_settings(project_root: Path | None = None):
     """Load settings from a project directory (defaults to this checkout).
 
