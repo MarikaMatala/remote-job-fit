@@ -1,6 +1,6 @@
 # CODE MAP / COMMENTING GUIDE
-# File purpose: Testit työpaikkailmoitusten analysoinnille ja osaamisvaatimusten vertailulle.
-# Structure: testien valmistelut ja apufunktiot ensin, yksittäiset testitapaukset seuraavaksi.
+# File purpose: Tests for job listing analysis and skill requirement matching.
+# Structure: test setup and helper functions first, followed by individual test cases.
 # Jokainen testifunktio on oma tarkistuskokonaisuutensa.
 
 from remotefit.analysis import analyze_experience_requirements, applicant_baseline, is_worldwide_remote, score_job
