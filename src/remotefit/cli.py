@@ -80,7 +80,7 @@ def digest(settings):
     rows = list_unsent_jobs(connection, limit=25)
     if not rows:
         connection.close()
-        print("No new saved listings to email. Previously sent listings were skipped.")
+        print("No unsent saved listings to email. Previously sent listings were skipped.")
         return
     jobs = [dict(row) for row in rows]
     for job in jobs:
@@ -92,7 +92,7 @@ def digest(settings):
         mark_jobs_sent(connection, [job["id"] for job in jobs])
     finally:
         connection.close()
-    print(f"Email digest sent with {len(jobs)} new listings.")
+    print(f"Email digest sent with {len(jobs)} unsent saved listings.")
 
 
 def main():
