@@ -1,5 +1,5 @@
 # CODE MAP / COMMENTING GUIDE
-# File purpose: Testit koosteiden ja aiempien hakutulosten historian käsittelylle.
+# File purpose: Tests for digest generation and handling the history of previous search results.
 # Structure: test setup and helper functions first, followed by individual test cases.
 # Jokainen testifunktio on oma tarkistuskokonaisuutensa.
 
