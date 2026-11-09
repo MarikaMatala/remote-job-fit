@@ -8,7 +8,9 @@ config/profile.yaml file. Configure SMTP credentials only in the ignored local
 # CODE MAP / COMMENTING GUIDE
 # File purpose: Command-line interface: handles commands and user input.
 # Structure: imports and settings first, followed by data structures and helper functions, with main operations last.
-# Function start points are marked separately to make them easier to find.
+# Navigation map: scan listings -> display saved jobs -> export results -> send digest -> command-line entry point.
+# Editing tip: add a new command in main(), then implement its work in a separate function above.
+# Keep personal profile data and credentials in ignored local configuration files, never in this source file.
 
 import argparse
 import csv
@@ -24,6 +26,7 @@ from .emailer import send_digest
 from .sources import fetch_all
 
 
+# SECTION 1 START: scan public job sources, apply filters, analyse matches, and save new listings.
 # FUNCTION SECTION START: scan.
 def scan(settings):
     notices = []
@@ -51,6 +54,7 @@ def scan(settings):
         print(f"Source warning: {error}")
 
 
+# SECTION 2 START: display saved job listings.
 # FUNCTION SECTION START: show_list.
 # FUNCTION SECTION END: scan. The next section starts at the next function or class.
 def show_list(settings):
@@ -70,6 +74,7 @@ def show_list(settings):
         )
 
 
+# SECTION 3 START: export saved listings to a file.
 # FUNCTION SECTION START: export_jobs.
 # FUNCTION SECTION END: show_list. The next section starts at the next function or class.
 def export_jobs(settings, output):
@@ -85,6 +90,7 @@ def export_jobs(settings, output):
     print(f"Exported {len(rows)} jobs to {output}")
 
 
+# SECTION 4 START: prepare and send the job-search digest.
 # FUNCTION SECTION START: digest.
 # FUNCTION SECTION END: export_jobs. The next section starts at the next function or class.
 def digest(settings):
@@ -107,6 +113,7 @@ def digest(settings):
     print(f"Email digest sent with {len(jobs)} unsent saved listings.")
 
 
+# SECTION 5 START: parse command-line arguments and dispatch the selected command.
 # FUNCTION SECTION START: main.
 # FUNCTION SECTION END: digest. The next section starts at the next function or class.
 def main():
