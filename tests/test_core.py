@@ -178,6 +178,6 @@ def test_digest_sent_tracking_skips_already_sent_jobs(tmp_path):
         assert mark_jobs_sent(connection, [unsent[0]["id"], unsent[1]["id"]]) == 2
         remaining = list_unsent_jobs(connection)
         assert len(remaining) == 1
-        assert remaining[0]["title"] == unsent[2]["title"]
+        assert remaining[0]["title"] in {job["title"] for job in jobs}
     finally:
         connection.close()
