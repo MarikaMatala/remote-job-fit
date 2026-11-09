@@ -1,3 +1,8 @@
+# KOMMENTOINTIOHJE / CODE MAP
+# Tiedoston tarkoitus: Sovelluksen ydintoimintojen ja peruslogiikan testit.
+# Rakenne: testien valmistelut ja apufunktiot ensin, yksittäiset testitapaukset seuraavaksi.
+# Jokainen testifunktio on oma tarkistuskokonaisuutensa.
+
 import httpx
 import pytest
 
@@ -5,6 +10,7 @@ from remotefit import config, sources
 from remotefit.db import connect, list_jobs, save_jobs
 
 
+# TESTIOSIO ALKAA: test_settings_load_from_project_root_not_current_directory.
 def test_settings_load_from_project_root_not_current_directory(tmp_path, monkeypatch):
     project = tmp_path / "project"
     config_dir = project / "config"
@@ -31,6 +37,7 @@ def test_settings_load_from_project_root_not_current_directory(tmp_path, monkeyp
     assert settings["smtp"]["port"] == 465
 
 
+# TESTIOSIO ALKAA: test_settings_reject_non_mapping_yaml_sections.
 def test_settings_reject_non_mapping_yaml_sections(tmp_path):
     config_dir = tmp_path / "config"
     config_dir.mkdir(parents=True)
@@ -41,6 +48,7 @@ def test_settings_reject_non_mapping_yaml_sections(tmp_path):
         config.load_settings(tmp_path)
 
 
+# TESTIOSIO ALKAA: test_remotive_adapter_skips_invalid_rows_and_normalizes_tags.
 def test_remotive_adapter_skips_invalid_rows_and_normalizes_tags(monkeypatch, tmp_path):
     monkeypatch.setenv("REMOTE_JOB_FIT_CACHE_DIR", str(tmp_path))
     monkeypatch.setattr(sources, "_get_json", lambda _url: {
@@ -63,6 +71,7 @@ def test_remotive_adapter_skips_invalid_rows_and_normalizes_tags(monkeypatch, tm
     assert jobs[0]["fetched_at"].endswith("+00:00")
 
 
+# TESTIOSIO ALKAA: test_remoteok_adapter_skips_feed_metadata_and_malformed_rows.
 def test_remoteok_adapter_skips_feed_metadata_and_malformed_rows(monkeypatch):
     monkeypatch.setattr(sources, "_get_json", lambda _url: [
         {"legal": "Please link back to Remote OK and mention Remote OK as a source.",
@@ -81,6 +90,7 @@ def test_remoteok_adapter_skips_feed_metadata_and_malformed_rows(monkeypatch):
     assert jobs[1]["tags"] == []
 
 
+# TESTIOSIO ALKAA: test_remoteok_notice_is_returned_to_callback.
 def test_remoteok_notice_is_returned_to_callback(monkeypatch):
     monkeypatch.setattr(sources, "_get_json", lambda _url: [
         {"legal": "Credit Remote OK and link to each original listing.",
@@ -97,6 +107,7 @@ def test_remoteok_notice_is_returned_to_callback(monkeypatch):
     })]
 
 
+# TESTIOSIO ALKAA: test_remoteok_rejects_missing_legal_notice.
 def test_remoteok_rejects_missing_legal_notice(monkeypatch):
     monkeypatch.setattr(sources, "_get_json", lambda _url: [
         {"last_updated": 1794000000},
@@ -106,6 +117,7 @@ def test_remoteok_rejects_missing_legal_notice(monkeypatch):
         sources.fetch_remoteok("https://feed.example/jobs")
 
 
+# TESTIOSIO ALKAA: test_fetch_all_redacts_sensitive_source_urls_from_warnings.
 def test_fetch_all_redacts_sensitive_source_urls_from_warnings(monkeypatch, tmp_path):
     monkeypatch.setenv("REMOTE_JOB_FIT_CACHE_DIR", str(tmp_path))
     secret_url = "https://feed.example/jobs?token=do-not-leak"
@@ -125,6 +137,7 @@ def test_fetch_all_redacts_sensitive_source_urls_from_warnings(monkeypatch, tmp_
     assert "do-not-leak" not in " ".join(errors)
 
 
+# TESTIOSIO ALKAA: test_database_ignores_duplicate_provider_records.
 def test_database_ignores_duplicate_provider_records(tmp_path):
     connection = connect(tmp_path / "jobs.sqlite3")
     job = {
@@ -150,6 +163,7 @@ def test_database_ignores_duplicate_provider_records(tmp_path):
 
 
 
+# TESTIOSIO ALKAA: test_remotive_enforces_six_hour_request_interval.
 def test_remotive_enforces_six_hour_request_interval(monkeypatch, tmp_path):
     monkeypatch.setenv("REMOTE_JOB_FIT_CACHE_DIR", str(tmp_path))
     calls = []
@@ -162,6 +176,7 @@ def test_remotive_enforces_six_hour_request_interval(monkeypatch, tmp_path):
 
 
 
+# TESTIOSIO ALKAA: test_digest_sent_tracking_skips_already_sent_jobs.
 def test_digest_sent_tracking_skips_already_sent_jobs(tmp_path):
     from remotefit.db import list_unsent_jobs, mark_jobs_sent
 
