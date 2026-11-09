@@ -1,3 +1,8 @@
+# KOMMENTOINTIOHJE / CODE MAP
+# Tiedoston tarkoitus: GitHub Actions -julkaisutyönkulku dokumentaatiosivulle tai selainkäyttöliittymälle.
+# Rakenne: yleiset asetukset ensin; jokainen seuraava avain tai työvaihe määrittää oman asetuskokonaisuutensa.
+# Muuta arvoja harkiten ja säilytä YAML-sisennys.
+
 name: Deploy GitHub Pages demo
 
 on:
