@@ -43,10 +43,10 @@ def show_list(settings):
     for row in rows:
         print(
             f"[{row['score'] if row['score'] is not None else 'N/A'}/10] "
-            f"{row['title']} — {row['company']} | "
+            f"{row['title']} — {row['company']} | Source: {row['source']} | "
             f"Published: {row['published_at'] or 'unknown'} | "
             f"Deadline: {row['deadline'] or 'not provided'} | "
-            f"First seen: {row['first_seen_at']}\n{row['url']}\n"
+            f"First seen: {row['first_seen_at']}\nOriginal listing: {row['url']}\n"
         )
 
 
@@ -57,9 +57,9 @@ def export_jobs(settings, output):
     Path(output).parent.mkdir(parents=True, exist_ok=True)
     with open(output, "w", newline="", encoding="utf-8") as handle:
         writer = csv.writer(handle)
-        writer.writerow(["title", "company", "location", "score", "published_at", "deadline", "first_seen_at", "url"])
+        writer.writerow(["source", "title", "company", "location", "score", "published_at", "deadline", "first_seen_at", "url"])
         for row in rows:
-            writer.writerow([row["title"], row["company"], row["location"], row["score"], row["published_at"], row["deadline"], row["first_seen_at"], row["url"]])
+            writer.writerow([row["source"], row["title"], row["company"], row["location"], row["score"], row["published_at"], row["deadline"], row["first_seen_at"], row["url"]])
     print(f"Exported {len(rows)} jobs to {output}")
 
 
