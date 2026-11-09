@@ -56,7 +56,7 @@ def test_api_scan_persists_and_returns_provider_notice(monkeypatch):
         "type": "http", "method": "POST", "path": "/api/scan",
         "headers": [], "query_string": b"",
     })
-    result = api.scan(request)
+    result = api.scan_jobs(request)
 
     assert result["saved"] == 1
     assert result["source_notices"] == [{
