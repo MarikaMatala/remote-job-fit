@@ -1,5 +1,4 @@
 import pytest
-import pytest
 
 
 def test_cli_digest_sends_only_unsent_jobs_and_marks_after_success(tmp_path, monkeypatch, capsys):
