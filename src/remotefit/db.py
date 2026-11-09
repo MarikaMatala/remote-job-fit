@@ -1,14 +1,14 @@
-# KOMMENTOINTIOHJE / CODE MAP
-# Tiedoston tarkoitus: Tietokantayhteydet, tietojen tallennus ja tietokantakyselyt.
-# Rakenne: tuonnit ja asetukset ensin, tietorakenteet ja apufunktiot seuraavaksi, päätoiminnot lopuksi.
-# FUNKTIOIDEN ALKUKOHDAT on merkitty erikseen, jotta niitä on helpompi etsiä.
-
 """SQLite persistence for locally discovered job listings.
 
 WORK IN PROGRESS: the database is local application data, not a public example.
 Its path is configured through the local DATABASE_PATH environment variable.
 Do not commit database files or insert passwords, API keys, or account secrets.
 """
+
+# KOMMENTOINTIOHJE / CODE MAP
+# Tiedoston tarkoitus: Tietokantayhteydet, tietojen tallennus ja tietokantakyselyt.
+# Rakenne: tuonnit ja asetukset ensin, tietorakenteet ja apufunktiot seuraavaksi, päätoiminnot lopuksi.
+# FUNKTIOIDEN ALKUKOHDAT on merkitty erikseen, jotta niitä on helpompi etsiä.
 
 from pathlib import Path
 import json
