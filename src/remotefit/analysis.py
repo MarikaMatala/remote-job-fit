@@ -50,38 +50,50 @@ _ENTRY_RE = re.compile(
 _YEARS_RE = re.compile(r"\b(\d+)\+?\s*(?:years?|yrs?)\b", re.IGNORECASE)
 
 
-def is_worldwide_remote(job, reject_restrictions=None):
-    """Accept worldwide eligibility only when an explicit structured field says so.
+_BUILTIN_RESTRICTIONS = (
+    r"\b(?:us|u\.s\.|united states) citizens? only\b",
+    r"\b(?:uk|u\.k\.|united kingdom) citizens? only\b",
+    r"\b(?:eu|europe|emea|north america|canada|australia) only\b",
+    r"\bany location in (?:the )?(?:eu|europe|emea|north america|canada|australia)\b",
+    r"\b(?:must be based|must reside|must live|must be located) in\b",
+    r"\b(?:only applicants|candidates) (?:located|based|residing) in\b",
+    r"\b(?:authorized|authorised|eligible) to work in\b",
+    r"\b(?:work authorization|work authorisation) (?:in|for)\b",
+    r"\b(?:time zone|timezone) (?:overlap|alignment|restriction|required)\b",
+    r"\b(?:overlap|aligned) with (?:the )?(?:[a-z]{2,4}|utc|gmt)[+-]?\d{0,2}\b",
+)
 
-    Free-text descriptions and job titles are deliberately not used as positive
-    evidence: they may mention worldwide hiring in unrelated or conditional
-    contexts. Provider location/eligibility fields are the source of truth.
+def is_worldwide_remote(job, reject_restrictions=None):
+    """Conservatively filter worldwide roles; this is not a legal parser.
+
+    Positive evidence must come from a provider's structured eligibility fields.
+    Common restrictions are checked across all listing text and override global
+    markers. Always verify eligibility on the employer's original advert.
     """
     all_text = " ".join(str(job.get(key, "")) for key in (
         "title", "description", "location", "candidate_required_location",
         "workplace_type", "tags", "eligible_locations", "eligible_countries",
-        "work_location", "remote_scope"
+        "work_location", "remote_scope", "requirements", "qualifications",
     )).casefold()
-    restrictions = reject_restrictions or []
-    if any(str(item).strip().casefold() in all_text for item in restrictions if str(item).strip()):
+    for phrase in reject_restrictions or []:
+        normalized = str(phrase).strip().casefold()
+        if normalized and normalized in all_text:
+            return False
+    if any(re.search(pattern, all_text, re.IGNORECASE) for pattern in _BUILTIN_RESTRICTIONS):
         return False
 
     structured_fields = (
-        "location",
-        "candidate_required_location",
-        "eligible_locations",
-        "eligible_countries",
-        "work_location",
-        "remote_scope",
-        "tags",
+        "location", "candidate_required_location", "eligible_locations",
+        "eligible_countries", "work_location", "remote_scope", "tags",
     )
     eligibility_text = " ".join(
         str(job.get(key, "")) for key in structured_fields
         if job.get(key) is not None
     ).casefold()
     return any(
-        re.search(r"(?<!\w)" + re.escape(marker) + r"(?!\w)", eligibility_text)
+        re.search(r"(?<!\\w)" + re.escape(marker) + r"(?!\\w)", eligibility_text)
         for marker in WORLDWIDE_MARKERS
+        if marker not in {"any location", "open to any location"}
     )
 
 
