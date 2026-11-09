@@ -12,7 +12,7 @@ const initial={title:title.value,text:ad.value,skills:skills.value};
 let language="fi",lastAnalysis=null;
 const esc=s=>String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const norm=s=>String(s).normalize("NFKC").toLocaleLowerCase("fi-FI");
-const matchText=s=>norm(s).replace(/[^\\p{L}\\p{N}]+/gu," ").trim().replace(/\\s+/g," ");
+const matchText=s=>norm(s).replace(/[^\p{L}\p{N}]+/gu," ").trim().replace(/\s+/g," ");
 function containsSkill(text,skill){
  const haystack=" "+matchText(text)+" ",needle=" "+matchText(skill)+" ";
  return needle.trim().length>0 && haystack.includes(needle);
