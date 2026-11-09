@@ -5,10 +5,10 @@ Its path is configured through the local DATABASE_PATH environment variable.
 Do not commit database files or insert passwords, API keys, or account secrets.
 """
 
-# KOMMENTOINTIOHJE / CODE MAP
-# Tiedoston tarkoitus: Tietokantayhteydet, tietojen tallennus ja tietokantakyselyt.
-# Rakenne: tuonnit ja asetukset ensin, tietorakenteet ja apufunktiot seuraavaksi, päätoiminnot lopuksi.
-# FUNKTIOIDEN ALKUKOHDAT on merkitty erikseen, jotta niitä on helpompi etsiä.
+# CODE MAP / COMMENTING GUIDE
+# File purpose: Tietokantayhteydet, tietojen tallennus ja tietokantakyselyt.
+# Structure: imports and settings first, followed by data structures and helper functions, with main operations last.
+# Function start points are marked separately to make them easier to find.
 
 from pathlib import Path
 import json
@@ -16,7 +16,7 @@ import sqlite3
 from datetime import datetime, timezone
 
 
-# FUNKTIO-OSIO ALKAA: connect.
+# FUNCTION SECTION START: connect.
 def connect(database_path):
     path = Path(database_path)
     path.parent.mkdir(parents=True, exist_ok=True)
@@ -61,8 +61,8 @@ def connect(database_path):
     return connection
 
 
-# FUNKTIO-OSIO ALKAA: save_jobs.
-# FUNKTIO-OSIO PÄÄTTYY: connect. Seuraava osio alkaa seuraavasta funktiosta tai luokasta.
+# FUNCTION SECTION START: save_jobs.
+# FUNCTION SECTION END: connect. The next section starts at the next function or class.
 def save_jobs(connection, jobs):
     now = datetime.now(timezone.utc).isoformat()
     inserted = 0
@@ -86,8 +86,8 @@ def save_jobs(connection, jobs):
     return inserted
 
 
-# FUNKTIO-OSIO ALKAA: list_jobs.
-# FUNKTIO-OSIO PÄÄTTYY: save_jobs. Seuraava osio alkaa seuraavasta funktiosta tai luokasta.
+# FUNCTION SECTION START: list_jobs.
+# FUNCTION SECTION END: save_jobs. The next section starts at the next function or class.
 def list_jobs(connection, limit=50):
     return connection.execute(
         "SELECT * FROM jobs ORDER BY first_seen_at DESC LIMIT ?", (limit,)
@@ -95,8 +95,8 @@ def list_jobs(connection, limit=50):
 
 
 
-# FUNKTIO-OSIO ALKAA: save_source_notice.
-# FUNKTIO-OSIO PÄÄTTYY: list_jobs. Seuraava osio alkaa seuraavasta funktiosta tai luokasta.
+# FUNCTION SECTION START: save_source_notice.
+# FUNCTION SECTION END: list_jobs. The next section starts at the next function or class.
 def save_source_notice(connection, source, notice):
     """Persist the latest provider-supplied terms notice locally."""
     checked_at = datetime.now(timezone.utc).isoformat()
@@ -112,8 +112,8 @@ def save_source_notice(connection, source, notice):
     connection.commit()
 
 
-# FUNKTIO-OSIO ALKAA: list_unsent_jobs.
-# FUNKTIO-OSIO PÄÄTTYY: save_source_notice. Seuraava osio alkaa seuraavasta funktiosta tai luokasta.
+# FUNCTION SECTION START: list_unsent_jobs.
+# FUNCTION SECTION END: save_source_notice. The next section starts at the next function or class.
 def list_unsent_jobs(connection, limit=25):
     """Return newest saved jobs that have not appeared in a successful digest."""
     return connection.execute("""
@@ -125,8 +125,8 @@ def list_unsent_jobs(connection, limit=25):
     """, (limit,)).fetchall()
 
 
-# FUNKTIO-OSIO ALKAA: mark_jobs_sent.
-# FUNKTIO-OSIO PÄÄTTYY: list_unsent_jobs. Seuraava osio alkaa seuraavasta funktiosta tai luokasta.
+# FUNCTION SECTION START: mark_jobs_sent.
+# FUNCTION SECTION END: list_unsent_jobs. The next section starts at the next function or class.
 def mark_jobs_sent(connection, job_ids):
     """Mark jobs as delivered only after the SMTP send succeeds."""
     if not job_ids:
@@ -139,4 +139,4 @@ def mark_jobs_sent(connection, job_ids):
     connection.commit()
     return len(job_ids)
 
-# FUNKTIO-OSIO PÄÄTTYY: mark_jobs_sent. Seuraava osio alkaa seuraavasta funktiosta tai luokasta.
+# FUNCTION SECTION END: mark_jobs_sent. The next section starts at the next function or class.
