@@ -1,3 +1,8 @@
+# KOMMENTOINTIOHJE / CODE MAP
+# Tiedoston tarkoitus: Regressiotestit aiemmin havaittujen virheiden ja laadunvarmistuksen varmistamiseksi.
+# Rakenne: testien valmistelut ja apufunktiot ensin, yksittäiset testitapaukset seuraavaksi.
+# Jokainen testifunktio on oma tarkistuskokonaisuutensa.
+
 from email import message_from_string
 from starlette.requests import Request
 
@@ -5,6 +10,7 @@ from remotefit import api, cli, emailer
 from remotefit.analysis import is_worldwide_remote
 
 
+# TESTIOSIO ALKAA: test_worldwide_filter_rejects_common_country_and_time_zone_restrictions.
 def test_worldwide_filter_rejects_common_country_and_time_zone_restrictions():
     assert not is_worldwide_remote({
         "location": "Worldwide",
@@ -24,6 +30,7 @@ def test_worldwide_filter_rejects_common_country_and_time_zone_restrictions():
     })
 
 
+# TESTIOSIO ALKAA: test_worldwide_filter_keeps_unrestricted_structured_worldwide_role.
 def test_worldwide_filter_keeps_unrestricted_structured_worldwide_role():
     assert is_worldwide_remote({
         "location": "Worldwide",
@@ -31,6 +38,7 @@ def test_worldwide_filter_keeps_unrestricted_structured_worldwide_role():
     })
 
 
+# TESTIOSIO ALKAA: test_api_scan_persists_and_returns_provider_notice.
 def test_api_scan_persists_and_returns_provider_notice(monkeypatch):
     notice = {"legal": "Credit Remote OK and link to the original listing.", "last_updated": "2026-11-09"}
     saved_notices = []
@@ -66,6 +74,7 @@ def test_api_scan_persists_and_returns_provider_notice(monkeypatch):
     assert saved_notices == [("remoteok", notice)]
 
 
+# TESTIOSIO ALKAA: test_email_digest_uses_first_seen_timestamp.
 def test_email_digest_uses_first_seen_timestamp(monkeypatch):
     sent = {}
     class FakeSMTP:
@@ -93,6 +102,7 @@ def test_email_digest_uses_first_seen_timestamp(monkeypatch):
     assert "First seen: 2026-11-09T10:00:00+00:00" in sent["message"].get_content()
 
 
+# TESTIOSIO ALKAA: test_cli_digest_reports_unsent_saved_listings.
 def test_cli_digest_reports_unsent_saved_listings(monkeypatch, capsys):
     class Connection:
         def close(self):
