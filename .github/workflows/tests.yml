@@ -1,7 +1,7 @@
-# KOMMENTOINTIOHJE / CODE MAP
-# Tiedoston tarkoitus: GitHub Actions -testityönkulku: asentaa riippuvuudet ja suorittaa automaattiset testit.
-# Rakenne: yleiset asetukset ensin; jokainen seuraava avain tai työvaihe määrittää oman asetuskokonaisuutensa.
-# Muuta arvoja harkiten ja säilytä YAML-sisennys.
+# CODE MAP / COMMENTING GUIDE
+# File purpose: GitHub Actions -testityönkulku: asentaa riippuvuudet ja suorittaa automaattiset testit.
+# Structure: general settings first; each following key or workflow step defines its own configuration group.
+# Edit values carefully and preserve YAML indentation.
 
 name: Tests
 
