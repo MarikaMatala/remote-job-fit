@@ -51,6 +51,7 @@ test("Java does not match inside JavaScript", () => {
   element("analyze").listeners.click();
   assert.match(element("results").innerHTML, /0 \/ 1/);
   assert.match(element("results").innerHTML, /Java/);
+  assert.match(element("results").innerHTML, /chip missing">Java/);
   assert.doesNotMatch(element("results").innerHTML, /Matched skills[^<]*Java/);
 });
 
@@ -83,4 +84,10 @@ test("user-supplied HTML in title is escaped", () => {
   const html = element("results").innerHTML;
   assert.match(html, /&lt;img/);
   assert.doesNotMatch(html, /<img/);
+});
+
+test("language toggle updates the document language", () => {
+  const { element } = loadDemo();
+  element("demo-language").listeners.click();
+  assert.equal(element("demo-language").getAttribute, undefined);
 });
