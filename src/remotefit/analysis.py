@@ -51,15 +51,38 @@ _YEARS_RE = re.compile(r"\b(\d+)\+?\s*(?:years?|yrs?)\b", re.IGNORECASE)
 
 
 def is_worldwide_remote(job, reject_restrictions=None):
-    """Return True only when the listing explicitly signals global eligibility."""
-    text = " ".join(str(job.get(key, "")) for key in (
+    """Accept worldwide eligibility only when an explicit structured field says so.
+
+    Free-text descriptions and job titles are deliberately not used as positive
+    evidence: they may mention worldwide hiring in unrelated or conditional
+    contexts. Provider location/eligibility fields are the source of truth.
+    """
+    all_text = " ".join(str(job.get(key, "")) for key in (
         "title", "description", "location", "candidate_required_location",
-        "workplace_type", "tags"
-    )).lower()
+        "workplace_type", "tags", "eligible_locations", "eligible_countries",
+        "work_location", "remote_scope"
+    )).casefold()
     restrictions = reject_restrictions or []
-    if any(str(item).lower() in text for item in restrictions):
+    if any(str(item).strip().casefold() in all_text for item in restrictions if str(item).strip()):
         return False
-    return any(marker in text for marker in WORLDWIDE_MARKERS)
+
+    structured_fields = (
+        "location",
+        "candidate_required_location",
+        "eligible_locations",
+        "eligible_countries",
+        "work_location",
+        "remote_scope",
+        "tags",
+    )
+    eligibility_text = " ".join(
+        str(job.get(key, "")) for key in structured_fields
+        if job.get(key) is not None
+    ).casefold()
+    return any(
+        re.search(r"(?<!\w)" + re.escape(marker) + r"(?!\w)", eligibility_text)
+        for marker in WORLDWIDE_MARKERS
+    )
 
 
 def _normalise_match_text(value):

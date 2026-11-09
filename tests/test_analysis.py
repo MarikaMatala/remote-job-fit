@@ -1,9 +1,20 @@
 from remotefit.analysis import analyze_experience_requirements, applicant_baseline, is_worldwide_remote, score_job
 
 
-def test_worldwide_requires_explicit_signal():
+def test_worldwide_requires_explicit_structured_eligibility_signal():
     assert is_worldwide_remote({"title": "Python Developer", "location": "Worldwide"})
+    assert is_worldwide_remote({"location": "Remote - Worldwide"})
+    assert is_worldwide_remote({"eligible_countries": ["Worldwide"]})
     assert not is_worldwide_remote({"title": "Remote Python Developer", "location": "Remote"})
+    assert not is_worldwide_remote({
+        "title": "Worldwide Python Developer",
+        "location": "Remote",
+        "description": "We are a worldwide company and work remotely."
+    })
+    assert not is_worldwide_remote({
+        "location": "Remote",
+        "description": "Work from anywhere in the world."
+    })
 
 
 def test_restricted_listing_is_rejected():
@@ -147,3 +158,12 @@ def test_score_includes_experience_evidence_without_changing_skill_score():
     })
     assert result["score"] == 10.0
     assert result["experience_requirements"]["items"][0]["years_min"] == 5
+
+
+
+def test_worldwide_structured_signal_is_rejected_when_restriction_is_present():
+    job = {
+        "location": "Worldwide",
+        "description": "Applicants must be resident in the United States."
+    }
+    assert not is_worldwide_remote(job, ["United States"])

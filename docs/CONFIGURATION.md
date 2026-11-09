@@ -182,6 +182,12 @@ sources:
 
 Set `enabled` to `true` to request listings or `false` to skip that source. The current version has adapters for `remotive` and `remoteok`. The source key must match an adapter in `src/remotefit/sources.py`.
 
+### Worldwide / work-from-anywhere eligibility
+
+The Python filter accepts a listing as worldwide only when an explicit signal appears in a structured location or eligibility field, such as `location`, `candidate_required_location`, `eligible_locations`, `eligible_countries`, `work_location`, `remote_scope`, or provider tags. A mention in the job title or free-text description alone is not enough. Generic labels such as `Remote`, `Hybrid`, or `Flexible` do not mean worldwide eligibility.
+
+Configured restriction phrases are checked across the listing text and override a worldwide marker. This is intentionally conservative: a legitimate global role may be missed if the provider does not expose structured eligibility data. Always verify country, residency, work-authorisation, and time-zone requirements on the employer's original application page.
+
 Changing an endpoint URL does not automatically support a new job board. A new provider usually needs a new adapter that maps its response fields to the application's common job format. Review provider terms, documentation, and rate limits before using an endpoint.
 
 **Remotive request interval:** the application enforces a six-hour minimum interval for each Remotive API endpoint (at most four requests per 24 hours). The timestamp is stored locally under `~/.cache/remote-job-fit/` or the directory set by `REMOTE_JOB_FIT_CACHE_DIR`; the raw feed response is not cached. A repeated scan inside the interval reports a source warning instead of making another request.
