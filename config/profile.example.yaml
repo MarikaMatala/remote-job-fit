@@ -1,3 +1,8 @@
+# KOMMENTOINTIOHJE / CODE MAP
+# Tiedoston tarkoitus: Esimerkkiasetukset käyttäjän osaamisprofiilille ja työnhaun kriteereille.
+# Rakenne: yleiset asetukset ensin; jokainen seuraava avain tai työvaihe määrittää oman asetuskokonaisuutensa.
+# Muuta arvoja harkiten ja säilytä YAML-sisennys.
+
 # GENERIC PROFILE TEMPLATE — NOT A REAL PERSON'S PROFILE
 # Copy this file to config/profile.yaml and edit the copy on your own computer.
 # config/profile.yaml is ignored by Git. Never commit it.
