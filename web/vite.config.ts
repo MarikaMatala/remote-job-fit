@@ -1,6 +1,6 @@
 // CODE MAP / COMMENTING GUIDE
 // File purpose: Vite-kehityspalvelimen ja tuotantokoontiversion asetukset.
-// Structure: tuonnit ja asetukset ensin, tyypit ja apufunktiot seuraavaksi, käynnistys ja tapahtumat lopuksi.
+// Structure: imports and settings first, followed by types and helper functions, with initialization and event handlers last.
 
 import { defineConfig } from "vite";
 
