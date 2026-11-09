@@ -1,6 +1,7 @@
 // CODE MAP / COMMENTING GUIDE
-// File purpose: Remote Job Fit -selaindemon vanha JavaScript-toteutus.
-// Structure: imports and settings first, followed by types and helper functions, with initialization and event handlers last.
+// File purpose: Legacy JavaScript implementation of the Remote Job Fit browser demo.
+// CODE MAP: sample job data -> user input and application state -> text and matching helpers -> analysis -> result rendering -> language and interface events.
+// EDITING TIP: this is a legacy demo implementation. The active dashboard is maintained in web/src/main.ts and the Python API.
 
 (() => {
 "use strict";
@@ -23,7 +24,7 @@ function containsSkill(text,skill){
  return needle.trim().length>0 && haystack.includes(needle);
 }
 const lines=s=>s.split(/(?<=[.!?;])\s+|[\r\n]+/).map(x=>x.trim()).filter(Boolean);
-// TOIMINTO ALKAA: t.
+// FUNCTION SECTION START: t.
 // FUNCTION SECTION END: containsSkill. The next section starts at the next function or at the end of the file.
 const t = (fi,en)=>language==="fi"?fi:en;
 // FUNCTION SECTION START: classify.
