@@ -62,6 +62,7 @@ def connect(database_path):
 
 
 # FUNKTIO-OSIO ALKAA: save_jobs.
+# FUNKTIO-OSIO PÄÄTTYY: connect. Seuraava osio alkaa seuraavasta funktiosta tai luokasta.
 def save_jobs(connection, jobs):
     now = datetime.now(timezone.utc).isoformat()
     inserted = 0
@@ -86,6 +87,7 @@ def save_jobs(connection, jobs):
 
 
 # FUNKTIO-OSIO ALKAA: list_jobs.
+# FUNKTIO-OSIO PÄÄTTYY: save_jobs. Seuraava osio alkaa seuraavasta funktiosta tai luokasta.
 def list_jobs(connection, limit=50):
     return connection.execute(
         "SELECT * FROM jobs ORDER BY first_seen_at DESC LIMIT ?", (limit,)
@@ -94,6 +96,7 @@ def list_jobs(connection, limit=50):
 
 
 # FUNKTIO-OSIO ALKAA: save_source_notice.
+# FUNKTIO-OSIO PÄÄTTYY: list_jobs. Seuraava osio alkaa seuraavasta funktiosta tai luokasta.
 def save_source_notice(connection, source, notice):
     """Persist the latest provider-supplied terms notice locally."""
     checked_at = datetime.now(timezone.utc).isoformat()
@@ -110,6 +113,7 @@ def save_source_notice(connection, source, notice):
 
 
 # FUNKTIO-OSIO ALKAA: list_unsent_jobs.
+# FUNKTIO-OSIO PÄÄTTYY: save_source_notice. Seuraava osio alkaa seuraavasta funktiosta tai luokasta.
 def list_unsent_jobs(connection, limit=25):
     """Return newest saved jobs that have not appeared in a successful digest."""
     return connection.execute("""
@@ -122,6 +126,7 @@ def list_unsent_jobs(connection, limit=25):
 
 
 # FUNKTIO-OSIO ALKAA: mark_jobs_sent.
+# FUNKTIO-OSIO PÄÄTTYY: list_unsent_jobs. Seuraava osio alkaa seuraavasta funktiosta tai luokasta.
 def mark_jobs_sent(connection, job_ids):
     """Mark jobs as delivered only after the SMTP send succeeds."""
     if not job_ids:
@@ -133,3 +138,5 @@ def mark_jobs_sent(connection, job_ids):
     )
     connection.commit()
     return len(job_ids)
+
+# FUNKTIO-OSIO PÄÄTTYY: mark_jobs_sent. Seuraava osio alkaa seuraavasta funktiosta tai luokasta.
