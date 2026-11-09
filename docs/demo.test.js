@@ -1,13 +1,13 @@
-// KOMMENTOINTIOHJE / CODE MAP
-// Tiedoston tarkoitus: Testit selaindemon osaamisvertailun ja käyttöliittymälogiikan toiminnalle.
-// Rakenne: tuonnit ja asetukset ensin, tyypit ja apufunktiot seuraavaksi, käynnistys ja tapahtumat lopuksi.
+// CODE MAP / COMMENTING GUIDE
+// File purpose: Tests for the browser demo's skill matching and interface logic.
+// Structure: imports and settings first, followed by types and helper functions, with initialization and event handlers last.
 
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import test from "node:test";
 import vm from "node:vm";
 
-// FUNKTIO-OSIO ALKAA: loadDemo.
+// FUNCTION SECTION START: loadDemo.
 function loadDemo(overrides = {}) {
   const elements = new Map();
   function element(id, initial = {}) {
@@ -97,4 +97,4 @@ test("language toggle updates the document language", () => {
   assert.equal(document.documentElement.lang, "en");
 });
 
-// TOIMINTO-OSIO PÄÄTTYY: loadDemo. Seuraava osio alkaa seuraavasta toiminnosta tai tiedoston päättymisestä.
+// FUNCTION SECTION END: loadDemo. The next section starts at the next function or at the end of the file.
