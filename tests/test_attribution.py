@@ -26,6 +26,7 @@ def _saved_job(connection):
 
 
 # TESTIOSIO ALKAA: test_cli_list_and_csv_include_source_and_original_url.
+# FUNKTIO-OSIO PÄÄTTYY: _saved_job. Seuraava osio alkaa seuraavasta funktiosta tai luokasta.
 def test_cli_list_and_csv_include_source_and_original_url(tmp_path, capsys):
     database = tmp_path / "jobs.sqlite3"
     connection = connect(database)
@@ -47,6 +48,7 @@ def test_cli_list_and_csv_include_source_and_original_url(tmp_path, capsys):
 
 
 # TESTIOSIO ALKAA: test_email_digest_includes_source_and_original_listing.
+# FUNKTIO-OSIO PÄÄTTYY: test_cli_list_and_csv_include_source_and_original_url. Seuraava osio alkaa seuraavasta funktiosta tai luokasta.
 def test_email_digest_includes_source_and_original_listing(monkeypatch):
     captured = {}
 
@@ -84,3 +86,5 @@ def test_email_digest_includes_source_and_original_listing(monkeypatch):
     body = message.get_content()
     assert "Source: Remote OK" in body
     assert "https://remoteok.com/remote-jobs/example-1" in body
+
+# FUNKTIO-OSIO PÄÄTTYY: test_email_digest_includes_source_and_original_listing. Seuraava osio alkaa seuraavasta funktiosta tai luokasta.
