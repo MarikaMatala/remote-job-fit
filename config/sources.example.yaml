@@ -1,3 +1,8 @@
+# KOMMENTOINTIOHJE / CODE MAP
+# Tiedoston tarkoitus: Esimerkkiasetukset työnhakupalveluiden ja muiden työpaikkalähteiden määrittelylle.
+# Rakenne: yleiset asetukset ensin; jokainen seuraava avain tai työvaihe määrittää oman asetuskokonaisuutensa.
+# Muuta arvoja harkiten ja säilytä YAML-sisennys.
+
 # JOB SOURCE AND LOCATION FILTER SETTINGS
 # WORK IN PROGRESS: provider integrations and filter behavior may change.
 # The built-in public feeds currently do not require API keys. Do not add
