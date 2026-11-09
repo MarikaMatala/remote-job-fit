@@ -5,10 +5,48 @@ and never include a configured URL in error messages (it may contain a token).
 """
 
 from datetime import datetime, timezone
+import hashlib
+import os
+from pathlib import Path
+import time
 
 import httpx
 
 USER_AGENT = "RemoteJobFit/0.2 (open-source job discovery tool)"
+# Remotive recommends no more than four API requests per day. A six-hour
+# minimum interval enforces that limit across separate CLI invocations.
+REMOTIVE_MIN_INTERVAL_SECONDS = 6 * 60 * 60
+
+
+def _remotive_rate_limit_path(url):
+    cache_root = Path(os.environ.get(
+        "REMOTE_JOB_FIT_CACHE_DIR",
+        Path.home() / ".cache" / "remote-job-fit",
+    )).expanduser()
+    digest = hashlib.sha256(url.encode("utf-8")).hexdigest()
+    return cache_root / f"remotive-request-{digest}.txt"
+
+
+def _get_remotive_json(url):
+    marker = _remotive_rate_limit_path(url)
+    now = time.time()
+    try:
+        last_request = float(marker.read_text(encoding="utf-8").strip())
+    except (OSError, ValueError):
+        last_request = 0
+    remaining = REMOTIVE_MIN_INTERVAL_SECONDS - (now - last_request)
+    if remaining > 0:
+        minutes = max(1, int((remaining + 59) // 60))
+        raise ValueError(
+            f"Remotive refresh is rate-limited; try again in about {minutes} minutes."
+        )
+
+    payload = _get_json(url)
+    marker.parent.mkdir(parents=True, exist_ok=True)
+    temporary = marker.with_suffix(".tmp")
+    temporary.write_text(str(now), encoding="utf-8")
+    temporary.replace(marker)
+    return payload
 
 
 def _get_json(url):
@@ -38,7 +76,7 @@ def _timestamp():
 
 def fetch_remotive(url):
     """Map Remotive's public feed into the application's common job shape."""
-    payload = _get_json(url)
+    payload = _get_remotive_json(url)
     jobs = _records(payload.get("jobs")) if isinstance(payload, dict) else []
     fetched_at = _timestamp()
     results = []
