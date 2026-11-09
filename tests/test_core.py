@@ -41,7 +41,8 @@ def test_settings_reject_non_mapping_yaml_sections(tmp_path):
         config.load_settings(tmp_path)
 
 
-def test_remotive_adapter_skips_invalid_rows_and_normalizes_tags(monkeypatch):
+def test_remotive_adapter_skips_invalid_rows_and_normalizes_tags(monkeypatch, tmp_path):
+    monkeypatch.setenv("REMOTE_JOB_FIT_CACHE_DIR", str(tmp_path))
     monkeypatch.setattr(sources, "_get_json", lambda _url: {
         "jobs": [
             {"id": 42, "title": "Frontend Developer", "company_name": "Example",
@@ -79,7 +80,8 @@ def test_remoteok_adapter_skips_feed_metadata_and_malformed_rows(monkeypatch):
     assert jobs[1]["tags"] == []
 
 
-def test_fetch_all_redacts_sensitive_source_urls_from_warnings(monkeypatch):
+def test_fetch_all_redacts_sensitive_source_urls_from_warnings(monkeypatch, tmp_path):
+    monkeypatch.setenv("REMOTE_JOB_FIT_CACHE_DIR", str(tmp_path))
     secret_url = "https://feed.example/jobs?token=do-not-leak"
 
     def fail(_url):
@@ -119,3 +121,15 @@ def test_database_ignores_duplicate_provider_records(tmp_path):
         assert rows[0]["score"] == 8.5
     finally:
         connection.close()
+
+
+
+def test_remotive_enforces_six_hour_request_interval(monkeypatch, tmp_path):
+    monkeypatch.setenv("REMOTE_JOB_FIT_CACHE_DIR", str(tmp_path))
+    calls = []
+    monkeypatch.setattr(sources, "_get_json", lambda url: calls.append(url) or {"jobs": []})
+
+    assert sources.fetch_remotive("https://feed.example/jobs") == []
+    with pytest.raises(ValueError, match="rate-limited"):
+        sources.fetch_remotive("https://feed.example/jobs")
+    assert calls == ["https://feed.example/jobs"]
