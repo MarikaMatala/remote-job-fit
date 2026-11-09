@@ -1,7 +1,7 @@
 /*
- * KOMMENTOINTIOHJE / CODE MAP
- * Tiedoston tarkoitus: Remote Job Fit -selaindemon tyylit ja responsiivinen ulkoasu.
- * Rakenne: yleiset tyylit ensin, käyttöliittymän osiot seuraavaksi, responsiiviset säännöt lopuksi.
+ * CODE MAP / COMMENTING GUIDE
+ * File purpose: Remote Job Fit -selaindemon tyylit ja responsiivinen ulkoasu.
+ * Structure: yleiset tyylit ensin, käyttöliittymän osiot seuraavaksi, responsiiviset säännöt lopuksi.
  */
 /* REMOTE JOB FIT DEMO — visual system aligned with The Cultured Vault demo.
    1. Theme tokens and global document styles. */
@@ -95,9 +95,9 @@ textarea{resize:vertical}input:focus,textarea:focus{border-color:var(--bronze);o
 .demo-footer>p{color:var(--bronze-light);font-weight:900;letter-spacing:.15em}
 .demo-footer div{display:flex;justify-content:center;gap:18px;flex-wrap:wrap}.demo-footer a{text-decoration:none}
 .demo-footer .update-stamp{color:var(--silver);font-size:.7rem;letter-spacing:.02em}
-/* RESPONSIIVINEN OSIO: mukauttaa käyttöliittymän näyttökoon mukaan. */
+/* RESPONSIVE SECTION: adapts the interface to the viewport size. */
 @media(max-width:850px){.workspace{grid-template-columns:1fr}.info,.workflow-grid{grid-template-columns:1fr}.section-heading{align-items:flex-start;flex-direction:column}}
-/* RESPONSIIVINEN OSIO: mukauttaa käyttöliittymän näyttökoon mukaan. */
+/* RESPONSIVE SECTION: adapts the interface to the viewport size. */
 @media(max-width:600px){
  .vault-shell{padding:16px}.demo-status{flex-direction:column;gap:2px}.vault-header{gap:11px;align-items:flex-start}
  .vault-mark{flex-basis:46px;width:46px;height:46px;font-size:1.8rem}.brand-copy h1{font-size:1.7rem}
@@ -110,7 +110,7 @@ textarea{resize:vertical}input:focus,textarea:focus{border-color:var(--bronze);o
  .primary,.secondary-button{width:100%}.result-head{flex-direction:column}.score{width:100%;flex-basis:auto}
  .columns{grid-template-columns:1fr}.demo-footer div{flex-direction:column;gap:5px}
 }
-/* RESPONSIIVINEN OSIO: mukauttaa käyttöliittymän näyttökoon mukaan. */
+/* RESPONSIVE SECTION: adapts the interface to the viewport size. */
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{transition:none!important;animation:none!important}}
 
-/* TIEDOSTON TYYLIOSIO PÄÄTTYY TÄHÄN. */
+/* END OF STYLESHEET. */
