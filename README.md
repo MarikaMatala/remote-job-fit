@@ -6,6 +6,11 @@ An open-source, configurable experiment for exploring job discovery and comparin
 
 The first version was created to help its author map their own skills and explore suitable job titles across IT, ICT, software development, digital media, design, and communications. The public project has since been made generic so anyone can adapt it to their own background, interests, experience, and career goals. The example role titles and skill groups are starting points only—not a CV, a list of required skills, or verified qualifications. Keep your personal profile in the private local configuration file. The public repository contains no personal profile, contact details, passwords, API keys, access tokens, or email credentials.
 
+
+## Security
+
+See [SECURITY.md](SECURITY.md) for guidance on protecting local profile data, credentials, exports and responsible vulnerability reporting.
+
 ## Why this project exists
 
 Remote Job Fit has four connected purposes:
